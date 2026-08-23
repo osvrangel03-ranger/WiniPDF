@@ -130,7 +130,7 @@ using Gdiplus::SolidBrush;
 constexpr const char* kRestrictionsFileName = "sumatrapdfrestrict.ini";
 
 constexpr const char* kSumatraWindowTitle = "SumatraPDF";
-constexpr const WCHAR* kSumatraWindowTitleW = L"SumatraPDF";
+constexpr const WCHAR* kSumatraWindowTitleW = L"WiniPDF";
 
 // Text-to-speech/read-aloud helpers are implemented together near the end of this file.
 static void ReadAloudClearSourceTab();

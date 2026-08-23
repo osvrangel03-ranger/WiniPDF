@@ -234,6 +234,8 @@ static AboutRow gAboutRows[] = {
     // a null rightTxt means "the app version", filled in by Sync() because it
     // isn't known until runtime (32/64-bit, debug)
     {StrL("version"), {}, {}},
+    {StrL("based on"), StrL("SumatraPDF by Krzysztof Kowalczyk & contributors"),
+     StrL("https://github.com/sumatrapdfreader/sumatrapdf")},
     {StrL("built on"), StrL(__DATE__ " " __TIME__), {}},
     {StrL("website"), StrL("SumatraPDF website"), Str(kWebsiteURL)},
     {StrL("manual"), StrL("SumatraPDF manual"), Str(kManualURL)},
@@ -314,11 +316,13 @@ static TempStr GetAppVersionTemp() {
     return s;
 }
 
-constexpr Color kCol1 = MkRgb(196, 64, 50);
-constexpr Color kCol2 = MkRgb(227, 107, 35);
-constexpr Color kCol3 = MkRgb(93, 160, 40);
-constexpr Color kCol4 = MkRgb(69, 132, 190);
-constexpr Color kCol5 = MkRgb(112, 115, 207);
+// WiniPDF palette: five shades of amber for the per-letter logo (was the
+// rainbow kCol1..kCol5 of SumatraPDF)
+constexpr Color kCol1 = MkRgb(168, 106, 0);
+constexpr Color kCol2 = MkRgb(200, 122, 0);
+constexpr Color kCol3 = MkRgb(255, 176, 32);
+constexpr Color kCol4 = MkRgb(255, 200, 90);
+constexpr Color kCol5 = MkRgb(224, 142, 0);
 
 static Kind kindSumatraLogo = "sumatraLogo";
 
@@ -826,7 +830,7 @@ void ShowAboutWindow(MainWindow* win) {
         ReportIf(!gAtomAbout);
     }
 
-    WCHAR* title = CWStrTemp(_TRA("About SumatraPDF"));
+    WCHAR* title = CWStrTemp(_TRA("About WiniPDF"));
     DWORD style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU;
     int x = CW_USEDEFAULT;
     int y = CW_USEDEFAULT;

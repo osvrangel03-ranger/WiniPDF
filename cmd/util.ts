@@ -130,7 +130,11 @@ export function detectVisualStudio2022(): VisualStudioInfo {
 export function detectVisualStudio2026(): VisualStudioInfo {
   let res = detectVisualStudioVer("18");
   if (!res) {
-    throw new Error(`couldn't find vs 2026 msbuild.exe `);
+    // WiniPDF fork: fall back to VS2022 when VS2026 is not installed.
+    res = detectVisualStudioVer("2022");
+  }
+  if (!res) {
+    throw new Error(`couldn't find vs 2026 or vs 2022 msbuild.exe`);
   }
   return res;
 }
