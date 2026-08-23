@@ -13,7 +13,7 @@ import { clearDirPreserveSettings } from "../clean";
 import { buildMingw, type MingwTools } from "./mingw-build";
 
 const OUT_DIR = join("out", "dbg64-wine");
-const EXE_PATH = join(OUT_DIR, "SumatraPDF.exe");
+const EXE_PATH = join(OUT_DIR, "WiniPDF.exe");
 
 function logIfRunningUnderWine(): void {
   if (process.env.WINELOADER) {

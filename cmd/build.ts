@@ -21,7 +21,7 @@ interface BuildOptions {
 const usage = `Usage: bun cmd/build.ts <mode> [options]
 
 Windows builds:
-  -debug | -release       Build SumatraPDF.exe for x64
+  -debug | -release       Build WiniPDF.exe for x64
   -release -32            Build the 32-bit release
   -asan [-debug|-release] Build SumatraPDF-static.exe with MSVC ASan
   -all [-clean]           Build release SumatraPDF and SumatraPDF-static

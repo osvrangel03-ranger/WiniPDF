@@ -2258,7 +2258,7 @@ body {
 <a href="https://www.sumatrapdfreader.org/">SumatraPDF</a>
 by editing the file <code>SumatraPDF-settings.txt</code>. The file is stored in
 <code>%LOCALAPPDATA%\\SumatraPDF</code> directory for the installed version or in the
-same directory as <code>SumatraPDF.exe</code> executable for the portable version.</p>
+same directory as <code>WiniPDF.exe</code> executable for the portable version.</p>
 
 <p>Use the menu item <code>Settings -> Advanced Settings...</code> to open the settings file
 with your default text editor.</p>

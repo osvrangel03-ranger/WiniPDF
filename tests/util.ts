@@ -24,7 +24,7 @@ function exeFromArgv(argv: string[]): string {
   };
   const path = argv[i + 1];
   if (!path || path.startsWith("-")) {
-    bail("expected a path to SumatraPDF.exe");
+    bail("expected a path to WiniPDF.exe");
   }
   const full = resolve(path!);
   if (!existsSync(full) || !statSync(full).isFile()) {
@@ -49,7 +49,7 @@ function exeFromArgv(argv: string[]): string {
 // debug ASan build (out/dbg64_asan/SumatraPDF-static.exe), which is the same app
 // plus ASan. Both are read at import time, before any test runs.
 export const EXE_FROM_ARGV = exeFromArgv(process.argv);
-export const EXE = EXE_FROM_ARGV || process.env.SUMATRA_TEST_EXE || join(ROOT, "out", "dbg64", "SumatraPDF.exe");
+export const EXE = EXE_FROM_ARGV || process.env.SUMATRA_TEST_EXE || join(ROOT, "out", "dbg64", "WiniPDF.exe");
 
 // An ASan build renders and starts several times slower than the debug one, so
 // waits sized for a debug build time out against it (a 25600% zoom needs far
@@ -304,7 +304,7 @@ export async function runSuiteMain(testit: (opts: SuiteOptions) => Promise<void>
 // build SumatraPDF.exe the same way cmd/build.ts does
 export function buildApp(opts?: { silent?: boolean }): void {
   if (!opts?.silent) {
-    console.log("• building SumatraPDF.exe (cmd/build.ts) ...");
+    console.log("• building WiniPDF.exe (cmd/build.ts) ...");
   }
   const p = Bun.spawnSync({
     cmd: ["bun", join(ROOT, "cmd", "build.ts"), "-debug"],

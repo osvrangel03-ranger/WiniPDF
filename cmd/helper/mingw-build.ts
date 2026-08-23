@@ -735,8 +735,8 @@ void TestPreview(WStr) {}
   }
 
   // ── Link ──────────────────────────────────────────────────────────────
-  console.log("Linking SumatraPDF.exe...");
-  const exePath = join(outDir, "SumatraPDF.exe");
+  console.log("Linking WiniPDF.exe...");
+  const exePath = join(outDir, "WiniPDF.exe");
 
   // use response file to avoid excessive command-line length with hundreds of .o files
   const linkObjs = [...exeObjs, ...rcObjs, ...fontObjs, ...archives];
