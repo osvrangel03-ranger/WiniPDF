@@ -280,7 +280,7 @@ TabWidth = 300
 ; Light, Solarized Dark, Dracula, Nebula, Greeny, Choco, Purpy, One Dark,
 ; Monokai, Nord, GitHub Dark, Catppuccin Mocha, Tokyo Night, Gruvbox, Night Owl,
 ; Ayu, Palenight, System (introduced in version 3.5)
-Theme = Light
+Theme = System
 
 ; the light theme the light/dark toggle and the System theme switch to
 ; (introduced in version 3.7)

@@ -909,11 +909,11 @@ struct GlobalPrefs {
     int tabWidth;
     // the name of the theme to use. System follows the Windows light/dark
     // app mode and switches between LastLightTheme and LastDarkTheme.
-    // Built-in themes: Light, Dark, Light Warm, Dark from 3.5, Charcoal,
-    // Solarized Light, Solarized Dark, Dracula, Nebula, Greeny, Choco,
-    // Purpy, One Dark, Monokai, Nord, GitHub Dark, Catppuccin Mocha, Tokyo
-    // Night, Gruvbox, Night Owl, Ayu, Palenight, System (custom Themes[]
-    // entries can add more)
+    // Built-in themes: Wini, Wini Light, Light, Dark, Light Warm, Dark
+    // from 3.5, Charcoal, Solarized Light, Solarized Dark, Dracula,
+    // Nebula, Greeny, Choco, Purpy, One Dark, Monokai, Nord, GitHub Dark,
+    // Catppuccin Mocha, Tokyo Night, Gruvbox, Night Owl, Ayu, Palenight,
+    // System (custom Themes[] entries can add more)
     Str theme;
     // the light theme the light/dark toggle and the System theme switch to
     Str lastLightTheme;
@@ -1956,7 +1956,7 @@ static const FieldInfo gGlobalPrefsFields[] = {
     {offsetof(GlobalPrefs, fastScrollOverScrollbar), SettingType::Bool, false},
     {offsetof(GlobalPrefs, preventSleepInFullscreen), SettingType::Bool, true},
     {offsetof(GlobalPrefs, tabWidth), SettingType::Int, 300},
-    {offsetof(GlobalPrefs, theme), SettingType::String, (intptr_t)"Light"},
+    {offsetof(GlobalPrefs, theme), SettingType::String, (intptr_t)"System"},
     {offsetof(GlobalPrefs, lastLightTheme), SettingType::String, (intptr_t)"", true},
     {offsetof(GlobalPrefs, lastDarkTheme), SettingType::String, (intptr_t)"", true},
     {offsetof(GlobalPrefs, documentColorsFollowTheme), SettingType::String, (intptr_t)"off"},

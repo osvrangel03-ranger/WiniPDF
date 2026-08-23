@@ -88,6 +88,42 @@ static Str themesTxt = StrL(R"(Themes [
         ColorizeControls = true
     ]
     [
+        Name = Wini
+        TextColor = #f4f4f5
+        BackgroundColor = #1c1c1e
+        ControlBackgroundColor = #262629
+        LinkColor = #ffb020
+        DisabledTextColor = #6e6e73
+        DarkerTextColor = #a6a6ab
+        HotBackgroundColor = #333338
+        EdgeColor = #333338
+        HotEdgeColor = #ffb020
+        DisabledEdgeColor = #1c1c1e
+        ErrorBackgroundColor = #94342a
+        NotificationBackgroundColor = #262629
+        NotificationHighlightColor = #3d2f14
+        NotificationHighlightTextColor = #ffc24d
+        ColorizeControls = true
+    ]
+    [
+        Name = Wini Light
+        TextColor = #2b2722
+        BackgroundColor = #faf7f0
+        ControlBackgroundColor = #ffffff
+        LinkColor = #a86f00
+        DisabledTextColor = #a39b8b
+        DarkerTextColor = #6b6355
+        HotBackgroundColor = #f3eddf
+        EdgeColor = #e3dccb
+        HotEdgeColor = #e08e00
+        DisabledEdgeColor = #efeae0
+        ErrorBackgroundColor = #f5d6d0
+        NotificationBackgroundColor = #fffdf7
+        NotificationHighlightColor = #f5e3b8
+        NotificationHighlightTextColor = #6b4a00
+        ColorizeControls = true
+    ]
+    [
         Name = Light Warm
         TextColor = #333333
         BackgroundColor = #ebe6da
@@ -692,7 +728,9 @@ static int GetPreferredLightThemeIndex() {
     if (idx >= 0) {
         return idx;
     }
-    return 0; // gThemeLight
+    // WiniPDF: default light theme is our own
+    idx = GetThemeByName(StrL("Wini Light"));
+    return idx >= 0 ? idx : 0;
 }
 
 static int GetPreferredDarkThemeIndex() {
@@ -700,7 +738,8 @@ static int GetPreferredDarkThemeIndex() {
     if (idx >= 0) {
         return idx;
     }
-    idx = GetThemeByName(StrL("Dark"));
+    // WiniPDF: default dark theme is our own
+    idx = GetThemeByName(StrL("Wini"));
     return idx >= 0 ? idx : 0;
 }
 

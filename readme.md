@@ -27,6 +27,12 @@ WiniPDF — preservada, como todo lo que abras con este lector.
 
 El dúo negro + amarillo es además un homenaje a los colores de SumatraPDF.
 
+<p align="center">
+  <img src=".github/screenshots/wini-dark.png" width="380" alt="Tema Wini (oscuro)">&nbsp;
+  <img src=".github/screenshots/wini-light.png" width="380" alt="Tema Wini Light">
+</p>
+<p align="center"><sub>Temas propios <b>Wini</b> y <b>Wini Light</b> — predeterminados según el modo claro/oscuro de Windows</sub></p>
+
 ### Lo que hereda de SumatraPDF
 
 - Lectura de PDF, ePub, MOBI, XPS, DjVu, CHM, CBZ/CBR, FB2 y más
@@ -81,6 +87,14 @@ them; this project exists thanks to them.
 That is what a PDF is.* Our icon is a stylized amber stone with a page fold;
 inside, a leaf with the WiniPDF W — preserved, like everything you open with
 this reader. The black + yellow duo also honors SumatraPDF's colors.
+
+<p align="center">
+  <img src=".github/screenshots/wini-dark.png" width="380" alt="Wini dark theme">&nbsp;
+  <img src=".github/screenshots/wini-light.png" width="380" alt="Wini Light theme">
+</p>
+
+Own **Wini** (dark) and **Wini Light** themes are the defaults, following your
+Windows light/dark mode.
 
 **Coming soon**: built-in AI assistant (off by default, voice accessibility
 mode, pluggable providers), document editing suite, Fluent visual
