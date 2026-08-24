@@ -3033,6 +3033,17 @@ static void SetWindowRoundedCorners(HWND hwnd, bool rounded) {
     SetWindowBorderColor(hwnd, borderColor);
 }
 
+// WiniPDF: make the OS-drawn title bar follow our theme instead of the system
+// app mode, so a dark theme never gets a white caption bar. Attribute 20 is
+// the supported value; 19 worked on early Win10 builds. Failures are fine.
+static void SetTitleBarDarkMode(HWND hwnd, bool dark) {
+    BOOL v = dark ? TRUE : FALSE;
+    HRESULT hr = DwmSetWindowAttribute(hwnd, 20, &v, sizeof(v));
+    if (FAILED(hr)) {
+        DwmSetWindowAttribute(hwnd, 19, &v, sizeof(v));
+    }
+}
+
 static void UpdateWindowFrameBorderColor(MainWindow* win) {
     if (!win || !win->hwndFrame) {
         return;
@@ -3089,6 +3100,7 @@ static MainWindow* CreateMainWindow() {
     if (!IsRunningOnWine()) {
         SetWindowRoundedCorners(hwndFrame, true);
     }
+    SetTitleBarDarkMode(hwndFrame, !IsLightColor(ThemeWindowBackgroundColor()));
 
     ReportIf(nullptr != FindMainWindowByHwnd(hwndFrame));
     MainWindow* win = new MainWindow(hwndFrame);
@@ -3390,6 +3402,7 @@ void UpdateAfterThemeChange() {
         UpdateAIChatTheme(win);
         DarkModeApplyToFrameAfterThemeChange(win);
         UpdateWindowFrameBorderColor(win);
+        SetTitleBarDarkMode(win->hwndFrame, !IsLightColor(ThemeWindowBackgroundColor()));
         // TODO: this only rerenders canvas, not frame, even with
         // includingNonClientArea == true.
         MainWindowRerender(win, true);
