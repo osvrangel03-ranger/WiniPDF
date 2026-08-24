@@ -13,7 +13,7 @@ constexpr int kFrameResizeHitTest = 5;
 
 extern bool gRedrawLog;
 
-constexpr const char* kWebsiteURL = "https://www.sumatrapdfreader.org/";
+constexpr const char* kWebsiteURL = "https://github.com/osvrangel03-ranger/WiniPDF";
 constexpr const char* kManualURL = "https://www.sumatrapdfreader.org/manual";
 constexpr const char* kContributeTranslationsURL = "https://www.sumatrapdfreader.org/docs/Contribute-translation";
 

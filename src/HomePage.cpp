@@ -100,21 +100,16 @@ static TipHookInstaller gTipHookInstaller;
 #endif
 #define ABOUT_LINE_SEP_SIZE 1
 
-static Str sumatraTips = StrL(R"tips(You can [customize scrollbar](CmdChangeScrollbar).
-You can [customize keyboard shortcuts](Help/Customize-keyboard-shortcuts).
-You can [customize toolbar](Help/Customize-toolbar).
+static Str winiTips = StrL(R"tips(Switch between light and dark themes with (Key/CmdToggleLightDarkTheme).
 Press (Key/CmdCommandPalette) to open [command palette](CmdCommandPalette).
-To open file from history open [command palette](CmdCommandPalette) with (Key/CmdCommandPalette) and type `#`.
-You can [extract text from PDF file](Help/Tool-x-extract-text-from-pdf).
+You can [customize keyboard shortcuts](Help/Customize-keyboard-shortcuts).
 You can [toggle menu bar](CmdToggleMenuBar) with (Key/CmdToggleMenuBar).
 You can [toggle toolbar](CmdToggleToolbar) with (Key/CmdToggleToolbar).
 You can [edit PDF annotations](Help/Editing-annotations).
-You can preview where a citation, figure or footnote link points by hovering it — [Toggle Hover Preview](CmdToggleHoverPreview) or set CitationHoverDelay in [advanced settings](CmdAdvancedSettings).
+You can [customize scrollbar](CmdChangeScrollbar).
 )tips");
 
-static Str sumatraPromos = StrL(R"promos(Try [Edna](https://edna.arslexis.io): a note taking web app for power users.
-Try [MarkLexis](https://marklexis.arslexis.io): a bookmarking web application.
-)promos");
+static Str winiPromos;
 
 static Str promoFromServer;
 
@@ -170,8 +165,8 @@ static void EnsureTipsParsed() {
     if (gTipsParsed) {
         return;
     }
-    CollectTipsFromString(sumatraTips, StrL("Tip: "), &gTipLines);
-    CollectTipsFromString(sumatraPromos, {}, &gPromoLines);
+    CollectTipsFromString(winiTips, StrL("Tip: "), &gTipLines);
+    CollectTipsFromString(winiPromos, {}, &gPromoLines);
     gTipsParsed = true;
     PickRandomTipOrPromo();
 }
@@ -237,9 +232,9 @@ static AboutRow gAboutRows[] = {
     {StrL("based on"), StrL("SumatraPDF by Krzysztof Kowalczyk & contributors"),
      StrL("https://github.com/sumatrapdfreader/sumatrapdf")},
     {StrL("built on"), StrL(__DATE__ " " __TIME__), {}},
-    {StrL("website"), StrL("SumatraPDF website"), Str(kWebsiteURL)},
+    {StrL("website"), StrL("WiniPDF on GitHub"), StrL("https://github.com/osvrangel03-ranger/WiniPDF")},
     {StrL("manual"), StrL("SumatraPDF manual"), Str(kManualURL)},
-    {StrL("forums"), StrL("SumatraPDF forums"), StrL("https://github.com/sumatrapdfreader/sumatrapdf/discussions")},
+    {StrL("feedback"), StrL("report an issue"), StrL("https://github.com/osvrangel03-ranger/WiniPDF/issues")},
     {StrL("programming"), StrL("The Programmers"),
      StrL("https://github.com/sumatrapdfreader/sumatrapdf/blob/master/AUTHORS")},
     {StrL("licenses"), StrL("Various Open Source"),

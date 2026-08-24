@@ -142,7 +142,8 @@ static UpdateInfo* ParseUpdateInfo(Str d) {
     }
     AutoDelete delRoot(root);
 
-    SetPromoString(SerializeSquareTreeNodeTemp(root->GetChild(StrL("Promo"))));
+    // WiniPDF: server-side promos are a SumatraPDF thing; keep them off
+    // SetPromoString(SerializeSquareTreeNodeTemp(root->GetChild(StrL("Promo"))));
 
     SquareTreeNode* node = root->GetChild(StrL("SumatraPDF"));
     if (!node) {
