@@ -84,7 +84,7 @@ agentes** que hacen posible el desarrollo de WiniPDF y los prÃ³ximos proyectos
 del ecosistema Wini.
 
 <p align="center">
-  <a href="https://www.paypal.me/REEMPLAZAME">
+  <a href="https://paypal.me/sald911">
     <img src="https://img.shields.io/badge/Dona-v%C3%ADa%20PayPal-ffb020?style=for-the-badge&logo=paypal&logoColor=white" alt="Dona vÃ­a PayPal">
   </a>
 </p>
