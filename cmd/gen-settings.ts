@@ -1363,10 +1363,7 @@ const globalPrefs: Field[] = [
     "System",
     "the name of the theme to use. System follows the Windows light/dark app mode " +
       "and switches between LastLightTheme and LastDarkTheme. Built-in themes: " +
-      "Wini, Wini Light, Light, Dark, Light Warm, Dark from 3.5, Charcoal, " +
-      "Solarized Light, Solarized Dark, Dracula, Nebula, Greeny, Choco, Purpy, " +
-      "One Dark, Monokai, Nord, GitHub Dark, Catppuccin Mocha, Tokyo Night, " +
-      "Gruvbox, Night Owl, Ayu, Palenight, System (custom Themes[] entries can add more)",
+      "WiniCarbon (dark), WiniAmber (light), System (custom Themes[] entries can add more)",
   )
     .ver("3.5")
     .doc(

@@ -909,11 +909,8 @@ struct GlobalPrefs {
     int tabWidth;
     // the name of the theme to use. System follows the Windows light/dark
     // app mode and switches between LastLightTheme and LastDarkTheme.
-    // Built-in themes: Wini, Wini Light, Light, Dark, Light Warm, Dark
-    // from 3.5, Charcoal, Solarized Light, Solarized Dark, Dracula,
-    // Nebula, Greeny, Choco, Purpy, One Dark, Monokai, Nord, GitHub Dark,
-    // Catppuccin Mocha, Tokyo Night, Gruvbox, Night Owl, Ayu, Palenight,
-    // System (custom Themes[] entries can add more)
+    // Built-in themes: WiniCarbon (dark), WiniAmber (light), System
+    // (custom Themes[] entries can add more)
     Str theme;
     // the light theme the light/dark toggle and the System theme switch to
     Str lastLightTheme;
