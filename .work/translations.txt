@@ -1,0 +1,452 @@
+AppTranslator: SumatraPDF
+wini-es-v1
+:&About
+es:&Acerca de
+:&Actual Size
+es:Tamaño &real
+:&Advanced Options...
+es:&Opciones avanzadas...
+:&All selected pages
+es:Todas las páginas &seleccionadas
+:&Back
+es:&Atrás
+:&Book View
+es:Vista de &libro
+:&Browse...
+es:&Examinar...
+:&Cancel
+es:&Cancelar
+:&Close
+es:&Cerrar
+:&Continue installing 32-bit version
+es:&Continuar instalando la versión de 32 bits
+:&Copy Selection
+es:&Copiar selección
+:&Copy To Clipboard
+es:&Copiar al portapapeles
+:&Custom CSS (edit the rules below)
+es:&CSS personalizado (edita las reglas de abajo)
+:&Discard changes
+es:&Descartar cambios
+:&Even pages only
+es:Sólo páginas &pares
+:&Facing
+es:&Enfrentadas
+:&File
+es:&Archivo
+:&First Page
+es:&Primera página
+:&Fit pages to printable area
+es:&Ajustar páginas al área imprimible
+:&Free Text
+es:&Texto libre
+:&Go To
+es:&Ir a
+:&Go to page:
+es:&Ir a la página:
+:&Help
+es:&Ayuda
+:&Highlight
+es:&Resaltar
+:&Highlight Form Fields
+es:&Resaltar campos del formulario
+:&Image
+es:&Imagen
+:&Last Page
+es:&Última página
+:&Manual
+es:&Manual
+:&Next Page
+es:Página &siguiente
+:&Odd pages only
+es:Sólo páginas &impares
+:&Open...
+es:&Abrir...
+:&Options
+es:&Opciones
+:&Options...
+es:&Opciones...
+:&Password:
+es:&Contraseña:
+:&Pin Document
+es:&Fijar documento
+:&Previous Page
+es:Página &anterior
+:&Print...
+es:&Imprimir...
+:&Print... (denied)
+es:&Imprimir... (denegado)
+:&Reason (optional):
+es:&Motivo (opcional):
+:&Remember the password for this document
+es:&Recordar la contraseña de este documento
+:&Remember these settings for each document
+es:&Recordar estos ajustes para cada documento
+:&Remove From History
+es:&Quitar del historial
+:&Rotate printout:
+es:&Rotar la impresión:
+:&Save
+es:&Guardar
+:&Save As...
+es:&Guardar como...
+:&Save changes to existing PDF
+es:&Guardar cambios en el PDF existente
+:&Save to existing PDF
+es:&Guardar en el PDF existente
+:&Search With Google
+es:&Buscar con Google
+:&Settings
+es:&Configuración
+:&Show Grid
+es:&Mostrar cuadrícula
+:&Show password
+es:&Mostrar contraseña
+:&Shrink To Fit
+es:&Reducir para ajustar
+:&Shrink pages to printable area (if necessary)
+es:&Reducir páginas al área imprimible (si es necesario)
+:&Single Page
+es:Página &sencilla
+:&Stamp
+es:&Sello
+:&Strike Out
+es:&Tachar
+:&Text
+es:&Texto
+:&Theme
+es:&Tema
+:&This file
+es:&Este archivo
+:&Translate With Google
+es:&Traducir con Google
+:&Underline
+es:&Subrayar
+:&Uniform Page Width
+es:Ancho de página &uniforme
+:&Use original page sizes
+es:&Usar tamaños de página originales
+:&View
+es:&Ver
+:&Where to sign:
+es:&Dónde firmar:
+:&Window
+es:&Ventana
+:&Zoom
+es:&Zoom
+:&Zoom To Selection
+es:&Zoom a la selección
+:Add Favorite
+es:Añadir favorito
+:Add page %s to favorites
+es:Añadir página %s a favoritos
+:Add to favorites
+es:Añadir a favoritos
+:Advanced
+es:Avanzado
+:Advanced Settings
+es:Configuración avanzada
+:All
+es:Todos
+:All files
+es:Todos los archivos
+:All supported documents
+es:Todos los documentos admitidos
+:Annotations
+es:Anotaciones
+:Appearance:
+es:Apariencia:
+:Application:
+es:Aplicación:
+:Are you sure you want to uninstall SumatraPDF?
+es:¿Seguro que quieres desinstalar SumatraPDF?
+:Attachment: %s
+es:Adjunto: %s
+:Author:
+es:Autor:
+:Automatic
+es:Automático
+:Automatically check for &updates
+es:Comprobar &actualizaciones automáticamente
+:Back
+es:Atrás
+:Background Color:
+es:Color de fondo:
+:Bake PDF
+es:Aplanar PDF
+:Bits Per Sample:
+es:Bits por muestra:
+:Book View
+es:Vista de libro
+:Bookmarks
+es:Marcadores
+:Border:
+es:Borde:
+:Border: %d
+es:Borde: %d
+:Bytes
+es:Bytes
+:Cancel
+es:Cancelar
+:Cannot print this file
+es:No se puede imprimir este archivo
+:Caret
+es:Cursor
+:Change Background Color
+es:Cambiar color de fondo
+:Change Language
+es:Cambiar idioma
+:Change Scrollbar
+es:Cambiar barra de desplazamiento
+:Change Tab Color
+es:Cambiar color de pestaña
+:Change Theme
+es:Cambiar tema
+:Charcoal
+es:Carbón
+:Check for &Updates
+es:Buscar &actualizaciones
+:Checking for update...
+es:Buscando actualizaciones...
+:Choose &paper source by document page size
+es:Elegir &origen de papel según el tamaño de página del documento
+:Circle
+es:Círculo
+:Close
+es:Cerrar
+:Close All Tabs
+es:Cerrar todas las pestañas
+:Close Other Tabs
+es:Cerrar las otras pestañas
+:Close Tabs To The Left
+es:Cerrar pestañas a la izquierda
+:Close Tabs To The Right
+es:Cerrar pestañas a la derecha
+:Collapse All
+es:Contraer todo
+:Collecting list of printers
+es:Recopilando lista de impresoras
+:Color:
+es:Color:
+:Comic books
+es:Cómics
+:Command Palette
+es:Paleta de comandos
+:Comment:
+es:Comentario:
+:Compatibility
+es:Compatibilidad
+:Compress PDF
+es:Comprimir PDF
+:Configure Page Grid...
+es:Configurar cuadrícula de página...
+:Contents:
+es:Contenido:
+:Continue Reading
+es:Continuar leyendo
+:Continuous
+es:Continuo
+:Continuous Book View
+es:Vista de libro continua
+:Continuous Facing
+es:Enfrentadas continua
+:Contribute Translation
+es:Contribuir traducción
+:Convert
+es:Convertir
+:Convert PDF to Images
+es:Convertir PDF a imágenes
+:Convert PDF to Images...
+es:Convertir PDF a imágenes...
+:Convert page to &PDF
+es:Convertir página a &PDF
+:Convert to PDF
+es:Convertir a PDF
+:Convert to PDF...
+es:Convertir a PDF...
+:Copy
+es:Copiar
+:Copy &Link Address
+es:Copiar dirección del &enlace
+:Copy File Path
+es:Copiar ruta del archivo
+:Copy program and machine info to clipboard
+es:Copiar información del programa y equipo al portapapeles
+:Couldn't check for updates
+es:No se pudo buscar actualizaciones
+:Create Annotation &Under Cursor
+es:Crear anotación &bajo el cursor
+:Create Annotation From Selection
+es:Crear anotación desde la selección
+:Created:
+es:Creado:
+:Ctrl+Tab to navigate
+es:Ctrl+Tab para navegar
+:Current
+es:Actual
+:Custom
+es:Personalizado
+:Custom &Zoom...
+es:&Zoom personalizado...
+:DPI:
+es:DPI:
+:Dark
+es:Oscuro
+:Date:
+es:Fecha:
+:Date/Time:
+es:Fecha/Hora:
+:Decompress PDF
+es:Descomprimir PDF
+:Decrypt PDF
+es:Descifrar PDF
+:Default &Layout:
+es:Disposición &predeterminada:
+:E&xit
+es:&Salir
+:Error
+es:Error
+:Exit
+es:Salir
+:Favorites
+es:Favoritos
+:File
+es:Archivo
+:Find
+es:Buscar
+:Find:
+es:Buscar:
+:Frequently Read
+es:Leídos con frecuencia
+:Go To
+es:Ir a
+:Help
+es:Ayuda
+:Highlight
+es:Resaltar
+:Installation failed
+es:Falló la instalación
+:Manual
+es:Manual
+:Next
+es:Siguiente
+:OK
+es:Aceptar
+:Open
+es:Abrir
+:Options
+es:Opciones
+:Page
+es:Página
+:Page %d of %d
+es:Página %d de %d
+:Please wait...
+es:Espere un momento...
+:Previous
+es:Anterior
+:Print
+es:Imprimir
+:Reading PDF file...
+es:Leyendo archivo PDF...
+:Remember these &settings for each document
+es:Recordar estos &ajustes para cada documento
+:Remove from history
+es:Quitar del historial
+:Rename
+es:Renombrar
+:Replace
+es:Reemplazar
+:Report a bug
+es:Reportar un problema
+:Save As
+es:Guardar como
+:Search
+es:Buscar
+:Search 0 files (Ctrl + F)
+es:Buscar en 0 archivos (Ctrl + F)
+:Search 1 files (Ctrl + F)
+es:Buscar en 1 archivo (Ctrl + F)
+:Search %d files (Ctrl + F)
+es:Buscar en %d archivos (Ctrl + F)
+:Select All
+es:Seleccionar todo
+:Selection
+es:Selección
+:Settings
+es:Configuración
+:Show &frequently read
+es:Mostrar &leídos con frecuencia
+:Show &toolbar
+es:Mostrar barra de &herramientas
+:Skip
+es:Omitir
+:SumatraPDF website
+es:Sitio de WiniPDF
+:Theme
+es:Tema
+:Themes
+es:Temas
+:Translate With Google
+es:Traducir con Google
+:Uninstall
+es:Desinstalar
+:Uninstalling %s
+es:Desinstalando %s
+:View
+es:Ver
+:WiniPDF on GitHub
+es:WiniPDF en GitHub
+:Yes
+es:Sí
+:Zoom
+es:Zoom
+:Zoom In
+es:Acercar
+:Zoom Out
+es:Alejar
+:Zoom To Selection
+es:Zoom a la selección
+:&Favorites
+es:&Favoritos
+:Favorites
+es:Favoritos
+:Show Favorites
+es:Mostrar favoritos
+:Show Favorites in Tab
+es:Mostrar favoritos en pestaña
+:Tab Groups
+es:Grupos de pestañas
+:&File
+es:&Archivo
+:&View
+es:&Ver
+:&Go To
+es:&Ir a
+:&Zoom
+es:&Zoom
+:&Selection
+es:&Selección
+:&Read Aloud
+es:&Leer en voz alta
+:&Settings
+es:&Configuración
+:&Help
+es:&Ayuda
+:Show Frequently Read
+es:Mostrar leídos con frecuencia
+:Show Single File Tab
+es:Mostrar pestaña de archivo único
+:Close
+es:Cerrar
+:Exit
+es:Salir
+:About WiniPDF
+es:Acerca de WiniPDF
+:Change Language
+es:Cambiar idioma
+:Change Theme
+es:Cambiar tema
+:Advanced Settings...
+es:Configuración avanzada...
+:Check for Updates
+es:Buscar actualizaciones
