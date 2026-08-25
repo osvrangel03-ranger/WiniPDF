@@ -5562,6 +5562,29 @@ LRESULT CALLBACK WndProcCanvas(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
         return res;
     }
 
+    // WiniPDF: if the control's own reflect didn't answer (home search edit),
+    // answer with the theme colors so edits never render white on dark themes.
+    if (msg == WM_CTLCOLOREDIT || msg == WM_CTLCOLORSTATIC) {
+        HDC hdc = (HDC)wp;
+        Color bg = ThemeControlBackgroundColor();
+        static HBRUSH br = nullptr;
+        static COLORREF lastCol = 0;
+        COLORREF cref = (COLORREF)bg;
+        if (!br || lastCol != cref) {
+            if (br) {
+                DeleteObject(br);
+            }
+            br = CreateSolidBrush(cref);
+            lastCol = cref;
+        }
+        if (hdc) {
+            SetTextColor(hdc, ThemeWindowTextColor());
+            SetBkColor(hdc, cref);
+            SetBkMode(hdc, OPAQUE);
+        }
+        return (LRESULT)br;
+    }
+
     MainWindow* win = FindMainWindowByHwnd(hwnd);
     switch (msg) {
         case WM_DROPFILES:

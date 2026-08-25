@@ -1,4 +1,4 @@
-// gen-settings.ts - replaces Go "-gen-settings" flag
+﻿// gen-settings.ts - replaces Go "-gen-settings" flag
 // Generates src/Settings.h, website HTML docs, and markdown docs from settings definitions
 
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
@@ -1056,7 +1056,7 @@ const globalPrefs: Field[] = [
     "default layout of pages. valid values: automatic, single page, facing, " +
       "book view, continuous, continuous facing, continuous book view, page aspect. " +
       "page aspect (3.7+): first open of a PDF, XPS, DjVu or PostScript file " +
-      "uses page 1 — taller than wide is continuous + fit width, wider than tall " +
+      "uses page 1 â€” taller than wide is continuous + fit width, wider than tall " +
       "is single page + fit page; a remembered FileState still wins",
   ),
   field(
@@ -1363,7 +1363,7 @@ const globalPrefs: Field[] = [
     "System",
     "the name of the theme to use. System follows the Windows light/dark app mode " +
       "and switches between LastLightTheme and LastDarkTheme. Built-in themes: " +
-      "WiniCarbon (dark), WiniAmber (light), System (custom Themes[] entries can add more)",
+      "WiniCarbon (Tema Oscuro), WiniAmber (Tema Claro), System (custom Themes[] entries can add more)",
   )
     .ver("3.5")
     .doc(
@@ -1379,15 +1379,15 @@ const globalPrefs: Field[] = [
     .internal()
     .ver("3.7"),
   // Full text is shown in Advanced Settings and Advanced-options-settings.md
-  // (do not use a short .doc() here — that would replace this description).
+  // (do not use a short .doc() here â€” that would replace this description).
   field(
     "DocumentColorsFollowTheme",
     Str,
     "off",
     "how MuPDF-rendered documents (PDF, XPS, DjVu, EPUB, MOBI, FB2, CBZ, images, etc.) " +
       "use UI / FixedPageUI colors for the page. Values: off (document's own colors; default); " +
-      "smart (recolor text and page background, keep photos/images as-is — best for dark reading); " +
-      "legacy (also recolor images; pre-3.7 invert-style). Does not change menus/toolbars — use Theme " +
+      "smart (recolor text and page background, keep photos/images as-is â€” best for dark reading); " +
+      "legacy (also recolor images; pre-3.7 invert-style). Does not change menus/toolbars â€” use Theme " +
       "for UI chrome. Settings / Theme and the CmdSetDocumentColorsFollowTheme command set " +
       "all three values. Shift+I (Invert Colors) is separate: it swaps the page colors for " +
       "the session whatever this is set to",
@@ -2387,78 +2387,78 @@ For example \`#ff0000\` is opaque red. \`#7fff0000\` is half-transparent red. \`
 
 const gLangs: string[][] = [
   ["af", "Afrikaans"],
-  ["am", "Armenian (Հայերեն)"],
-  ["ar", "Arabic (الْعَرَبيّة)"],
-  ["az", "Azerbaijani (Azərbaycanca)"],
-  ["bg", "Bulgarian (Български)"],
-  ["bn", "Bengali (বাংলা)"],
+  ["am", "Armenian (Õ€Õ¡ÕµÕ¥Ö€Õ¥Õ¶)"],
+  ["ar", "Arabic (Ø§Ù„Ù’Ø¹ÙŽØ±ÙŽØ¨ÙŠÙ‘Ø©)"],
+  ["az", "Azerbaijani (AzÉ™rbaycanca)"],
+  ["bg", "Bulgarian (Ð‘ÑŠÐ»Ð³Ð°Ñ€ÑÐºÐ¸)"],
+  ["bn", "Bengali (à¦¬à¦¾à¦‚à¦²à¦¾)"],
   ["co", "Corsican (Corsu)"],
-  ["br", "Portuguese - Brazil (Português)"],
+  ["br", "Portuguese - Brazil (PortuguÃªs)"],
   ["bs", "Bosnian (Bosanski)"],
-  ["by", "Belarusian (Беларуская)"],
-  ["ca", "Catalan (Català)"],
-  ["ca-xv", "Catalan-Valencian (Català-Valencià)"],
-  ["cn", "Chinese Simplified (简体中文)"],
+  ["by", "Belarusian (Ð‘ÐµÐ»Ð°Ñ€ÑƒÑÐºÐ°Ñ)"],
+  ["ca", "Catalan (CatalÃ )"],
+  ["ca-xv", "Catalan-Valencian (CatalÃ -ValenciÃ )"],
+  ["cn", "Chinese Simplified (ç®€ä½“ä¸­æ–‡)"],
   ["cy", "Welsh (Cymraeg)"],
-  ["cz", "Czech (Čeština)"],
+  ["cz", "Czech (ÄŒeÅ¡tina)"],
   ["de", "German (Deutsch)"],
   ["dk", "Danish (Dansk)"],
-  ["el", "Greek (Ελληνικά)"],
+  ["el", "Greek (Î•Î»Î»Î·Î½Î¹ÎºÎ¬)"],
   ["en", "English"],
-  ["es", "Spanish (Español)"],
+  ["es", "Spanish (EspaÃ±ol)"],
   ["et", "Estonian (Eesti)"],
   ["eu", "Basque (Euskara)"],
-  ["fa", "Persian (فارسی)"],
+  ["fa", "Persian (ÙØ§Ø±Ø³ÛŒ)"],
   ["fi", "Finnish (Suomi)"],
-  ["fr", "French (Français)"],
-  ["fo", "Faroese (Føroyskt)"],
+  ["fr", "French (FranÃ§ais)"],
+  ["fo", "Faroese (FÃ¸royskt)"],
   ["fy-nl", "Frisian (Frysk)"],
   ["ga", "Irish (Gaeilge)"],
   ["gl", "Galician (Galego)"],
-  ["he", "Hebrew (עברית)"],
-  ["hi", "Hindi (हिंदी)"],
+  ["he", "Hebrew (×¢×‘×¨×™×ª)"],
+  ["hi", "Hindi (à¤¹à¤¿à¤‚à¤¦à¥€)"],
   ["hr", "Croatian (Hrvatski)"],
   ["hu", "Hungarian (Magyar)"],
   ["id", "Indonesian (Bahasa Indonesia)"],
   ["it", "Italian (Italiano)"],
-  ["ja", "Japanese (日本語)"],
-  ["jv", "Javanese (ꦧꦱꦗꦮ)"],
-  ["ka", "Georgian (ქართული)"],
-  ["kr", "Korean (한국어)"],
-  ["ku", "Kurdish (كوردی)"],
+  ["ja", "Japanese (æ—¥æœ¬èªž)"],
+  ["jv", "Javanese (ê¦§ê¦±ê¦—ê¦®)"],
+  ["ka", "Georgian (áƒ¥áƒáƒ áƒ—áƒ£áƒšáƒ˜)"],
+  ["kr", "Korean (í•œêµ­ì–´)"],
+  ["ku", "Kurdish (ÙƒÙˆØ±Ø¯ÛŒ)"],
   ["kw", "Cornish (Kernewek)"],
-  ["lt", "Lithuanian (Lietuvių)"],
-  ["lv", "Latvian (latviešu valoda)"],
-  ["mk", "Macedonian (македонски)"],
-  ["ml", "Malayalam (മലയാളം)"],
-  ["mm", "Burmese (ဗမာ စာ)"],
+  ["lt", "Lithuanian (LietuviÅ³)"],
+  ["lv", "Latvian (latvieÅ¡u valoda)"],
+  ["mk", "Macedonian (Ð¼Ð°ÐºÐµÐ´Ð¾Ð½ÑÐºÐ¸)"],
+  ["ml", "Malayalam (à´®à´²à´¯à´¾à´³à´‚)"],
+  ["mm", "Burmese (á€—á€™á€¬ á€…á€¬)"],
   ["my", "Malaysian (Bahasa Melayu)"],
-  ["ne", "Nepali (नेपाली)"],
+  ["ne", "Nepali (à¤¨à¥‡à¤ªà¤¾à¤²à¥€)"],
   ["nl", "Dutch (Nederlands)"],
   ["nn", "Norwegian Neo-Norwegian (Norsk nynorsk)"],
   ["no", "Norwegian (Norsk)"],
-  ["pa", "Punjabi (ਪੰਜਾਬੀ)"],
+  ["pa", "Punjabi (à¨ªà©°à¨œà¨¾à¨¬à©€)"],
   ["pl", "Polish (Polski)"],
-  ["pt", "Portuguese - Portugal (Português)"],
-  ["ro", "Romanian (Română)"],
-  ["ru", "Russian (Русский)"],
-  ["sat", "Santali (ᱥᱟᱱᱛᱟᱲᱤ)"],
-  ["si", "Sinhala (සිංහල)"],
-  ["sk", "Slovak (Slovenčina)"],
-  ["sl", "Slovenian (Slovenščina)"],
+  ["pt", "Portuguese - Portugal (PortuguÃªs)"],
+  ["ro", "Romanian (RomÃ¢nÄƒ)"],
+  ["ru", "Russian (Ð ÑƒÑÑÐºÐ¸Ð¹)"],
+  ["sat", "Santali (á±¥á±Ÿá±±á±›á±Ÿá±²á±¤)"],
+  ["si", "Sinhala (à·ƒà·’à¶‚à·„à¶½)"],
+  ["sk", "Slovak (SlovenÄina)"],
+  ["sl", "Slovenian (SlovenÅ¡Äina)"],
   ["sn", "Shona (Shona)"],
   ["sp-rs", "Serbian (Latin)"],
   ["sq", "Albanian (Shqip)"],
   ["sr-rs", "Serbian (Cyrillic)"],
   ["sv", "Swedish (Svenska)"],
-  ["ta", "Tamil (தமிழ்)"],
-  ["th", "Thai (ภาษาไทย)"],
+  ["ta", "Tamil (à®¤à®®à®¿à®´à¯)"],
+  ["th", "Thai (à¸ à¸²à¸©à¸²à¹„à¸—à¸¢)"],
   ["tl", "Tagalog (Tagalog)"],
-  ["tr", "Turkish (Türkçe)"],
-  ["tw", "Chinese Traditional (繁體中文)"],
-  ["uk", "Ukrainian (Українська)"],
+  ["tr", "Turkish (TÃ¼rkÃ§e)"],
+  ["tw", "Chinese Traditional (ç¹é«”ä¸­æ–‡)"],
+  ["uk", "Ukrainian (Ð£ÐºÑ€Ð°Ñ—Ð½ÑÑŒÐºÐ°)"],
   ["uz", "Uzbek (O'zbek)"],
-  ["vn", "Vietnamese (Việt Nam)"],
+  ["vn", "Vietnamese (Viá»‡t Nam)"],
 ];
 
 // ---------------------------------------------------------------------------

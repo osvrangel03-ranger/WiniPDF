@@ -34,9 +34,9 @@ If you add or remove lines with square brackets, **make sure to always add/remov
 ```
 ; default layout of pages. valid values: automatic, single page, facing, book
 ; view, continuous, continuous facing, continuous book view, page aspect. page
-; aspect (3.7+): first open of a PDF, XPS, DjVu or PostScript file uses page 1 —
-; taller than wide is continuous + fit width, wider than tall is single page +
-; fit page; a remembered FileState still wins
+; aspect (3.7+): first open of a PDF, XPS, DjVu or PostScript file uses page 1
+; â€” taller than wide is continuous + fit width, wider than tall is single page
+; + fit page; a remembered FileState still wins
 DefaultDisplayMode = automatic
 
 ; default zoom. valid values: fit page, fit width, fit height, fit content or
@@ -293,8 +293,8 @@ LastDarkTheme =
 ; how MuPDF-rendered documents (PDF, XPS, DjVu, EPUB, MOBI, FB2, CBZ, images,
 ; etc.) use UI / FixedPageUI colors for the page. Values: off (document's own
 ; colors; default); smart (recolor text and page background, keep photos/images
-; as-is — best for dark reading); legacy (also recolor images; pre-3.7
-; invert-style). Does not change menus/toolbars — use Theme for UI chrome.
+; as-is â€” best for dark reading); legacy (also recolor images; pre-3.7
+; invert-style). Does not change menus/toolbars â€” use Theme for UI chrome.
 ; Settings / Theme and the CmdSetDocumentColorsFollowTheme command set all three
 ; values. Shift+I (Invert Colors) is separate: it swaps the page colors for the
 ; session whatever this is set to (introduced in version 3.7)

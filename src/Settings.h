@@ -909,8 +909,8 @@ struct GlobalPrefs {
     int tabWidth;
     // the name of the theme to use. System follows the Windows light/dark
     // app mode and switches between LastLightTheme and LastDarkTheme.
-    // Built-in themes: WiniCarbon (dark), WiniAmber (light), System
-    // (custom Themes[] entries can add more)
+    // Built-in themes: WiniCarbon (Tema Oscuro), WiniAmber (Tema Claro),
+    // System (custom Themes[] entries can add more)
     Str theme;
     // the light theme the light/dark toggle and the System theme switch to
     Str lastLightTheme;
@@ -919,9 +919,9 @@ struct GlobalPrefs {
     // how MuPDF-rendered documents (PDF, XPS, DjVu, EPUB, MOBI, FB2, CBZ,
     // images, etc.) use UI / FixedPageUI colors for the page. Values: off
     // (document's own colors; default); smart (recolor text and page
-    // background, keep photos/images as-is — best for dark reading);
+    // background, keep photos/images as-is â€” best for dark reading);
     // legacy (also recolor images; pre-3.7 invert-style). Does not change
-    // menus/toolbars — use Theme for UI chrome. Settings / Theme and the
+    // menus/toolbars â€” use Theme for UI chrome. Settings / Theme and the
     // CmdSetDocumentColorsFollowTheme command set all three values.
     // Shift+I (Invert Colors) is separate: it swaps the page colors for
     // the session whatever this is set to
@@ -2067,17 +2067,17 @@ static const StructInfo gGlobalPrefsInfo = {
     "\0OpenCountWeek\0PropWinPos\0CheckForUpdates\0\0",
     "\0\0default layout of pages. valid values: automatic, single page, facing, book view, continuous, continuous "
     "facing, continuous book view, page aspect. page aspect (3.7+): first open of a PDF, XPS, DjVu or PostScript file "
-    "uses page 1 — taller than wide is continuous + fit width, wider than tall is single page + fit page; a remembered "
-    "FileState still wins\0default zoom. valid values: fit page, fit width, fit height, fit content or percent like "
-    "100%\0if true, JavaScript in PDF documents is disabled (e.g. form-field calculations won't run)\0if true, a PDF "
-    "may load an image stored in a separate file referenced by name (an external image stream); the file must sit next "
-    "to the PDF. Off by default for security (matches Acrobat)\0if true, show the SyncTeX inverse search command line "
-    "in Settings -> Options, so a double-click in the document can jump to the matching line in a LaTeX editor\0if "
-    "true, Esc key closes SumatraPDF\0if true, show the full path to the document in the title bar\0pattern used to "
-    "launch the LaTeX editor when doing inverse search\0if true, restoring a session delays loading each document "
-    "until its tab is selected\0background color of the area around the document, traditionally yellow. Only applies "
-    "to the Light theme; the default #80fff200 is a marker meaning \"use the theme's color\", so setting any other "
-    "value also colorizes the toolbar and sidebars\0if true, doesn't open Home tab\0if true, the home page lists "
+    "uses page 1 â€” taller than wide is continuous + fit width, wider than tall is single page + fit page; a "
+    "remembered FileState still wins\0default zoom. valid values: fit page, fit width, fit height, fit content or "
+    "percent like 100%\0if true, JavaScript in PDF documents is disabled (e.g. form-field calculations won't run)\0if "
+    "true, a PDF may load an image stored in a separate file referenced by name (an external image stream); the file "
+    "must sit next to the PDF. Off by default for security (matches Acrobat)\0if true, show the SyncTeX inverse search "
+    "command line in Settings -> Options, so a double-click in the document can jump to the matching line in a LaTeX "
+    "editor\0if true, Esc key closes SumatraPDF\0if true, show the full path to the document in the title bar\0pattern "
+    "used to launch the LaTeX editor when doing inverse search\0if true, restoring a session delays loading each "
+    "document until its tab is selected\0background color of the area around the document, traditionally yellow. Only "
+    "applies to the Light theme; the default #80fff200 is a marker meaning \"use the theme's color\", so setting any "
+    "other value also colorizes the toolbar and sidebars\0if true, doesn't open Home tab\0if true, the home page lists "
     "documents by how often they've been opened (the pre-3.6 behavior); if false, the most recently opened come "
     "first\0valid values: thumbnails, list\0valid values: (empty), os, sumatrapdf\0if true, a document will be "
     "reloaded automatically whenever it's changed (currently doesn't work for documents shown in the ebook UI)\0if "
@@ -2134,8 +2134,8 @@ static const StructInfo gGlobalPrefsInfo = {
     "toggle and the System theme switch to\0the dark theme the light/dark toggle and the System theme switch to\0how "
     "MuPDF-rendered documents (PDF, XPS, DjVu, EPUB, MOBI, FB2, CBZ, images, etc.) use UI / FixedPageUI colors for the "
     "page. Values: off (document's own colors; default); smart (recolor text and page background, keep photos/images "
-    "as-is — best for dark reading); legacy (also recolor images; pre-3.7 invert-style). Does not change "
-    "menus/toolbars — use Theme for UI chrome. Settings / Theme and the CmdSetDocumentColorsFollowTheme command set "
+    "as-is â€” best for dark reading); legacy (also recolor images; pre-3.7 invert-style). Does not change "
+    "menus/toolbars â€” use Theme for UI chrome. Settings / Theme and the CmdSetDocumentColorsFollowTheme command set "
     "all three values. Shift+I (Invert Colors) is separate: it swaps the page colors for the session whatever this is "
     "set to\0if both the favorites and the bookmarks part of the sidebar are visible, this is the height of the "
     "bookmarks (table of contents) part, in screen pixels\0the toolbar's built-in buttons, in the order you want them, "

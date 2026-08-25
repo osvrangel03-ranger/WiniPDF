@@ -52,7 +52,7 @@ _TRN("Charcoal")
 // Empty optional fields still fall back to AccentColor / blend of the four base colors.
 static Str themesTxt = StrL(R"(Themes [
     [
-        Name = WiniCarbon
+        Name = WiniCarbon (Tema Oscuro)
         TextColor = #f4f4f5
         BackgroundColor = #1c1c1e
         ControlBackgroundColor = #262629
@@ -70,7 +70,7 @@ static Str themesTxt = StrL(R"(Themes [
         ColorizeControls = true
     ]
     [
-        Name = WiniAmber
+        Name = WiniAmber (Tema Claro)
         TextColor = #4a3b28
         BackgroundColor = #f6ecd9
         ControlBackgroundColor = #fdf8ee
@@ -258,13 +258,13 @@ static Str ResolveThemeAlias(Str name) {
     }
     // WiniPDF: upstream theme names land on our brand themes
     if (str::EqI(name, StrL("Dark")) || str::EqI(name, StrL("Charcoal"))) {
-        return StrL("WiniCarbon");
+        return StrL("WiniCarbon (Tema Oscuro)");
     }
     if (str::EqI(name, StrL("Light")) || str::EqI(name, StrL("Light Warm")) || str::EqI(name, StrL("Wini"))) {
-        return StrL("WiniAmber");
+        return StrL("WiniAmber (Tema Claro)");
     }
     if (str::EqI(name, StrL("Wini Light"))) {
-        return StrL("WiniAmber");
+        return StrL("WiniAmber (Tema Claro)");
     }
     return name;
 }
@@ -343,7 +343,7 @@ static int GetPreferredLightThemeIndex() {
         return idx;
     }
     // WiniPDF: default light theme is our own
-    idx = GetThemeByName(StrL("WiniAmber"));
+    idx = GetThemeByName(StrL("WiniAmber (Tema Claro)"));
     return idx >= 0 ? idx : 0;
 }
 
@@ -353,7 +353,7 @@ static int GetPreferredDarkThemeIndex() {
         return idx;
     }
     // WiniPDF: default dark theme is our own
-    idx = GetThemeByName(StrL("WiniCarbon"));
+    idx = GetThemeByName(StrL("WiniCarbon (Tema Oscuro)"));
     return idx >= 0 ? idx : 0;
 }
 

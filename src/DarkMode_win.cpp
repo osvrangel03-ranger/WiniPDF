@@ -1,4 +1,4 @@
-/* Copyright 2022 the SumatraPDF project authors (see AUTHORS file).
+﻿/* Copyright 2022 the SumatraPDF project authors (see AUTHORS file).
    License: GPLv3 */
 
 // Everything that talks to darkmodelib. The rest of the app calls the functions
@@ -176,7 +176,8 @@ void DarkModeApplyToMenuBar(HWND hwndRebar) {
 }
 
 void DarkModeApplyToChildControls(HWND hwnd) {
-    if (!gUseDarkModeLib || IsCurrentThemeDefault()) {
+    // WiniPDF: our default theme is dark, so decide by background luminance
+    if (!gUseDarkModeLib || IsLightColor(ThemeWindowControlBackgroundColor())) {
         return;
     }
     DarkMode::setChildCtrlsSubclassAndTheme(hwnd);
@@ -193,7 +194,7 @@ static void ApplyToInfotip(MainWindow* win) {
 }
 
 void DarkModeApplyToNewFrame(MainWindow* win) {
-    if (!gUseDarkModeLib || IsCurrentThemeDefault()) {
+    if (!gUseDarkModeLib || IsLightColor(ThemeWindowControlBackgroundColor())) {
         return;
     }
     DarkMode::setDarkTitleBarEx(win->hwndFrame, true);
@@ -216,4 +217,6 @@ void DarkModeApplyToFrameAfterThemeChange(MainWindow* win) {
     DarkMode::setDarkScrollBar(win->hwndCanvas);
     DarkMode::setWindowMenuBarSubclass(win->hwndFrame);
     ApplyToInfotip(win);
+    // WiniPDF: the home page's search edit lives on the canvas, not the frame
+    DarkModeApplyToChildControls(win->hwndCanvas);
 }

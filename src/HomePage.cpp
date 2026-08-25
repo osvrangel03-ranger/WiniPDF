@@ -13,6 +13,7 @@
 #include "gui/Layout.h"
 #include "gui/win/WinGui.h"
 #include "gui/win/WebView.h"
+#include "DarkMode_win.h"
 #include "gui/PlatformFont.h"
 #include "gui/Gfx.h"
 #include "gui/GuiColors.h"
@@ -1149,6 +1150,7 @@ static void EnsureHomeSearchCreated(MainWindow* win) {
     // Edit::Create wired Edit::WndProc; re-route to HomeSearchEdit for Esc/Down/wheel
     e->onWndProc = MkMethod1<HomeSearchEdit, ControlBase::WndProcEvent*, &HomeSearchEdit::WndProc>(e);
     e->SetColors(ThemeWindowTextColor(), ThemeControlBackgroundColor());
+    DarkModeApplyToChildControls(parent);
     e->onTextChanged = MkFunc0(HomeSearchTextChanged, win);
     e->onFocus = MkFunc0(HomeSearchFocusChanged, win);
     e->onKillFocus = MkFunc0(HomeSearchFocusChanged, win);
