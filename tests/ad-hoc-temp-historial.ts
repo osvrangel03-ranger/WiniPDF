@@ -1,0 +1,13 @@
+﻿import { launchSumatra, waitForFrame, killAndWait } from './win-automation.ts';
+const p = launchSumatra(['C:\\Users\\osvra\\Downloads\\LOTERIA 54 MEDIANOS.pdf']);
+const h = await waitForFrame(p.pid, 15000);
+await Bun.sleep(2500);
+await killAndWait(p);
+console.log('primer arranque listo');
+const p2 = launchSumatra([]);
+const h2 = await waitForFrame(p2.pid, 15000);
+await Bun.sleep(1500);
+const { captureWindowDCToPng } = await import('./winapi.ts');
+const ok = captureWindowDCToPng(h2, 'C:\\Users\\osvra\\Documents\\Default Project\\winipdf\\diseno\\captura-con-historial.png');
+console.log(ok ? 'captura con historial ok' : 'fallo');
+await killAndWait(p2);

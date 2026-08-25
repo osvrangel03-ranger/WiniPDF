@@ -18,7 +18,6 @@ void DrawAboutPage(MainWindow* win, Gfx* gfx);
 bool HomePageIsListView();
 void SetHomePageListView(bool listView);
 
-void SetPromoString(Str s);
 void FreeHomePageTips();
 void HomePageInvalidateLayoutCache();
 

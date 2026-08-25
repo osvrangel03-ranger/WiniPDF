@@ -1,4 +1,4 @@
-/* Copyright 2022 the SumatraPDF project authors (see AUTHORS file).
+﻿/* Copyright 2022 the SumatraPDF project authors (see AUTHORS file).
    License: GPLv3 */
 
 #include "base/Base.h"
@@ -100,101 +100,13 @@ static TipHookInstaller gTipHookInstaller;
 #endif
 #define ABOUT_LINE_SEP_SIZE 1
 
-static Str winiTips = StrL(R"tips(Switch between light and dark themes with (Key/CmdToggleLightDarkTheme).
-Press (Key/CmdCommandPalette) to open [command palette](CmdCommandPalette).
-You can [customize keyboard shortcuts](Help/Customize-keyboard-shortcuts).
-You can [toggle menu bar](CmdToggleMenuBar) with (Key/CmdToggleMenuBar).
-You can [toggle toolbar](CmdToggleToolbar) with (Key/CmdToggleToolbar).
-You can [edit PDF annotations](Help/Editing-annotations).
-You can [customize scrollbar](CmdChangeScrollbar).
-)tips");
-
-static Str winiPromos;
-
-static Str promoFromServer;
-
 static void FreeHomeFileIcons();
-
-// the tip markup, one line each; the selected one is parsed by the tip band
-static StrVec gTipLines;
-static StrVec gPromoLines;
-static bool gTipsParsed = false;
-static bool gSelectedIsPromo = false;
-static int gSelectedTipIdx = -1;
-
-static void CollectTipsFromString(Str src, Str prefix, StrVec* out) {
-    StrVec lines;
-    Split(&lines, src, StrL("\n"));
-    for (int i = 0; i < len(lines); i++) {
-        Str line = lines[i];
-        if (str::IsEmptyOrWhiteSpace(line)) {
-            continue;
-        }
-        if (prefix) {
-            out->Append(str::JoinTemp(prefix, line));
-        } else {
-            out->Append(line);
-        }
-    }
-}
-
-// the markup of the tip currently on show, {} when there is none
-static Str SelectedTipLine() {
-    if (!gGlobalPrefs->showTips || gSelectedTipIdx < 0) {
-        return {};
-    }
-    StrVec& v = gSelectedIsPromo ? gPromoLines : gTipLines;
-    if (gSelectedTipIdx >= len(v)) {
-        return {};
-    }
-    return v[gSelectedTipIdx];
-}
-
-static void PickRandomTipOrPromo() {
-    bool pickPromo = (len(gPromoLines) > 0) && (rand() % 100 < 30);
-    if (pickPromo) {
-        gSelectedIsPromo = true;
-        gSelectedTipIdx = rand() % len(gPromoLines);
-    } else if (len(gTipLines) > 0) {
-        gSelectedIsPromo = false;
-        gSelectedTipIdx = rand() % len(gTipLines);
-    }
-}
-
-static void EnsureTipsParsed() {
-    if (gTipsParsed) {
-        return;
-    }
-    CollectTipsFromString(winiTips, StrL("Tip: "), &gTipLines);
-    CollectTipsFromString(winiPromos, {}, &gPromoLines);
-    gTipsParsed = true;
-    PickRandomTipOrPromo();
-}
 
 static void ClearHomeLayoutCache();
 
 void FreeHomePageTips() {
-    if (gTipsParsed) {
-        gTipLines.Reset();
-        gPromoLines.Reset();
-        gTipsParsed = false;
-    }
-    str::Free(promoFromServer);
     FreeHomeFileIcons();
     ClearHomeLayoutCache();
-}
-
-static void PickAnotherRandomTip() {
-    bool prevIsPromo = gSelectedIsPromo;
-    int prev = gSelectedTipIdx;
-    // keep picking until we get a different one
-    int maxIter = 100;
-    while (maxIter-- > 0) {
-        PickRandomTipOrPromo();
-        if (gSelectedIsPromo != prevIsPromo || gSelectedTipIdx != prev) {
-            return;
-        }
-    }
 }
 
 constexpr Color kAboutBorderCol = kColBlack;
@@ -293,10 +205,6 @@ static void OpenAboutUrl(VirtMouseEvent* ev) {
     }
 }
 
-void SetPromoString(Str s) {
-    if (!s) return;
-    str::ReplaceWithCopy(&promoFromServer, s);
-}
 
 static TempStr GetAppVersionTemp() {
     TempStr s = str::DupTemp(StrL("v" CURR_VERSION_STRA));
@@ -1034,7 +942,7 @@ struct HomeHelpBtnCtrl : VirtCtrl {
 struct HomeEntryCtrl;
 
 // the pin icon of a list-view row. It is drawn by DrawHomeListRow, so this is a
-// hit target only (the row's ✕ is a VirtCloseButton, which draws itself)
+// hit target only (the row's âœ• is a VirtCloseButton, which draws itself)
 struct HomeListIconCtrl : VirtCtrl {
     bool isPin = true;
 
@@ -1064,7 +972,7 @@ struct HomeEntryCtrl : VirtCtrl {
 // keep keyboard selection in sync
 struct HomeEntriesCtrl : VirtCtrl {
     MainWindow* win = nullptr;
-    // entry the mouse is on, -1 for none. Drives the ✕ button and the keyboard
+    // entry the mouse is on, -1 for none. Drives the âœ• button and the keyboard
     // selection, which follows the mouse
     int activeIdx = -1;
     Point lastHoverPt{-1, -1};
@@ -1312,7 +1220,7 @@ void HomePageFocusSearch(MainWindow* win) {
 }
 
 void PickAnotherRandomPromotion() {
-    PickAnotherRandomTip();
+    // WiniPDF: the tip band is gone; rotating promos were a SumatraPDF feature
 }
 
 // --- scroll-friendly layout cache: full LayoutHomePage only when content/size/
@@ -1417,13 +1325,10 @@ static bool HomeLayoutCacheMatches(const Rect& rc, Str filterText) {
     if (c.isRtl != IsUIRtl()) {
         return false;
     }
-    if (c.tipIdx != gSelectedTipIdx || c.tipIsPromo != gSelectedIsPromo) {
-        return false;
-    }
     if (!str::Eq(c.filterText, filterText)) {
         return false;
     }
-    // pin/remove/reorder changes FileState pointers or order → invalidate
+    // pin/remove/reorder changes FileState pointers or order â†’ invalidate
     // (nFiles alone is not enough: pin does not change count)
     return true;
 }
@@ -1479,10 +1384,7 @@ static void SaveHomeLayoutCache(const HomePageLayout& l, Str filterText, int scr
     c.nFiles = len(l.thumbnails);
     c.listView = HomePageIsListView();
     c.sortByFreq = gGlobalPrefs && gGlobalPrefs->homePageSortByFrequentlyRead;
-    c.showTips = gGlobalPrefs && gGlobalPrefs->showTips;
     c.isRtl = IsUIRtl();
-    c.tipIdx = gSelectedTipIdx;
-    c.tipIsPromo = gSelectedIsPromo;
     str::ReplaceWithCopy(&c.filterText, filterText);
     c.rcThumbsArea = l.rcThumbsArea;
     c.rcSearchBorder = l.rcSearchBorder;
@@ -1580,8 +1482,6 @@ static void SyncHomeLayoutCacheFileSizes(const HomePageLayout& l) {
 }
 
 static void LayoutHomePage(HomePageLayout& l) {
-    EnsureTipsParsed();
-
     Vec<FileState*> allFileStates;
     if (gGlobalPrefs->homePageSortByFrequentlyRead) {
         FileHistoryGetFrequencyOrder(allFileStates);
@@ -1722,16 +1622,11 @@ static void LayoutHomePage(HomePageLayout& l) {
 
     int headerBottomY = hdrY + rowDy + searchThumbsGap;
 
-    // --- Step 2: calculate tip area at the bottom (before thumbnails) ---
+    // --- Step 2: tip band removed (WiniPDF) ---
+    // The tip band rendered inconsistently across themes (white strip on the
+    // dark theme in some sessions) and the co-founder prefers a clean home
+    // page. Tips live in the manual instead.
     int tipHeight = 0;
-    PlatformFont* fontTip = HomePageFont(16);
-    HomeTipCtrl* tipCtrl = EnsureHomeChrome(l.win)->tip;
-    tipCtrl->SetTipLine(SelectedTipLine(), fontTip);
-    VirtRichText* tip = tipCtrl->rich;
-    if (tip) {
-        int tipPadding = DpiScale(8);
-        tipHeight = tip->MinIntrinsicHeight(thumbsContentWidth) + (2 * tipPadding);
-    }
 
     // --- Step 3: middle area for thumbnails/list ---
     // content starts directly after headerBottomY (which includes kSearchThumbnailsGapY)
@@ -1779,7 +1674,7 @@ static void LayoutHomePage(HomePageLayout& l) {
         }
         int listIconDx = l.rcIconListView.dx;
         int listIconGap = DpiScale(6);
-        // fixed size column — never call file::GetSize during layout (disk/network I/O)
+        // fixed size column â€” never call file::GetSize during layout (disk/network I/O)
         int listSizeDx = DpiScale(56);
         // one-row margin so a quick scroll still has measured name/path splits ready
         int listPrefetchY = kHomeListRowDy;
@@ -1843,7 +1738,7 @@ static void LayoutHomePage(HomePageLayout& l) {
                     rcPage.x = rc.dx - rcPage.x - rcPage.dx;
                 }
                 bool onScreen = IsHomeThumbOnScreen(rcPage, l.rcThumbsArea, thumbPrefetchY);
-                // only use already-resident thumbnails for aspect adjust — never LoadThumbnail
+                // only use already-resident thumbnails for aspect adjust â€” never LoadThumbnail
                 // during layout (disk I/O dominated scroll/paint CPU)
                 if (onScreen && fs->thumbnail) {
                     Size szThumb(fs->thumbnail->width, fs->thumbnail->height);
@@ -1864,21 +1759,7 @@ static void LayoutHomePage(HomePageLayout& l) {
         }
     }
 
-    // layout tip at the bottom
-    if (tip) {
-        Rect rcClient = HwndClientRect(win->hwndCanvas);
-        int tipPadding = DpiScale(8);
-
-        int tipY = rcClient.dy - tipHeight;
-        // background spans full window width
-        l.rcTip = {0, tipY, rcClient.dx, tipHeight};
-        l.hasTip = true;
-
-        // text area aligned with thumbnails
-        int tipStartX = thumbsStartX;
-        int tipStartY = tipY + tipPadding;
-        l.rcTipText = {tipStartX, tipStartY, thumbsContentWidth, tip->MinIntrinsicHeight(thumbsContentWidth)};
-    }
+    // WiniPDF: no tip band anymore, so rcTip / rcTipText stay empty
 }
 
 static void GetFileStateIcon(FileState* fs) {
@@ -1940,7 +1821,7 @@ static Pixmap* GetFileStateIconPixmap(FileState* fs) {
     return pixmap;
 }
 
-// --- Close (✕) button for Frequently Read thumbnails (issue #283, #5745) ---
+// --- Close (âœ•) button for Frequently Read thumbnails (issue #283, #5745) ---
 //
 // Drawn onto the home-page canvas (over the top-right corner of the thumbnail
 // under the mouse) rather than as a separate top-level window. The separate
@@ -2343,7 +2224,7 @@ void HomeTipCtrl::Sync(const Rect& rcTip, const Rect& rcText) {
 
 static Rect HomeEntryRect(const ThumbnailLayout& t);
 
-// the ✕ sits in the top-right corner of the thumbnail (top-left in RTL)
+// the âœ• sits in the top-right corner of the thumbnail (top-left in RTL)
 static Rect HomeCloseBtnRectForThumb(const Rect& thumb) {
     int sz = DpiScale(18);
     int margin = DpiScale(5);
@@ -2352,7 +2233,7 @@ static Rect HomeCloseBtnRectForThumb(const Rect& thumb) {
     return {bx, by, sz, sz};
 }
 
-// the ✕ of a thumbnail / list row: forget the file it belongs to
+// the âœ• of a thumbnail / list row: forget the file it belongs to
 static void HomeForgetEntryClicked(MainWindow* win, VirtMouseEvent* ev) {
     auto* entry = (HomeEntryCtrl*)ev->target->parent;
     TempStr path = str::DupTemp(entry->filePath);
@@ -2512,7 +2393,7 @@ void HomeEntriesCtrl::SetEntryCount(int n) {
     }
 }
 
-// the ✕ shows on the entry the mouse is on, and only in thumbnail view
+// the âœ• shows on the entry the mouse is on, and only in thumbnail view
 void HomeEntriesCtrl::UpdateCloseBtnVisibility() {
     bool canShow = CanAccessDisk() && !HomePageIsListView();
     int n = ChildCount();
@@ -2639,7 +2520,7 @@ bool HomePageOnCanvasMessage(MainWindow* win, UINT msg, WPARAM wp, LPARAM lp, LR
     if (!root || !root->owned) {
         return false;
     }
-    // Hover feedback (highlight, ✕ button, tooltips) must stay quiet while
+    // Hover feedback (highlight, âœ• button, tooltips) must stay quiet while
     // another window is in front. The mouse still moves over the home page when
     // e.g. the command palette or the theme window is up, and putting a tooltip
     // over them steals activation: the palette closes on kill-focus and the
@@ -2652,7 +2533,7 @@ bool HomePageOnCanvasMessage(MainWindow* win, UINT msg, WPARAM wp, LPARAM lp, LR
     if (msg != WM_SETCURSOR) {
         bool didHandle = root->OnMessage(msg, wp, lp, res);
         // moving outside the entries band (or off the canvas) drops the active
-        // entry, so the ✕ button goes away
+        // entry, so the âœ• button goes away
         if (msg == WM_MOUSEMOVE && !root->hovered) {
             HomeEntriesCtrl* entries = HomeEntries(win);
             if (entries) {
@@ -2729,7 +2610,7 @@ static void HomePageSyncChrome(HomePageLayout& l) {
         } else {
             e->removeBtn->visibility = Visibility::Collapse;
             e->pinBtn->visibility = Visibility::Collapse;
-            // relative to the on-screen part of the entry, so the ✕ stays
+            // relative to the on-screen part of the entry, so the âœ• stays
             // visible on a thumbnail scrolled half-way out of the band
             e->closeBtn->SetBounds(HomeCloseBtnRectForThumb(rc.Intersect(l.rcThumbsArea)));
         }
@@ -2842,7 +2723,7 @@ void DrawHomePage(MainWindow* win, Gfx* gfx) {
         LayoutHomePage(l);
         SaveHomeLayoutCache(l, filterText, win->homePageScrollY);
     }
-    // Keep cue "Search N files …" in sync when history changes without recreating the edit.
+    // Keep cue "Search N files â€¦" in sync when history changes without recreating the edit.
     UpdateHomeSearchCueBanner(win);
 
     HomePageSyncChrome(l);
@@ -2980,7 +2861,7 @@ static void HomeScrollSelectionIntoView(MainWindow* win) {
     HomeSyncLayoutCacheScroll(win);
 }
 
-// Selection outline rect — must match DrawHomePageLayout / DrawHomeListRow.
+// Selection outline rect â€” must match DrawHomePageLayout / DrawHomeListRow.
 static Rect HomeSelectionOutlineRect(const ThumbnailLayout& t) {
     if (HomePageIsListView()) {
         // list: outline is the row, 1px shorter (separator line), with 0.5rem
@@ -2988,7 +2869,7 @@ static Rect HomeSelectionOutlineRect(const ThumbnailLayout& t) {
         int pad = DpiScale(8);
         return {t.rcListRow.x - pad, t.rcListRow.y, t.rcListRow.dx + (2 * pad), t.rcListRow.dy - 1};
     }
-    // thumbnails: page ∪ name, inflated by the same amounts as paint
+    // thumbnails: page âˆª name, inflated by the same amounts as paint
     Rect sel = t.rcPage.Union(t.rcText);
     sel.Inflate(DpiScale(4), DpiScale(3));
     return sel;
