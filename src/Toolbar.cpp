@@ -1334,15 +1334,6 @@ void CreateToolbar(MainWindow* win) {
     if (!host) {
         return;
     }
-    // TEMP DEBUG (WiniPDF): toolbar theme diagnostics; remove when white-toolbar bug is closed
-    {
-        FILE* dbg = fopen("C:\\Users\\osvra\\wini-debug.log", "a");
-        if (dbg) {
-            Color bg = TbBgColor();
-            fprintf(dbg, "CreateToolbar: TbBg=%06x themeIdx=%d\n", (COLORREF)bg & 0xffffff, ThemeGetCurrentIndex());
-            fclose(dbg);
-        }
-    }
     host->onPaintBackground = MkFunc1(PaintToolbarBackground, win);
     host->onPaint = MkFunc1(PaintToolbarEdge, win);
     host->onTimer = MkFunc1(OnToolbarTimer, win);

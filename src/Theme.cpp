@@ -109,7 +109,10 @@ static bool HasCurrentTheme() {
 }
 
 bool IsCurrentThemeDefault() {
-    return gCurrThemeIndex == 0;
+    // WiniPDF: our themes are explicit palettes; none defers to the system
+    // palette (that upstream behavior painted white chrome on light-mode
+    // Windows). High contrast still overrides via RecalcUseHighContrast.
+    return false;
 }
 
 // Windows high contrast mode. The user picked a system-wide palette because
@@ -137,7 +140,7 @@ static void DetectHighContrastMode() {
 
 // call whenever the OS high contrast setting or the current theme changes
 static void RecalcUseHighContrast() {
-    gUseHighContrast = gIsHighContrast && HasCurrentTheme() && IsCurrentThemeDefault();
+    gUseHighContrast = gIsHighContrast && HasCurrentTheme();
 }
 
 // exported so the few places that hardcode a color for the default theme (a
@@ -506,20 +509,10 @@ void UpdateThemeAfterHighContrastChange() {
 // call after loading settings
 void SetCurrentThemeFromSettings() {
     SetTheme(gGlobalPrefs->theme);
-    ParsedColor* bgParsed = GetPrefsColor(gGlobalPrefs->mainWindowBackground);
-    bool isDefault = IsDefaultMainWinColor(bgParsed);
-    if (isDefault) {
-        gThemeLight->colorizeControls = false;
-        gThemeLight->controlBackgroundColor.wasParsed = true;
-        gThemeLight->controlBackgroundColor.parsedOk = true;
-        gThemeLight->controlBackgroundColor.col = kColWhite;
-    } else if (bgParsed->parsedOk) {
-        gThemeLight->colorizeControls = true;
-        gThemeLight->controlBackgroundColor.wasParsed = true;
-        gThemeLight->controlBackgroundColor.parsedOk = true;
-        gThemeLight->controlBackgroundColor.col = bgParsed->col;
-    }
-    // SetTheme() above ran before we adjusted the Light theme, so re-push
+    // WiniPDF: upstream assumed themes[0] is its Light theme and painted it
+    // white (or with the user's custom background) here. themes[0] is our dark
+    // WiniCarbon now, so that adjustment would whiten it on every launch -
+    // the root cause of the "carbon renders white" bug. Removed.
     UpdateGuiColorsFromTheme();
 }
 
