@@ -393,8 +393,12 @@ bool LoadSettings() {
     if (trans::ValidateLangCode(gprefs->uiLanguage)) {
         SetCurrentLang(gprefs->uiLanguage);
     } else {
-        // guess the ui language on first start
-        str::ReplaceWithCopy(&gprefs->uiLanguage, trans::DetectUserLang());
+        // guess the ui language on first start; WiniPDF ships Español + English
+        TempStr detected = trans::DetectUserLang();
+        if (!str::EqI(detected, StrL("es")) && !str::EqI(detected, StrL("en"))) {
+            detected = StrL("en");
+        }
+        str::ReplaceWithCopy(&gprefs->uiLanguage, detected);
     }
 
     gprefs->lastPrefUpdate = file::GetModificationTime(settingsPath);

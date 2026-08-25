@@ -219,4 +219,9 @@ void DarkModeApplyToFrameAfterThemeChange(MainWindow* win) {
     ApplyToInfotip(win);
     // WiniPDF: the home page's search edit lives on the canvas, not the frame
     DarkModeApplyToChildControls(win->hwndCanvas);
+    // WiniPDF: the toolbar host is a native window too; on a light-mode Windows
+    // it would render white behind our dark theme (same fix as the menu bar)
+    if (win->hwndToolbar && !IsLightColor(ThemeWindowControlBackgroundColor())) {
+        DarkModeApplyToMenuBar(win->hwndToolbar);
+    }
 }

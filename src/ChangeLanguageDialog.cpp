@@ -64,6 +64,11 @@ void ChangeLanguageWnd::FilterList() {
     Str currLangCode = trans::GetCurrentLangCode();
     for (int i = 0; i < trans::GetLangsCount(); i++) {
         TempStr name = trans::GetLangNameByIdxTemp(i);
+        // WiniPDF: ship Español + English only; community requests add more
+        TempStr code = trans::GetLangCodeByIdxTemp(i);
+        if (!str::EqI(code, StrL("es")) && !str::EqI(code, StrL("en"))) {
+            continue;
+        }
         if (filter && !str::ContainsI(name, filter)) {
             continue;
         }
