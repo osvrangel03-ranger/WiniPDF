@@ -219,7 +219,8 @@ void TabCtrl::Paint(VirtPaintCtx& ctx) {
         textColor = IsLightColor(tabBgCol) ? MkRgb(0xC4, 0x1E, 0x1E) : MkRgb(0xFF, 0x6A, 0x6A);
     }
 
-    gfx->FillRect(r, tabBgCol);
+    int rad = DpiScale(6);
+    gfx->FillRoundedRect(r, rad, tabBgCol, tabBgCol);
 
     bool isRtl = IsTabsRtl(hwnd);
     PlatformFont* font = tabsCtrl->GetFont();
@@ -447,10 +448,11 @@ void TabsCtrl::LayoutTabs() {
     vroot->SetBounds(rect);
     VirtCtrl::SetBounds(rect);
 
+    int gap = DpiScale(4);
     for (int i = 0; i < nTabs; i++) {
         int idx = isRtl ? (nTabs - 1 - i) : i;
         TabCtrl* t = tabCtrls[idx];
-        Rect r = {x, 0, tabSize.dx, tabSize.dy};
+        Rect r = {x, 0, tabSize.dx - gap, tabSize.dy};
         // absolute client coords; TabCtrl::SetBounds rebases via parent origin
         t->SetBounds({rect.x + r.x, rect.y + r.y, r.dx, r.dy});
         x += tabSize.dx;
