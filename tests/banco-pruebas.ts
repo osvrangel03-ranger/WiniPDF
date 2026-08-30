@@ -1,4 +1,4 @@
-// Banco de pruebas visual WiniPDF: lanza la app en cada tema, captura y
+﻿// Banco de pruebas visual WiniPDF: lanza la app en cada tema, captura y
 // analiza pixeles para detectar las cajas blancas (carbon) y negras (amber).
 // Uso: bun tests/banco-pruebas.ts
 import { waitForFrame, killAndWait } from "./win-automation.ts";
@@ -38,13 +38,13 @@ for (const t of temas) {
     continue;
   }
   await Bun.sleep(1800);
-  const png = "C:\\Users\\osvra\\Documents\\Default Project\\winipdf\\diseno\\banco-" + (t.esperado === "oscuro" ? "carbon" : "amber") + ".png";
+  const png = "C:\\Users\\osvra\\Documents\\Ox Alpha\\proyectos\\WiniPDF\\capturas\\banco-" + (t.esperado === "oscuro" ? "carbon" : "amber") + ".png";
   captureWindowDCToPng(hwnd, png);
   await killAndWait(proc);
 
   const analisis = Bun.spawnSync([
     "powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
-    "..\\..\\herramientas\\analizar-captura.ps1", "-Ruta", png,
+    "..\\..\\..\\herramientas\\analizar-captura.ps1", "-Ruta", png,
   ]);
   const salida = analisis.stdout.toString().trim();
   console.log(`[${t.nombre}] esperado=${t.esperado}`);
