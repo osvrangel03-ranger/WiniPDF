@@ -176,7 +176,6 @@ void DarkModeApplyToMenuBar(HWND hwndRebar) {
 }
 
 void DarkModeApplyToChildControls(HWND hwnd) {
-    // WiniPDF: our default theme is dark, so decide by background luminance
     if (!gUseDarkModeLib || IsLightColor(ThemeWindowControlBackgroundColor())) {
         return;
     }

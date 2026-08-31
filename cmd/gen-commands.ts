@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "node:fs";
+﻿import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 // Command palette display verbs:
@@ -226,7 +226,7 @@ export const commands = [
     "CmdDocumentExtractText", "Extract Text From Document...",
     "CmdDocumentShowOutline", "Show Document Bookmarks...",
     "CmdSetScreenshotHotkey", "Set Screenshot Hotkey...",
-    "CmdReadAloud", "Read Aloud",
+    "CmdReadAloud", "Leer en voz alta",
     "CmdPauseReadAloud", "Pause Reading",
     "CmdContinueReadAloud", "Continue Reading",
     "CmdStopReadAloud", "Stop Reading",
@@ -259,7 +259,7 @@ export const commands = [
     "CmdToggleLightDarkTheme", "Toggle Light/Dark Theme",
     "CmdChangeTheme", "Change Theme...",
     "CmdTranslateSelection", "Translate Selection...",
-    "CmdFavoriteShowInTab", "Show Favorites in Tab",
+    "CmdFavoriteShowInTab", "Mostrar favoritos en pestaña",
     "CmdTocExpandToLevel1", "Bookmarks: Expand to Level 1",
     "CmdTocExpandToLevel2", "Bookmarks: Expand to Level 2",
     "CmdTocExpandToLevel3", "Bookmarks: Expand to Level 3",
@@ -274,7 +274,7 @@ export const commands = [
     "CmdToggleImages", "Toggle Show Images",
     "CmdSelectTextViaKeyboard", "Select Text With Keyboard",
     "CmdOpenFileWithOSFilePicker", "Open File With Windows File Picker...",
-    "CmdToggleFilePicker", "SumatraPDF File Picker",
+    "CmdToggleFilePicker", "File Picker",
     "CmdToggleBoolSetting", "Toggle Boolean Setting",
     "CmdFixDefaultApp", "Fix Default App For Extension",
     "CmdAIChatWithAntiGravity", "Antigravity chat...",

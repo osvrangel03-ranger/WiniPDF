@@ -450,3 +450,21 @@ es:Cambiar tema
 es:Configuración avanzada...
 :Check for Updates
 es:Buscar actualizaciones
+:Manual
+es:Manual
+:Keyboard Shortcuts
+es:Atajos de teclado
+:Manual On Website
+es:Manual en el sitio web
+:Visit Website
+es:Visitar sitio web
+:Check for Updates
+es:Buscar actualizaciones
+:Toggle Render Queue Info
+es:Alternar información de cola de renderizado
+:Toggle Cache Info
+es:Alternar información de caché
+:About WiniPDF
+es:Acerca de WiniPDF
+:Sumatra File Picker
+es:File Picker
