@@ -14,6 +14,7 @@
 #include "gui/GuiColors.h"
 #include "gui/VirtCtrl.h"
 #include "gui/win/TabsCtrl.h"
+#include "Theme.h"
 
 // Forward declaration - defined in MainWindow.cpp
 struct MainWindow;
@@ -949,7 +950,7 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
                 return 0;
             }
             HDC hdc = GetDC(hwnd);
-            Color bgCol = GetColor(kColTabBg);
+            Color bgCol = ThemeWindowBackgroundColor();
             if (vroot) {
                 PaintVirtTree(vroot, hdc, clientRc, bgCol);
             } else {
