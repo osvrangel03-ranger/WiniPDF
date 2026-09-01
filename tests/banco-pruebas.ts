@@ -22,7 +22,7 @@ for (const t of temas) {
   const cfg = "out\\rel64\\SumatraPDF-settings.txt";
   const ps = Bun.spawnSync([
     "powershell", "-NoProfile", "-Command",
-    `(Get-Content '${cfg}' -Raw) -replace 'Theme = .*', 'Theme = ${t.nombre}' | Set-Content '${cfg}' -NoNewline -Encoding UTF8`,
+    `$c=[IO.File]::ReadAllText('${cfg}',[Text.Encoding]::UTF8); $c2=$c -replace '(?m)^Theme = .*', 'Theme = ${t.nombre}'; [IO.File]::WriteAllText('${cfg}',$c2,[Text.Encoding]::UTF8); echo ok`,
   ]);
   if (ps.exitCode !== 0) {
     console.error("no se pudo parchar settings (existe " + cfg + "?)");
@@ -38,13 +38,13 @@ for (const t of temas) {
     continue;
   }
   await Bun.sleep(1800);
-  const png = "C:\\Users\\osvra\\Documents\\Ox Alpha\\proyectos\\WiniPDF\\capturas\\banco-" + (t.esperado === "oscuro" ? "carbon" : "amber") + ".png";
+  const png = "C:\\Users\\osvra\\Documents\\Osvaldo Docs\\Proyectos\\WiniPDF\\WiniPDF\\WiniPDF\\capturas\\banco-" + (t.esperado === "oscuro" ? "carbon" : "amber") + ".png";
   captureWindowDCToPng(hwnd, png);
   await killAndWait(proc);
 
   const analisis = Bun.spawnSync([
     "powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
-    "..\\..\\..\\herramientas\\analizar-captura.ps1", "-Ruta", png,
+    "C:\\Users\\osvra\\Documents\\Osvaldo Docs\\Proyectos\\WiniPDF\\herramientas\\analizar-captura.ps1", "-Ruta", png,
   ]);
   const salida = analisis.stdout.toString().trim();
   console.log(`[${t.nombre}] esperado=${t.esperado}`);

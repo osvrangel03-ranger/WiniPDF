@@ -926,11 +926,6 @@ struct GlobalPrefs {
     // Shift+I (Invert Colors) is separate: it swaps the page colors for
     // the session whatever this is set to
     Str documentColorsFollowTheme;
-    // EXPERIMENTAL, OFF by default: enable Windows 11 Mica backdrop
-    // (DWMWA_SYSTEMBACKDROP_TYPE) via darkmodelib. Requires Windows 11
-    // 22H2+; app chrome must paint transparency (currently opaque — enable
-    // only for testing).
-    bool useMica;
     // if both the favorites and the bookmarks part of the sidebar are
     // visible, this is the height of the bookmarks (table of contents)
     // part, in screen pixels
@@ -1962,7 +1957,6 @@ static const FieldInfo gGlobalPrefsFields[] = {
     {offsetof(GlobalPrefs, lastLightTheme), SettingType::String, (intptr_t)"", true},
     {offsetof(GlobalPrefs, lastDarkTheme), SettingType::String, (intptr_t)"", true},
     {offsetof(GlobalPrefs, documentColorsFollowTheme), SettingType::String, (intptr_t)"off"},
-    {offsetof(GlobalPrefs, useMica), SettingType::Bool, false},
     {offsetof(GlobalPrefs, tocDy), SettingType::Int, 0, true},
     {offsetof(GlobalPrefs, toolbarCustomLayout), SettingType::String, (intptr_t)""},
     {offsetof(GlobalPrefs, toolbarShowReadAloud), SettingType::Bool, false},
@@ -2051,7 +2045,7 @@ static const FieldInfo gGlobalPrefsFields[] = {
 };
 static const StructInfo gGlobalPrefsInfo = {
     sizeof(GlobalPrefs),
-    148,
+    147,
     gGlobalPrefsFields,
     "\0\0DefaultDisplayMode\0DefaultZoom\0DisableJavaScript\0AllowExternalImages\0EnableTeXEnhancements\0EscToExit\0Ful"
     "lPathInTitle\0InverseSearchCmdLine\0LazyLoading\0MainWindowBackground\0NoHomeTab\0HomePageSortByFrequentlyRead\0Ho"
@@ -2062,15 +2056,15 @@ static const StructInfo gGlobalPrefsInfo = {
     "FocusIndicator\0ShowAnnotationNotification\0ShowTocPageNumbers\0ShowStartPage\0SidebarDx\0Scrollbars\0ScrollbarInS"
     "inglePage\0SmoothScroll\0ScrollLineAmount\0PaddingAfterLastPage\0IgnoreDestinationZoom\0HighlightLinkDestination\0"
     "CitationHoverDelay\0ReadAloudVoiceId\0ReadAloudSpeed\0FastScrollOverScrollbar\0PreventSleepInFullscreen\0TabWidth"
-    "\0Theme\0LastLightTheme\0LastDarkTheme\0DocumentColorsFollowTheme\0UseMica\0TocDy\0ToolbarCustomLayout\0ToolbarSho"
-    "wReadAloud\0ToolbarSize\0TreeFontName\0TreeFontSize\0UIFontSize\0DisableAntiAlias\0EngineeringDrawingEnhance\0Disa"
-    "bleAutoLinks\0UseSysColors\0UseTabs\0SelectionToolbar\0SelectionToolbarLayout\0TabsMru\0CtrlTabSimple\0ZoomLevels"
-    "\0ZoomIncrement\0\0FixedPageUI\0\0EBookUI\0\0ComicBookUI\0\0ImageUI\0\0ChmUI\0\0MarkdownUI\0\0HtmlUI\0\0ClaudeCode"
-    "\0\0GrokBuild\0\0CodexBuild\0\0AntiGravity\0\0AIChatSidebarDx\0\0TranslateToLang\0TranslateFromLang\0TranslateEngi"
-    "ne\0\0Annotations\0\0ExternalViewers\0\0ForwardSearch\0\0PrinterDefaults\0\0Fullscreen\0\0SelectionHandlers\0\0Sho"
-    "rtcuts\0\0Themes\0\0TabGroups\0\0CustomScreenDPI\0\0\0DefaultPasswords\0UiLanguage\0VersionToSkip\0WindowState\0Wi"
-    "ndowPos\0SearchUIWindowPos\0HelpWindowPos\0AnnotationsWindowSize\0FileStates\0SessionData\0ReopenOnce\0TimeOfLastU"
-    "pdateCheck\0OpenCountWeek\0PropWinPos\0CheckForUpdates\0\0",
+    "\0Theme\0LastLightTheme\0LastDarkTheme\0DocumentColorsFollowTheme\0TocDy\0ToolbarCustomLayout\0ToolbarShowReadAlou"
+    "d\0ToolbarSize\0TreeFontName\0TreeFontSize\0UIFontSize\0DisableAntiAlias\0EngineeringDrawingEnhance\0DisableAutoLi"
+    "nks\0UseSysColors\0UseTabs\0SelectionToolbar\0SelectionToolbarLayout\0TabsMru\0CtrlTabSimple\0ZoomLevels\0ZoomIncr"
+    "ement\0\0FixedPageUI\0\0EBookUI\0\0ComicBookUI\0\0ImageUI\0\0ChmUI\0\0MarkdownUI\0\0HtmlUI\0\0ClaudeCode\0\0GrokBu"
+    "ild\0\0CodexBuild\0\0AntiGravity\0\0AIChatSidebarDx\0\0TranslateToLang\0TranslateFromLang\0TranslateEngine\0\0Anno"
+    "tations\0\0ExternalViewers\0\0ForwardSearch\0\0PrinterDefaults\0\0Fullscreen\0\0SelectionHandlers\0\0Shortcuts\0\0"
+    "Themes\0\0TabGroups\0\0CustomScreenDPI\0\0\0DefaultPasswords\0UiLanguage\0VersionToSkip\0WindowState\0WindowPos\0S"
+    "earchUIWindowPos\0HelpWindowPos\0AnnotationsWindowSize\0FileStates\0SessionData\0ReopenOnce\0TimeOfLastUpdateCheck"
+    "\0OpenCountWeek\0PropWinPos\0CheckForUpdates\0\0",
     "\0\0default layout of pages. valid values: automatic, single page, facing, book view, continuous, continuous "
     "facing, continuous book view, page aspect. page aspect (3.7+): first open of a PDF, XPS, DjVu or PostScript file "
     "uses page 1 â€” taller than wide is continuous + fit width, wider than tall is single page + fit page; a "
@@ -2143,9 +2137,7 @@ static const StructInfo gGlobalPrefsInfo = {
     "as-is — best for dark reading); legacy (also recolor images; pre-3.7 invert-style). Does not change "
     "menus/toolbars — use Theme for UI chrome. Settings / Theme and the CmdSetDocumentColorsFollowTheme command set "
     "all three values. Shift+I (Invert Colors) is separate: it swaps the page colors for the session whatever this is "
-    "set to\0EXPERIMENTAL, OFF by default: enable Windows 11 Mica backdrop (DWMWA_SYSTEMBACKDROP_TYPE) via "
-    "darkmodelib. Requires Windows 11 22H2+; app chrome must paint transparency (currently opaque — enable only for "
-    "testing).\0if both the favorites and the bookmarks part of the sidebar are visible, this is the height of the "
+    "set to\0if both the favorites and the bookmarks part of the sidebar are visible, this is the height of the "
     "bookmarks (table of contents) part, in screen pixels\0the toolbar's built-in buttons, in the order you want them, "
     "e.g. CmdOpenFile CmdPrint PageInfo | CmdFindFirst. Leave a button out to hide it. | is a separator and PageInfo "
     "is the page number box. Empty (the default) means the standard layout. Buttons you added yourself (see Shortcuts) "

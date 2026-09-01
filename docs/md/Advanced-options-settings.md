@@ -300,12 +300,6 @@ LastDarkTheme =
 ; session whatever this is set to (introduced in version 3.7)
 DocumentColorsFollowTheme = off
 
-; EXPERIMENTAL, OFF by default: enable Windows 11 Mica backdrop
-; (DWMWA_SYSTEMBACKDROP_TYPE) via darkmodelib. Requires Windows 11 22H2+; app
-; chrome must paint transparency (currently opaque — enable only for testing).
-; (introduced in version 3.7)
-UseMica = false
-
 ; if both the favorites and the bookmarks part of the sidebar are visible, this
 ; is the height of the bookmarks (table of contents) part, in screen pixels
 TocDy = 0
