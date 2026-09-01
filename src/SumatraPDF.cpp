@@ -7104,7 +7104,7 @@ static bool IsUiLayoutEq(UILayout* s1, UILayout* s2) {
            s1->tocVisible == s2->tocVisible && s1->showFavorites == s2->showFavorites &&
            s1->favoritesAsTab == s2->favoritesAsTab && s1->showMenuBarRebar == s2->showMenuBarRebar &&
            s1->aiChatVisible == s2->aiChatVisible && s1->aiChatDx == s2->aiChatDx &&
-           s1->sidebarOnRight == s2->sidebarOnRight;
+           s1->sidebarOnRight == s2->sidebarOnRight && s1->tabCount == s2->tabCount;
 }
 
 // Favorites-only must not reserve a tab row (issue #5861)
@@ -7254,6 +7254,7 @@ static bool RelayoutFrame(MainWindow* win, bool updateToolbars, int sidebarDx) {
     curState.aiChatVisible = win->uiState.aiChatVisible;
     curState.aiChatDx = win->aiChatDx;
     curState.sidebarOnRight = SidebarOnRightLayout();
+    curState.tabCount = win->TabCount();
 
     // A top-level size change is already a live, batched sibling resize.
     // Toggling WM_SETREDRAW on the frame for every step makes Windows discard

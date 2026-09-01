@@ -1,4 +1,4 @@
-AppTranslator: SumatraPDF
+﻿AppTranslator: SumatraPDF
 wini-es-v1
 :&About
 es:&Acerca de
@@ -466,5 +466,5 @@ es:Alternar información de cola de renderizado
 es:Alternar información de caché
 :About WiniPDF
 es:Acerca de WiniPDF
-:Sumatra File Picker
-es:File Picker
+:WiniPDF File Picker
+es:Selector de archivos WiniPDF

@@ -477,6 +477,7 @@ struct MainWindow {
             bool aiChatVisible = false;
             int aiChatDx = 0;
             bool sidebarOnRight = false;
+            int tabCount = 0;
         };
         Layout layout;    // last applied layout state
         Rect lastFrameRc; // previous frame client size; a change skips WM_SETREDRAW

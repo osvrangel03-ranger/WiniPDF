@@ -453,7 +453,15 @@ void TabsCtrl::LayoutTabs() {
     for (int i = 0; i < nTabs; i++) {
         int idx = isRtl ? (nTabs - 1 - i) : i;
         TabCtrl* t = tabCtrls[idx];
-        Rect r = {x, 0, tabSize.dx - gap, tabSize.dy};
+        int w = tabSize.dx - gap;
+        // last tab consumes the trailing gap so the row is edge-to-edge (LTR)
+        if (!isRtl && i == nTabs - 1) {
+            w = rect.dx - x;
+            if (w < DpiScale(40)) {
+                w = tabSize.dx - gap;
+            }
+        }
+        Rect r = {x, 0, w, tabSize.dy};
         // absolute client coords; TabCtrl::SetBounds rebases via parent origin
         t->SetBounds({rect.x + r.x, rect.y + r.y, r.dx, r.dy});
         x += tabSize.dx;
@@ -538,7 +546,16 @@ HBITMAP TabsCtrl::RenderForDragging(int idx) {
 
     SolidBrush br(GdipCol(bgCol));
     Gdiplus::Rect gr(0, 0, r.dx, r.dy);
-    gfx->FillRectangle(&br, gr);
+    {
+        int rad = DpiScale(6);
+        Gdiplus::GraphicsPath path;
+        path.AddArc(gr.X, gr.Y, rad * 2, rad * 2, 180, 90);
+        path.AddArc(gr.GetRight() - rad * 2, gr.Y, rad * 2, rad * 2, 270, 90);
+        path.AddArc(gr.GetRight() - rad * 2, gr.GetBottom() - rad * 2, rad * 2, rad * 2, 0, 90);
+        path.AddArc(gr.X, gr.GetBottom() - rad * 2, rad * 2, rad * 2, 90, 90);
+        path.CloseFigure();
+        gfx->FillPath(&br, &path);
+    }
 
     HDC hdc = GetDC(hwnd);
     Font f(hdc, GetFont()->GetHFont());

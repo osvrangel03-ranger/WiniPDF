@@ -48,6 +48,10 @@ Color DarkModeDialogBgColor() {
     if (DarkModeIsActive()) {
         return ThemeWindowControlBackgroundColor();
     }
+    // WiniPDF: light theme dialogs should be warm amber, not neutral gray
+    if (IsLightColor(ThemeWindowBackgroundColor())) {
+        return ThemeWindowBackgroundColor();
+    }
     return MkGray(0xee);
 }
 

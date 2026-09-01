@@ -147,6 +147,6 @@ SumatraPDF community (GPLv3). Icon designed by
 [@osvrangel03-ranger](https://github.com/osvrangel03-ranger).
 
 **Donate**: donations fund the AI subscriptions that make this ecosystem
-possible → [paypal.me/sald911](https://paypal.me/sald911)
+possible — payment methods being set up (coming soon!). In the meantime you can open an issue if you want to contribute.
 
 **License**: GPLv3, inherited from SumatraPDF.

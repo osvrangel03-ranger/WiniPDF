@@ -760,7 +760,7 @@ struct GlobalPrefs {
     Str homePageViewMode;
     // file open dialog used by Open File: empty or os (standard Windows
     // file picker), or sumatrapdf (Navigate Files in Folder). Toggled by
-    // Settings / SumatraPDF File Picker
+    // Settings / WiniPDF File Picker
     Str filePicker;
     // if true, a document will be reloaded automatically whenever it's
     // changed (currently doesn't work for documents shown in the ebook UI)

@@ -1239,6 +1239,7 @@ struct HomePageLayoutCache {
     bool isRtl = false;
     int tipIdx = -1;
     bool tipIsPromo = false;
+    Color themeWindowBg = 0;
     Str filterText; // owned
 
     Rect rcThumbsArea;
@@ -1327,6 +1328,9 @@ static bool HomeLayoutCacheMatches(const Rect& rc, Str filterText) {
     if (c.isRtl != IsUIRtl()) {
         return false;
     }
+    if (c.themeWindowBg != ThemeWindowBackgroundColor()) {
+        return false;
+    }
     if (!str::Eq(c.filterText, filterText)) {
         return false;
     }
@@ -1387,6 +1391,7 @@ static void SaveHomeLayoutCache(const HomePageLayout& l, Str filterText, int scr
     c.listView = HomePageIsListView();
     c.sortByFreq = gGlobalPrefs && gGlobalPrefs->homePageSortByFrequentlyRead;
     c.isRtl = IsUIRtl();
+    c.themeWindowBg = ThemeWindowBackgroundColor();
     str::ReplaceWithCopy(&c.filterText, filterText);
     c.rcThumbsArea = l.rcThumbsArea;
     c.rcSearchBorder = l.rcSearchBorder;

@@ -338,6 +338,9 @@ void MainWindow::UpdateCanvasSize() {
     // about the change of the canvas size
     delete buffer;
     buffer = new DoubleBuffer(hwndCanvas, canvasRc);
+    // WiniPDF: stale buffer left ghost of previous page/home until next WM_PAINT
+    // with correct rect — force full canvas repaint immediately
+    HwndInvalidate(hwndCanvas);
 
     if (IsDocLoaded()) {
         // the display model needs to know the full size (including scroll bars)

@@ -20,6 +20,7 @@ License: GPLv3 */
 #include "GlobalPrefs.h"
 #include "Translations.h"
 #include "PdfDarkMode.h"
+#include "HomePage.h"
 
 // The installer and uninstaller never load settings, so CreateThemeCommands()
 // doesn't run and there is no current theme - every Theme*Color() accessor
@@ -462,8 +463,14 @@ static void UpdateGuiColorsFromTheme() {
     // custom top-level windows (dialogs, popups) sit their content on ctlBg,
     // like the side panels; a window that wants something else (the toolbar's
     // palette) sets its own textColor / bgColor
+    // WiniPDF: for WiniAmber we want dialogs in warm amber (#f6ecd9) instead of
+    // near-white control bg (#fdf8ee)
     gColsWin[kColWinText] = text;
-    gColsWin[kColWinBg] = ctlBg;
+    if (IsLightColor(ThemeWindowBackgroundColor())) {
+        gColsWin[kColWinBg] = ThemeWindowBackgroundColor();
+    } else {
+        gColsWin[kColWinBg] = ctlBg;
+    }
 
     // the underline under a borderless Edit is a separator, so it takes the edge
     // color like every other border and divider. Blending the control's own text
@@ -471,6 +478,8 @@ static void UpdateGuiColorsFromTheme() {
     // on the Dark theme's black sidebar that gave a bright #535353 line instead
     // of the theme's #374151 (issue #5893)
     gColsEdit[kColEditBottomBorder] = edge;
+    // WiniPDF: theme change invalidates home layout cache (colors affect measurement)
+    HomePageInvalidateLayoutCache();
 }
 
 // The app's theme, or the system palette it follows, changed: push our colors
@@ -514,6 +523,15 @@ void SetCurrentThemeFromSettings() {
     // WiniCarbon now, so that adjustment would whiten it on every launch -
     // the root cause of the "carbon renders white" bug. Removed.
     UpdateGuiColorsFromTheme();
+    // WiniPDF: migrate corrupted DocumentColorsFollowTheme (was saved as theme name)
+    if (gGlobalPrefs && gGlobalPrefs->documentColorsFollowTheme) {
+        Str v = gGlobalPrefs->documentColorsFollowTheme;
+        if (str::IndexOf(v, StrL("Wini")) >= 0 || str::IndexOf(v, StrL("Carbon")) >= 0 ||
+            str::IndexOf(v, StrL("Amber")) >= 0 || str::IndexOf(v, StrL("Tema")) >= 0) {
+            logf("SetCurrentThemeFromSettings: fixing corrupted DocumentColorsFollowTheme '%s' -> 'off'\n", v);
+            str::ReplaceWithCopy(&gGlobalPrefs->documentColorsFollowTheme, StrL("off"));
+        }
+    }
 }
 
 #define GetThemeCol(name, def) GetParsedColor(name, def)

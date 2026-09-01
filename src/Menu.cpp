@@ -84,7 +84,7 @@ static MenuDef menuDefFile[] = {
         CmdOpenFile,
     },
     {
-        _TRN("Use SumatraPDF File Picker"),
+        _TRN("Use WiniPDF File Picker"),
         CmdToggleFilePicker,
     },
     {
@@ -555,7 +555,7 @@ static MenuDef menuDefSettings[] = {
     { StrL(kMenuSeparator),                       0                  },
 #endif
     {
-        _TRN("Use SumatraPDF File Picker"),
+        _TRN("Use WiniPDF File Picker"),
         CmdToggleFilePicker,
     },
     {
