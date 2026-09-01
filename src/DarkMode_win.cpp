@@ -115,9 +115,9 @@ void DarkModeApplyThemeColors() {
     // on Win11 22H2+ (build >=22621). UI is currently opaque, so backdrop is not
     // visible until chrome paints transparency — keep disabled until Fluent pass.
     if (gGlobalPrefs && gGlobalPrefs->useMica) {
-        // Check Win11 22H2+ is handled inside darkmodelib (it no-ops on older builds)
+        // Win11 22H2+ (22621+) handles inside darkmodelib; no-op on older builds
         DarkMode::setMicaConfig(2); // DWMSBT_MAINWINDOW
-        DarkMode::setMicaExtendedConfig(false); // title bar only until full transparency
+        DarkMode::setMicaExtendedConfig(true); // full-window Mica (Fluent)
     } else {
         DarkMode::setMicaConfig(0); // DWMSBT_NONE
         DarkMode::setMicaExtendedConfig(false);
