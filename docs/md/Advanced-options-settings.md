@@ -293,12 +293,18 @@ LastDarkTheme =
 ; how MuPDF-rendered documents (PDF, XPS, DjVu, EPUB, MOBI, FB2, CBZ, images,
 ; etc.) use UI / FixedPageUI colors for the page. Values: off (document's own
 ; colors; default); smart (recolor text and page background, keep photos/images
-; as-is â€” best for dark reading); legacy (also recolor images; pre-3.7
-; invert-style). Does not change menus/toolbars â€” use Theme for UI chrome.
+; as-is — best for dark reading); legacy (also recolor images; pre-3.7
+; invert-style). Does not change menus/toolbars — use Theme for UI chrome.
 ; Settings / Theme and the CmdSetDocumentColorsFollowTheme command set all three
 ; values. Shift+I (Invert Colors) is separate: it swaps the page colors for the
 ; session whatever this is set to (introduced in version 3.7)
 DocumentColorsFollowTheme = off
+
+; EXPERIMENTAL, OFF by default: enable Windows 11 Mica backdrop
+; (DWMWA_SYSTEMBACKDROP_TYPE) via darkmodelib. Requires Windows 11 22H2+; app
+; chrome must paint transparency (currently opaque — enable only for testing).
+; (introduced in version 3.7)
+UseMica = false
 
 ; if both the favorites and the bookmarks part of the sidebar are visible, this
 ; is the height of the bookmarks (table of contents) part, in screen pixels

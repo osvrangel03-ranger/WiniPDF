@@ -46,6 +46,7 @@ typedef enum {
 #define DWMWA_BORDER_COLOR 34
 #define DWMWA_COLOR_DEFAULT 0xFFFFFFFF
 #define DWMWA_COLOR_NONE 0xFFFFFFFE
+#define DWMWA_SYSTEMBACKDROP_TYPE 38
 #endif
 
 // kernel32.dll — only APIs not guaranteed on stock Windows 7

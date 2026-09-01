@@ -109,6 +109,19 @@ void DarkModeApplyThemeColors() {
     DarkMode::setSysColor(COLOR_WINDOW, DarkMode::getCtrlBackgroundColor());
     DarkMode::setSysColor(COLOR_WINDOWTEXT, DarkMode::getTextColor());
     DarkMode::setSysColor(COLOR_BTNFACE, DarkMode::getViewGridlinesColor());
+
+    // WiniPDF: Mica backdrop — OFF by default (UseMica=false). When enabled,
+    // darkmodelib drives DWMWA_SYSTEMBACKDROP_TYPE (2=Mica,3=Acrylic,4=Mica Alt)
+    // on Win11 22H2+ (build >=22621). UI is currently opaque, so backdrop is not
+    // visible until chrome paints transparency — keep disabled until Fluent pass.
+    if (gGlobalPrefs && gGlobalPrefs->useMica) {
+        // Check Win11 22H2+ is handled inside darkmodelib (it no-ops on older builds)
+        DarkMode::setMicaConfig(2); // DWMSBT_MAINWINDOW
+        DarkMode::setMicaExtendedConfig(false); // title bar only until full transparency
+    } else {
+        DarkMode::setMicaConfig(0); // DWMSBT_NONE
+        DarkMode::setMicaExtendedConfig(false);
+    }
 }
 
 void DarkModeRememberTreeViewStyle() {

@@ -1379,18 +1379,24 @@ const globalPrefs: Field[] = [
     .internal()
     .ver("3.7"),
   // Full text is shown in Advanced Settings and Advanced-options-settings.md
-  // (do not use a short .doc() here â€” that would replace this description).
+  // (do not use a short .doc() here — that would replace this description).
   field(
     "DocumentColorsFollowTheme",
     Str,
     "off",
     "how MuPDF-rendered documents (PDF, XPS, DjVu, EPUB, MOBI, FB2, CBZ, images, etc.) " +
       "use UI / FixedPageUI colors for the page. Values: off (document's own colors; default); " +
-      "smart (recolor text and page background, keep photos/images as-is â€” best for dark reading); " +
-      "legacy (also recolor images; pre-3.7 invert-style). Does not change menus/toolbars â€” use Theme " +
+      "smart (recolor text and page background, keep photos/images as-is — best for dark reading); " +
+      "legacy (also recolor images; pre-3.7 invert-style). Does not change menus/toolbars — use Theme " +
       "for UI chrome. Settings / Theme and the CmdSetDocumentColorsFollowTheme command set " +
       "all three values. Shift+I (Invert Colors) is separate: it swaps the page colors for " +
       "the session whatever this is set to",
+  ).ver("3.7"),
+  field(
+    "UseMica",
+    Bool,
+    false,
+    "EXPERIMENTAL, OFF by default: enable Windows 11 Mica backdrop (DWMWA_SYSTEMBACKDROP_TYPE) via darkmodelib. Requires Windows 11 22H2+; app chrome must paint transparency (currently opaque — enable only for testing).",
   ).ver("3.7"),
   field(
     "TocDy",
