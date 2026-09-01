@@ -1393,6 +1393,12 @@ const globalPrefs: Field[] = [
       "the session whatever this is set to",
   ).ver("3.7"),
   field(
+    "UseMica",
+    Bool,
+    false,
+    "EXPERIMENTAL, OFF by default: enable Windows 11 Mica backdrop (DWMWA_SYSTEMBACKDROP_TYPE) via darkmodelib. Requires Windows 11 22H2+; app chrome must paint transparency (currently opaque — enable only for testing).",
+  ).ver("3.7"),
+  field(
     "TocDy",
     Int,
     0,

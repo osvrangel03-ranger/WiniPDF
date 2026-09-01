@@ -109,6 +109,16 @@ void DarkModeApplyThemeColors() {
     DarkMode::setSysColor(COLOR_WINDOW, DarkMode::getCtrlBackgroundColor());
     DarkMode::setSysColor(COLOR_WINDOWTEXT, DarkMode::getTextColor());
     DarkMode::setSysColor(COLOR_BTNFACE, DarkMode::getViewGridlinesColor());
+
+    // WiniPDF: Mica backdrop — OFF by default (UseMica=false). When enabled,
+    // darkmodelib drives DWMWA_SYSTEMBACKDROP_TYPE (2=Mica) on Win11 22H2+.
+    if (gGlobalPrefs && gGlobalPrefs->useMica) {
+        DarkMode::setMicaConfig(2);
+        DarkMode::setMicaExtendedConfig(true);
+    } else {
+        DarkMode::setMicaConfig(0);
+        DarkMode::setMicaExtendedConfig(false);
+    }
 }
 
 void DarkModeRememberTreeViewStyle() {
