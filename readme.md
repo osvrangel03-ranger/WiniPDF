@@ -63,28 +63,26 @@ el rendimiento es la razón número uno por la que existe este proyecto.
 
 ## Créditos
 
-Este proyecto fue llevado a cabo en **[opencode](https://opencode.ai)** con la
-IA **Ox Alpha Free** como cofundadora técnica: arquitectura del fork,
-identidad visual, sistema de empaquetado, temas Wini, automatización de builds
-y esta página son trabajo conjunto humano-IA. Sin ella, este proyecto no
-existiría. Agradecemos a sus creadores y distribuidores por hacerla accesible.
-
 **Base y corazón del motor**: [SumatraPDF](https://github.com/sumatrapdfreader/sumatrapdf)
 por **Krzysztof Kowalczyk** y toda su comunidad de contribuidores, más los
 autores de las librerías de terceros (MuPDF y demás, ver AUTHORS). Este fork
-existe parado sobre sus hombros.
+existe parado sobre sus hombros y les está profundamente agradecido.
 
-Humano cofundador y diseño del icono: **Osvaldo** ([@osvrangel03-ranger](https://github.com/osvrangel03-ranger)).
+Humano cofundador, identidad visual y diseño del icono: **Osvaldo**
+([@osvrangel03-ranger](https://github.com/osvrangel03-ranger)).
+
+El desarrollo ha sido asistido por herramientas de IA de código abierto.
 
 ## Dona para impulsar el ecosistema
 
 Si WiniPDF te resulta útil, considera apoyar el proyecto: las donaciones se
-destinan íntegramente a **costear las suscripciones de IA y herramientas de
-agentes** que hacen posible el desarrollo de WiniPDF y los próximos proyectos
-del ecosistema Wini.
+destinan íntegramente a **costear las herramientas de desarrollo** (compilación,
+IA y automatización) que hacen posible WiniPDF y los próximos proyectos del
+ecosistema Wini.
 
-> **Dona:** estamos configurando los métodos de pago (¡novedades pronto!).
-> Mientras tanto, puedes escribirnos por un issue si quieres aportar.
+> **Dona:** [github.com/sponsors/osvrangel03-ranger](https://github.com/sponsors/osvrangel03-ranger)
+> — GitHub Sponsors, directo y sin intermediarios. Si prefieres otra vía,
+> abre un issue y lo hablamos.
 
 ## Compilar
 
@@ -141,12 +139,11 @@ Music client.
 **Build**: Visual Studio 2026 (C++ desktop workload) + [Bun](https://bun.sh):
 `bun cmd/build.ts -release` → `out/rel64/`.
 
-**Credits**: built in [opencode](https://opencode.ai) with the **Ox Alpha
-Free** AI as technical co-founder. Engine base by Krzysztof Kowalczyk and the
-SumatraPDF community (GPLv3). Icon designed by
-[@osvrangel03-ranger](https://github.com/osvrangel03-ranger).
+**Credits**: engine base by Krzysztof Kowalczyk and the SumatraPDF community
+(GPLv3). Identity and icon by [@osvrangel03-ranger](https://github.com/osvrangel03-ranger).
+Development assisted by open-source AI tooling.
 
-**Donate**: donations fund the AI subscriptions that make this ecosystem
-possible — payment methods being set up (coming soon!). In the meantime you can open an issue if you want to contribute.
+**Donate**: [github.com/sponsors/osvrangel03-ranger](https://github.com/sponsors/osvrangel03-ranger)
+— donations fund the development tooling that makes this ecosystem possible.
 
 **License**: GPLv3, inherited from SumatraPDF.
