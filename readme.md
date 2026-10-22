@@ -73,16 +73,23 @@ Humano cofundador, identidad visual y diseño del icono: **Osvaldo**
 
 El desarrollo ha sido asistido por herramientas de IA de código abierto.
 
-## Dona para impulsar el ecosistema
+## Apoya el proyecto
 
-Si WiniPDF te resulta útil, considera apoyar el proyecto: las donaciones se
-destinan íntegramente a **costear las herramientas de desarrollo** (compilación,
-IA y automatización) que hacen posible WiniPDF y los próximos proyectos del
-ecosistema Wini.
+WiniPDF es gratis y seguirá siéndolo. Si te resulta útil y quieres que el
+proyecto crezca, las donaciones se destinan íntegramente a **costear las
+herramientas de desarrollo** (compilación, IA y automatización) que hacen posible
+WiniPDF y los próximos proyectos del ecosistema Wini.
 
-> **Dona:** [github.com/sponsors/osvrangel03-ranger](https://github.com/sponsors/osvrangel03-ranger)
-> — GitHub Sponsors, directo y sin intermediarios. Si prefieres otra vía,
-> abre un issue y lo hablamos.
+> **GitHub Sponsors** es el **único medio de donación** del proyecto. La cuenta
+> ya está solicitada y está **en revisión por parte de GitHub**; cuando la
+> aprueben, aquí mismo aparecerá el botón **Sponsor** del repositorio.
+> Si el botón ya está visible, ya puedes donar.
+>
+> [github.com/sponsors/osvrangel03-ranger](https://github.com/sponsors/osvrangel03-ranger)
+
+No hay PayPal, ni transferencias, ni ninguna otra vía: si algún día se abre otra,
+se anunciará aquí mismo. Cualquier sitio que pida dinero "para WiniPDF" y no sea
+GitHub Sponsors no es nuestro.
 
 ## Compilar
 
@@ -147,7 +154,10 @@ Music client.
 (GPLv3). Identity and icon by [@osvrangel03-ranger](https://github.com/osvrangel03-ranger).
 Development assisted by open-source AI tooling.
 
-**Donate**: [github.com/sponsors/osvrangel03-ranger](https://github.com/sponsors/osvrangel03-ranger)
-— donations fund the development tooling that makes this ecosystem possible.
+**Support**: [GitHub Sponsors](https://github.com/sponsors/osvrangel03-ranger) is
+the **only** way to donate. The account is submitted and **awaiting GitHub's
+review**; once approved the *Sponsor* button appears on this repo. If you can see
+the button, donations are open. There is no PayPal or any other channel — if some
+other site asks for money "for WiniPDF", it isn't us.
 
 **License**: GPLv3, inherited from SumatraPDF.
