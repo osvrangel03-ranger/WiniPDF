@@ -3026,11 +3026,44 @@ static void SetWindowBorderColor(HWND hwnd, Color color) {
     DwmSetWindowAttribute(hwnd, DWMWA_BORDER_COLOR, &color, sizeof(color));
 }
 
+// WiniPDF: DWM rounds the frame, but our client paints all the way to the
+// corners, so the top corners still look square. Clip the window itself to the
+// same radius. Maximized/fullscreen windows must not be rounded.
+// bRedraw=false during sizing: the pending relayout paints anyway and it avoids
+// flashing the whole frame on every WM_SIZE.
+static void UpdateWindowRoundedRegion(HWND hwnd, bool rounded, bool bRedraw) {
+    if (!IsWindow(hwnd)) {
+        return;
+    }
+    if (!rounded || IsZoomed(hwnd) || IsIconic(hwnd)) {
+        SetWindowRgn(hwnd, nullptr, bRedraw);
+        return;
+    }
+    RECT wr{};
+    if (!GetWindowRect(hwnd, &wr)) {
+        return;
+    }
+    int dx = wr.right - wr.left;
+    int dy = wr.bottom - wr.top;
+    if (dx <= 0 || dy <= 0) {
+        return;
+    }
+    // CreateRoundRectRgn wants the width/height of the corner ellipse: 2 x radius
+    int diam = DpiScale(16);
+    HRGN rgn = CreateRoundRectRgn(0, 0, dx + 1, dy + 1, diam, diam);
+    if (!rgn) {
+        return;
+    }
+    // SetWindowRgn owns the region from here on: don't DeleteObject it
+    SetWindowRgn(hwnd, rgn, bRedraw);
+}
+
 static void SetWindowRoundedCorners(HWND hwnd, bool rounded) {
     auto cornerPref = rounded ? DWMWCP_ROUND : DWMWCP_DONOTROUND;
     DwmSetWindowAttribute(hwnd, DWMWA_WINDOW_CORNER_PREFERENCE, &cornerPref, sizeof(cornerPref));
     Color borderColor = rounded ? DWMWA_COLOR_DEFAULT : DWMWA_COLOR_NONE;
     SetWindowBorderColor(hwnd, borderColor);
+    UpdateWindowRoundedRegion(hwnd, rounded, true);
 }
 
 // WiniPDF: make the OS-drawn title bar follow our theme instead of the system
@@ -14153,6 +14186,8 @@ LRESULT CALLBACK WndProcSumatraFrame(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) 
             }
             if (win) {
                 RememberDefaultWindowPosition(win);
+                // WiniPDF: keep the rounded clip in step with the new size
+                UpdateWindowRoundedRegion(win->hwndFrame, true, false);
                 // UIState.layout.rc remembers the last laid-out client size;
                 // the scheduled update relayouts only when the size actually
                 // changed, and a burst of WM_SIZE does the work once
