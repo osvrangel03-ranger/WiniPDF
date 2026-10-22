@@ -2645,14 +2645,12 @@ Size VirtButton::GetIdealSize() {
 void VirtButton::Paint(VirtPaintCtx& ctx) {
     bool isEnabled = HasFlag(vwfEnabled);
     Color bg = GetColor((isEnabled && HasFlag(vwfHovered)) ? kColBtnBgHover : kColBtnBg);
-    ctx.gfx->FillRect(ctx.bounds, bg);
     Color borderCol = GetColor(kColBtnBorder);
-    if (!ColorSkipsPaint(borderCol)) {
-        Rect b = ctx.bounds;
-        ctx.gfx->FillRect({b.x, b.y, b.dx, 1}, borderCol);
-        ctx.gfx->FillRect({b.x, b.Bottom() - 1, b.dx, 1}, borderCol);
-        ctx.gfx->FillRect({b.x, b.y, 1, b.dy}, borderCol);
-        ctx.gfx->FillRect({b.Right() - 1, b.y, 1, b.dy}, borderCol);
+    bool paintBorder = !ColorSkipsPaint(borderCol);
+    // WiniPDF: rounded button chrome. The toolbar sets both colors transparent
+    // (it wants just the label), so skip the fill entirely in that case.
+    if (bg != kColorTransparent || paintBorder) {
+        ctx.gfx->FillRoundedRect(ctx.bounds, DpiScale(5), bg, paintBorder ? borderCol : kColorTransparent);
     }
     Rect r = ctx.content;
     r.SubTB(textPadding.top, textPadding.bottom);
@@ -2746,6 +2744,24 @@ Size VirtIconButton::GetIdealSize() {
     return sz;
 }
 
+// WiniPDF: modern pill highlight. Inset from the edges so the fill reads as a
+// floating chip inside the row instead of a hard rectangle glued to the bar.
+static Rect PillRect(Rect r) {
+    int insetY = DpiScale(2);
+    int insetX = DpiScale(2);
+    r.y += insetY;
+    r.dy -= 2 * insetY;
+    r.x += insetX;
+    r.dx -= 2 * insetX;
+    if (r.dy < 1) {
+        r.dy = 1;
+    }
+    if (r.dx < 1) {
+        r.dx = 1;
+    }
+    return r;
+}
+
 void VirtIconButton::Paint(VirtPaintCtx& ctx) {
     bool enabled = IsEnabled();
     int dropDx = DropdownDx();
@@ -2760,12 +2776,12 @@ void VirtIconButton::Paint(VirtPaintCtx& ctx) {
     // a disabled button's last checked state is leftover (e.g. Fit Single Page
     // after switching to the home page); don't paint it as selected
     if (isSelected && enabled && bgSel != kColorUnset) {
-        ctx.gfx->FillRect(action, bgSel);
+        ctx.gfx->FillRoundedRect(PillRect(action), DpiScale(6), bgSel);
     }
     Color bgHover = GetColor(kColIconBtnBgHover);
     if (enabled && HasFlag(vwfHovered) && bgHover != kColorUnset) {
         Rect hi = (dropDx > 0 && hoverOnDropdown) ? drop : action;
-        ctx.gfx->FillRect(hi, bgHover);
+        ctx.gfx->FillRoundedRect(PillRect(hi), DpiScale(6), bgHover);
     }
     Pixmap* px = (!enabled && pixmapDisabled) ? pixmapDisabled : pixmap;
     Rect r = ctx.content;

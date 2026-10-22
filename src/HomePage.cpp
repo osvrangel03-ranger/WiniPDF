@@ -1,4 +1,4 @@
-﻿/* Copyright 2022 the SumatraPDF project authors (see AUTHORS file).
+/* Copyright 2022 the SumatraPDF project authors (see AUTHORS file).
    License: GPLv3 */
 
 #include "base/Base.h"
@@ -206,9 +206,11 @@ static void OpenAboutUrl(VirtMouseEvent* ev) {
     }
 }
 
-
 static TempStr GetAppVersionTemp() {
-    TempStr s = str::DupTemp(StrL("v" CURR_VERSION_STRA));
+    // WiniPDF: lead with our version (the one tagged on GitHub) and show the
+    // SumatraPDF base in parentheses, so the About box can't be mistaken for
+    // upstream's 3.7.
+    TempStr s = str::DupTemp(StrL("v" WINI_VERSION " (base " CURR_VERSION_STRA ")"));
     if (IsProcess64()) {
         s = str::JoinTemp(s, StrL(" 64-bit"));
     } else {
@@ -398,6 +400,8 @@ void AboutCtrl::Sync() {
         AboutRow* el = &gAboutRows[i];
         VirtText* left = LeftAt(i);
         left->font = fontLeftTxt;
+        // translated here (not in gAboutRows) because translations load later
+        left->SetText(_TRA(el->leftTxt));
 
         VirtText* right = RightAt(i);
         right->font = fontRightTxt;
@@ -407,7 +411,7 @@ void AboutCtrl::Sync() {
         // without disk access the url can't be opened, so it isn't a link
         right->withUnderline = isLink;
         right->SetFlag(vwfNoHitTest, !isLink);
-        right->SetText(el->rightTxt ? TrimGitTemp(el->rightTxt) : Str(GetAppVersionTemp()));
+        right->SetText(el->rightTxt ? _TRA(TrimGitTemp(el->rightTxt)) : Str(GetAppVersionTemp()));
     }
 }
 

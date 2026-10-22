@@ -1,21 +1,67 @@
-﻿AppTranslator: SumatraPDF
-wini-es-v1
+AppTranslator: SumatraPDF
+wini-es-v2+apptranslator(1294)
+:# History
+es:# Historial
+:$ Favorites
+es:$ Favoritos
+:% TOC
+es:% TOC
+:%d files
+es:%d archivos
+:%d of %d
+es:%d de %d
+:%d of %d pages
+es:%d de %d páginas
+:%d pages
+es:%d páginas
+:%d pages, %d removed
+es:%d páginas, %d eliminadas
+:%d settings
+es:%d configuraciones
+:%s not supported
+es:%s no compatible
+:%s restore default
+es:%s restaurar predeterminado
+:%s, page %d
+es:%s, página %d
+:& Thumbnails
+es:Miniaturas
 :&About
 es:&Acerca de
 :&Actual Size
 es:Tamaño &real
 :&Advanced Options...
 es:&Opciones avanzadas...
+:&Advanced Settings...
+es:Configuración avanzada...
+:&After page
+es:Después de la página
 :&All selected pages
 es:Todas las páginas &seleccionadas
+:&Apply Crop
+es:Aplicar recorte
+:&Apply Resize
+es:Aplicar redimensionar
+:&Automatically Scroll
+es:Desplazamiento automático
 :&Back
 es:&Atrás
+:&Bing
+es:Bing
 :&Book View
 es:Vista de &libro
+:&Browse Files In Folder...
+es:Explorar archivos en carpeta...
 :&Browse...
 es:&Examinar...
 :&Cancel
 es:&Cancelar
+:&Caret
+es:&Cursor
+:&Certificate:
+es:Certificado:
+:&Chapter:
+es:Capítulo:
 :&Close
 es:&Cerrar
 :&Continue installing 32-bit version
@@ -24,14 +70,22 @@ es:&Continuar instalando la versión de 32 bits
 es:&Copiar selección
 :&Copy To Clipboard
 es:&Copiar al portapapeles
+:&Crop
+es:Recortar
+:&Custom CSS
+es:CSS personalizado
 :&Custom CSS (edit the rules below)
 es:&CSS personalizado (edita las reglas de abajo)
+:&DeepL
+es:DeepL
 :&Discard changes
 es:&Descartar cambios
 :&Even pages only
 es:Sólo páginas &pares
 :&Facing
 es:&Enfrentadas
+:&Favorites
+es:&Favoritos
 :&File
 es:&Archivo
 :&First Page
@@ -44,50 +98,94 @@ es:&Texto libre
 es:&Ir a
 :&Go to page:
 es:&Ir a la página:
+:&Google
+es:Google
 :&Help
 es:&Ayuda
 :&Highlight
 es:&Resaltar
 :&Highlight Form Fields
 es:&Resaltar campos del formulario
+:&Highlighter
+es:Resaltador
+:&Ignore the document's own styling
+es:Ignorar el estilo propio del documento
 :&Image
 es:&Imagen
+:&Image (optional):
+es:Imagen (opcional):
+:&Image From Clipboard
+es:Imagen desde portapapeles
+:&Keyboard Shortcuts
+es:Atajos de teclado
 :&Last Page
 es:&Última página
+:&Location (optional):
+es:Ubicación (opcional):
+:&Magnification:
+es:&Ampliación:
 :&Manual
 es:&Manual
+:&Next File In Folder
+es:Siguiente archivo en carpeta
 :&Next Page
 es:Página &siguiente
 :&Odd pages only
 es:Sólo páginas &impares
+:&Open
+es:Abrir
+:&Open Advanced Settings File...
+es:Abrir archivo de configuración avanzada...
+:&Open Document
+es:&Abrir un documento
 :&Open...
 es:&Abrir...
 :&Options
 es:&Opciones
 :&Options...
 es:&Opciones...
+:&Overwrite
+es:Sobrescribir
+:&Page
+es:Página
+:&Page:
+es:Página:
 :&Password:
 es:&Contraseña:
 :&Pin Document
 es:&Fijar documento
+:&Previous File In Folder
+es:Archivo anterior en carpeta
 :&Previous Page
 es:Página &anterior
+:&Print Selection...
+es:Imprimir selección...
 :&Print...
 es:&Imprimir...
 :&Print... (denied)
 es:&Imprimir... (denegado)
+:&Read Aloud
+es:&Leer en voz alta
 :&Reason (optional):
 es:&Motivo (opcional):
+:&Redact
+es:Redactar
 :&Remember the password for this document
 es:&Recordar la contraseña de este documento
 :&Remember these settings for each document
 es:&Recordar estos ajustes para cada documento
+:&Remove
+es:Eliminar
 :&Remove From History
 es:&Quitar del historial
+:&Resize
+es:Redimensionar
 :&Rotate printout:
 es:&Rotar la impresión:
 :&Save
 es:&Guardar
+:&Save As Image...
+es:Guardar como imagen...
 :&Save As...
 es:&Guardar como...
 :&Save changes to existing PDF
@@ -96,14 +194,22 @@ es:&Guardar cambios en el PDF existente
 es:&Guardar en el PDF existente
 :&Search With Google
 es:&Buscar con Google
+:&Selection
+es:&Selección
+:&Selection As Image
+es:Selección como imagen
 :&Settings
 es:&Configuración
+:&Settings...
+es:Configuración...
 :&Show Grid
 es:&Mostrar cuadrícula
 :&Show password
 es:&Mostrar contraseña
 :&Shrink To Fit
 es:&Reducir para ajustar
+:&Shrink pages to printable area
+es:Reducir páginas al área imprimible
 :&Shrink pages to printable area (if necessary)
 es:&Reducir páginas al área imprimible (si es necesario)
 :&Single Page
@@ -118,8 +224,14 @@ es:&Texto
 es:&Tema
 :&This file
 es:&Este archivo
+:&To Selection
+es:A la selección
 :&Translate With Google
 es:&Traducir con Google
+:&Translate with
+es:Traducir con
+:&Trim Empty Margins
+es:Recortar márgenes vacíos
 :&Underline
 es:&Subrayar
 :&Uniform Page Width
@@ -130,102 +242,326 @@ es:&Usar tamaños de página originales
 es:&Ver
 :&Where to sign:
 es:&Dónde firmar:
+:&Wikipedia
+es:Wikipedia
 :&Window
 es:&Ventana
 :&Zoom
 es:&Zoom
 :&Zoom To Selection
 es:&Zoom a la selección
+:(chapter %d page %d)
+es:(capítulo %d página %d)
+:(default)
+es:(predeterminado)
+:(of %d)
+es:(de %d)
+:(page %s)
+es:(página %s)
+:(unsaved annotations)
+es:(anotaciones no guardadas)
+:* Annotations
+es:* Anotaciones
+:...
+es:...
+:1 page
+es:1 página
+:3D
+es:3D
+:= Settings
+es:= Configuración
+:> Commands
+es:> Comandos
+:@ Tabs
+es:@ Pestañas
+:A&ctual size (1:1)
+es:Tamaño real (1:1)
+:A&ntigravity
+es:Antigravity
+:AI Antigravity chat with document
+es:Chat Antigravity con IA sobre el documento
+:AI Chat documentation
+es:Documentación de chat IA
+:AI Claude chat with document
+es:Chat IA Claude con documento
+:AI Codex chat with document
+es:Chat IA Codex con documento
+:AI Grok chat with document
+es:Chat IA Grok con documento
+:AI chat with document using
+es:Chat IA con documento usando
+:Abort installation
+es:Cancelar instalación
+:About SumatraPDF
+es:Acerca de SumatraPDF
+:About WiniPDF
+es:Acerca de WiniPDF
+:Accept
+es:Aceptar
+:Access denied
+es:Acceso denegado
+:Add
+es:Agregar
 :Add Favorite
 es:Añadir favorito
+:Add PDF
+es:Añadir PDF
+:Add PDF...
+es:Añadir PDF...
+:Add argument
+es:Agregar argumento
+:Add chapter %d page %d to favorites
+es:Añadir capítulo %d página %d a favoritos
 :Add page %s to favorites
 es:Añadir página %s a favoritos
+:Add text annotation
+es:Añadir anotación de texto
 :Add to favorites
 es:Añadir a favoritos
+:Administrator access is required. Restart elevated?
+es:Se requiere acceso de administrador. ¿Reiniciar con privilegios elevados?
 :Advanced
 es:Avanzado
+:Advanced Options...
+es:Opciones avanzadas...
 :Advanced Settings
 es:Configuración avanzada
+:Advanced Settings...
+es:Configuración avanzada...
 :All
 es:Todos
 :All files
 es:Todos los archivos
 :All supported documents
 es:Todos los documentos admitidos
+:Alt+drag when this dialog is closed
+es:Alt+arrastrar cuando este diálogo esté cerrado
+:Annotation Colors
+es:Colores de anotación
+:Annotation cut. Paste to move it.
+es:Anotación cortada. Pegar para moverla.
 :Annotations
 es:Anotaciones
+:Antigravity
+es:Antigravity
+:Antigravity chat
+es:Chat Antigravity
+:Antigravity chat...
+es:Chat Antigravity...
 :Appearance:
 es:Apariencia:
 :Application:
 es:Aplicación:
+:Apply Redactions
+es:Aplicar redacciones
+:Approval signature
+es:Firma de aprobación
 :Are you sure you want to uninstall SumatraPDF?
 es:¿Seguro que quieres desinstalar SumatraPDF?
+:Argument %d
+es:Argumento %d
+:At the &beginning
+es:Al principio
+:At the &end
+es:Al final
+:Attach File
+es:Adjuntar archivo
+:Attached File:
+es:Archivo adjunto:
 :Attachment: %s
 es:Adjunto: %s
 :Author:
 es:Autor:
+:Auto-Rotate Wide Pages
+es:Rotar automáticamente páginas anchas
 :Automatic
 es:Automático
+:Automatically Scroll
+es:Desplazamiento automático
+:Automatically Scroll Faster
+es:Desplazamiento automático más rápido
+:Automatically Scroll Slower
+es:Desplazamiento automático más lento
 :Automatically check for &updates
 es:Comprobar &actualizaciones automáticamente
 :Back
 es:Atrás
+:Background Color
+es:Color de fondo
 :Background Color:
 es:Color de fondo:
 :Bake PDF
 es:Aplanar PDF
+:Bake PDF File...
+es:Consolidar archivo PDF...
 :Bits Per Sample:
 es:Bits por muestra:
+:Bold
+es:Negrita
 :Book View
 es:Vista de libro
+:Bookmark Shortcuts
+es:Atajos de los marcadores
+:Bookmark shortcut to page %s of %s
+es:Atajo del marcador de la página %s de %s
 :Bookmarks
 es:Marcadores
+:Bookmarks: Collapse Same Level
+es:Marcadores: Contraer mismo nivel
+:Bookmarks: Expand to Level 1
+es:Marcadores: Expandir a nivel 1
+:Bookmarks: Expand to Level 2
+es:Marcadores: Expandir a nivel 2
+:Bookmarks: Expand to Level 3
+es:Marcadores: Expandir a nivel 3
+:Border Color
+es:Color de borde
+:Border Color and Width
+es:Color y ancho de borde
+:Border Width
+es:Ancho del borde
 :Border:
 es:Borde:
 :Border: %d
 es:Borde: %d
+:Browse Files In Folder...
+es:Explorar archivos en carpeta...
+:Browse...
+es:Explorar...
 :Bytes
 es:Bytes
+:C&hoose...
+es:Elegir...
+:C&opy
+es:Copiar
+:C&opy To Clipboard
+es:Copiar al portapapeles
+:C&rop
+es:Recortar
+:CHM documents
+es:Documentos CHM
+:Camera Make:
+es:Marca de cámara:
+:Camera Model:
+es:Modelo de cámara:
 :Cancel
 es:Cancelar
 :Cannot print this file
 es:No se puede imprimir este archivo
+:Cannot start the inverse search command. Check its command line in Settings.
+es:No se puede iniciar el comando de búsqueda inversa. Compruebe su línea de comandos en Configuración.
+:Cannot update %s
+es:No se puede actualizar %s
 :Caret
 es:Cursor
+:Center page hori&zontally on the paper
+es:Centrar página horizontalmente en el papel
+:Certificate file %s doesn't exist.
+es:El archivo de certificado %s no existe.
+:Certificate file...
+es:Archivo de certificado...
+:Certificate files
+es:Archivos de certificado
+:Certificates:
+es:Certificados:
+:Certify: form filling and signing allowed
+es:Certificar: rellenado de formularios y firma permitidos
+:Certify: form filling, signing and annotations allowed
+es:Certificar: rellenado de formularios, firma y anotaciones permitidos
+:Certify: no changes allowed
+es:Certificar: no se permiten cambios
+:Change
+es:Cambiar
 :Change Background Color
 es:Cambiar color de fondo
+:Change Background Color...
+es:Cambiar color de fondo...
 :Change Language
 es:Cambiar idioma
+:Change Language...
+es:Cambiar idioma...
 :Change Scrollbar
 es:Cambiar barra de desplazamiento
+:Change Scrollbar...
+es:Cambiar barra de desplazamiento...
 :Change Tab Color
 es:Cambiar color de pestaña
+:Change Tab Color...
+es:Cambiar color de pestaña...
 :Change Theme
 es:Cambiar tema
+:Change Theme...
+es:Cambiar tema...
+:Change eBook Settings...
+es:Cambiar configuración de eBook...
+:Chapter %d Page %d
+es:Capítulo %d Página %d
+:Chapter:
+es:Capítulo:
 :Charcoal
 es:Carbón
+:Check For Updates
+es:Buscar actualizaciones
 :Check for &Updates
 es:Buscar &actualizaciones
+:Check for Updates
+es:Buscar actualizaciones
 :Checking for update...
 es:Buscando actualizaciones...
 :Choose &paper source by document page size
 es:Elegir &origen de papel según el tamaño de página del documento
 :Circle
 es:Círculo
+:Claude C&ode
+es:Claude Code
+:Claude Code
+es:Claude Code
+:Claude chat
+es:Chat de Claude
+:Claude chat...
+es:Chat de Claude...
+:Clear History
+es:Limpiar historial
+:Cleared history of %d files, deleted thumbnails.
+es:Eliminado historial de %d ficheros, miniaturas eliminadas.
+:Clearing history...
+es:Borrando historial...
+:Click or drag on the page to place the signature. Esc to cancel.
+es:Haz clic o arrastra en la página para colocar la firma. Esc para cancelar.
+:Click to edit the path
+es:Haz clic para editar la ruta
 :Close
 es:Cerrar
+:Close %s to continue.
+es:Cierre %s para continuar.
 :Close All Tabs
 es:Cerrar todas las pestañas
+:Close Current Document
+es:Cerrar documento actual
+:Close Document
+es:Cerrar documento
 :Close Other Tabs
 es:Cerrar las otras pestañas
 :Close Tabs To The Left
 es:Cerrar pestañas a la izquierda
 :Close Tabs To The Right
 es:Cerrar pestañas a la derecha
+:Cmd+Backspace restore default
+es:Cmd+Retroceso restaurar predeterminado
+:Codex chat
+es:Chat de Codex
+:Codex chat...
+es:Chat de Codex...
 :Collapse All
 es:Contraer todo
+:Collapse Same Level
+es:Contraer mismo nivel
 :Collecting list of printers
 es:Recopilando lista de impresoras
+:Color
+es:Color
+:Color Space:
+es:Espacio de color:
 :Color:
 es:Color:
 :Comic books
@@ -236,10 +572,22 @@ es:Paleta de comandos
 es:Comentario:
 :Compatibility
 es:Compatibilidad
+:Components Configuration:
+es:Configuración de componentes:
 :Compress PDF
 es:Comprimir PDF
+:Compress PDF...
+es:Comprimir PDF...
+:Compressed Bits/Pixel:
+es:Bits/Píxel comprimidos:
+:Configure &Restricted Use...
+es:Configurar Uso Restringido...
 :Configure Page Grid...
 es:Configurar cuadrícula de página...
+:Configure Restricted Use
+es:Configurar Uso Restringido
+:Configure Restricted Use...
+es:Configurar Uso Restringido...
 :Contents:
 es:Contenido:
 :Continue Reading
@@ -254,150 +602,2072 @@ es:Enfrentadas continua
 es:Contribuir traducción
 :Convert
 es:Convertir
+:Convert Image To PDF...
+es:Convertir imagen a PDF...
 :Convert PDF to Images
 es:Convertir PDF a imágenes
 :Convert PDF to Images...
 es:Convertir PDF a imágenes...
+:Convert To PDF...
+es:Convertir a PDF...
 :Convert page to &PDF
 es:Convertir página a &PDF
 :Convert to PDF
 es:Convertir a PDF
 :Convert to PDF...
 es:Convertir a PDF...
+:Copied to clipboard
+es:Copiado al portapapeles
 :Copy
 es:Copiar
 :Copy &Link Address
 es:Copiar dirección del &enlace
+:Copy Annotation
+es:Copiar anotación
+:Copy As &Image To Clipboard
+es:Copiar como imagen al portapapeles
+:Copy Co&mment
+es:Copiar co&mentario
+:Copy Comment
+es:Copiar comentario
 :Copy File Path
 es:Copiar ruta del archivo
+:Copy Image
+es:Copiar imagen
+:Copy Link &Address
+es:Copiar la dirección del en&lace
+:Copy Link Target
+es:Copiar destino del enlace
+:Copy Location To Clipboard
+es:Copiar ubicación al portapapeles
+:Copy Selection
+es:Copiar selección
+:Copy Selection As Image
+es:Copiar selección como imagen
+:Copy To Clipboard
+es:Copiar a portapapeles
+:Copy program and machine info
+es:Copiar información del programa y la máquina
 :Copy program and machine info to clipboard
 es:Copiar información del programa y equipo al portapapeles
+:Copy to clipboard
+es:Copiar al portapapeles
+:Copying %s: %s
+es:Copiando %s: %s
+:Copying %s: %s / %s
+es:Copiando %s: %s / %s
+:Copying text was denied (copying as image only)
+es:No se permite la copia de texto (copiando como imagen)
+:Copyright:
+es:Derechos de autor:
+:Could not create a temporary file for Google Lens.
+es:No se pudo crear un archivo temporal para Google Lens.
+:Could not encode the page for Google Lens.
+es:No se pudo codificar la página para Google Lens.
+:Could not open Google Lens in the web browser.
+es:No se pudo abrir Google Lens en el navegador web.
+:Could not read the certificate file: %s
+es:No se pudo leer el archivo de certificado: %s
+:Could not read the signature image.
+es:No se pudo leer la imagen de la firma.
+:Could not render the page for Google Lens.
+es:No se pudo renderizar la página para Google Lens.
+:Could not sign the document.
+es:No se pudo firmar el documento.
+:Could not use that certificate from the Windows certificate store.
+es:No se pudo usar ese certificado del almacén de certificados de Windows.
 :Couldn't check for updates
 es:No se pudo buscar actualizaciones
+:Couldn't copy SumatraPDF.exe to the installation directory
+es:No se pudo copiar SumatraPDF.exe al directorio de instalación
+:Couldn't create a temporary file
+es:No se pudo crear un archivo temporal
+:Couldn't create the installation directory
+es:No se ha podido crear la carpeta de instalación
+:Couldn't delete %s
+es:No se pudo eliminar %s
+:Couldn't download update information (error %#x).
+es:No se pudo descargar la información de actualización (error %#x).
+:Couldn't get printer name
+es:No se ha podido encontrar el nombre de la impresora
+:Couldn't initialize printer
+es:No se ha podido inicializar la impresora
+:Couldn't install PDF previewer
+es:No se ha podido instalar el previsualizador de PDF
+:Couldn't install PDF search filter
+es:No se ha podido instalar el filtro de búsqueda de PDF
+:Couldn't load image '%s'
+es:No se pudo cargar la imagen '%s'
+:Couldn't open '%s'
+es:No se pudo abrir '%s'
+:Couldn't render page %d
+es:No se pudo renderizar la página %d
+:Couldn't save '%s'
+es:No se pudo guardar '%s'
+:Couldn't uninstall PDF previewer
+es:No se pudo desinstalar el previsualizador de PDF
+:Couldn't uninstall Sumatra search filter
+es:No se pudo desinstalar el filtro de búsqueda de Sumatra.
+:Couldn't write %s to disk
+es:No se puede escribir %s en el disco
+:Create &Under Cursor
+es:Crear bajo el cursor
+:Create .lnk Shortcut
+es:Crear acceso directo .lnk
 :Create Annotation &Under Cursor
 es:Crear anotación &bajo el cursor
 :Create Annotation From Selection
 es:Crear anotación desde la selección
+:Create Caret Annotation
+es:Crear anotación de intercalación
+:Create Circle Annotation
+es:Crear anotación de círculo
+:Create File Attachment Annotation
+es:Crear anotación de archivo adjunto
+:Create Free Text Annotation
+es:Crear anotación de texto libre
+:Create From Selection
+es:Crear desde selección
+:Create Highlight Annotation
+es:Crear anotación de resaltado
+:Create Image Annotation From Clipboard
+es:Crear anotación de imagen desde el portapapeles
+:Create Ink Annotation
+es:Crear anotación de tinta
+:Create Line Annotation
+es:Crear anotación de línea
+:Create Link Annotation
+es:Crear anotación de enlace
+:Create Polygon Annotation
+es:Crear anotación de polígono
+:Create Polyline Annotation
+es:Crear anotación de polilínea
+:Create Popup Annotation
+es:Crear anotación emergente
+:Create Redact Annotation
+es:Crear anotación de redacción
+:Create Square Annotation
+es:Crear anotación de cuadrado
+:Create Squiggly Annotation
+es:Crear anotación ondulada
+:Create Stamp Annotation
+es:Crear anotación de sello
+:Create Strike Out Annotation
+es:Crear anotación de tachado
+:Create Text Annotation
+es:Crear anotación de texto
+:Create Underline Annotation
+es:Crear anotación de subrayado
 :Created:
 es:Creado:
+:Creating thumbnail %d of %d: %s
+es:Creando miniatura %d de %d: %s
+:Crop Image
+es:Recortar imagen
+:Crop Image...
+es:Recortar imagen...
+:Ctrl + Enter
+es:Ctrl + Intro
+:Ctrl+Tab navigate
+es:Ctrl+Tab navegar
 :Ctrl+Tab to navigate
 es:Ctrl+Tab para navegar
 :Current
 es:Actual
+:Current Image (%d):
+es:Imagen actual (%d):
+:Current Page (%d) Size:
+es:Tamaño de página actual (%d):
+:Current file
+es:Archivo actual
+:Cursor position:
+es:Posición del cursor:
 :Custom
 es:Personalizado
 :Custom &Zoom...
 es:&Zoom personalizado...
+:Cut Annotation
+es:Cortar anotación
 :DPI:
 es:DPI:
+:DVI documents
+es:Documentos DVI
 :Dark
 es:Oscuro
-:Date:
-es:Fecha:
+:Date Original:
+es:Fecha original:
+:Date/Time Digitized:
+es:Fecha/hora digitalizada:
 :Date/Time:
 es:Fecha/Hora:
+:Date:
+es:Fecha:
+:Debug version, for testing only!
+es:Versión de depuración, solo para pruebas
+:Debug: Corrupt Memory
+es:Depuración: Corromper memoria
+:Debug: Crash Me
+es:Depuración: Provocar error
+:Debug: Show Fit Content Area
+es:Depuración: Mostrar área de ajuste de contenido
+:Debug: Show Notification
+es:Depuración: Mostrar notificación
+:Debug: Start Stress Test
+es:Depuración: Iniciar prueba de estrés
+:Debug: Toggle Cache Info
+es:Depuración: Alternar información de caché
+:Debug: Toggle DPI Override
+es:Depuración: Alternar anulación de DPI
+:Debug: Toggle Predictive Rendering
+es:Depuración: Alternar renderizado predictivo
+:Debug: Toggle RTL
+es:Depuración: Activar/desactivar RTL
+:Debug: Toggle Render Queue Info
+es:Depuración: Alternar información de cola de renderizado
 :Decompress PDF
 es:Descomprimir PDF
+:Decompress PDF...
+es:Descomprimir PDF...
 :Decrypt PDF
 es:Descifrar PDF
+:Decrypt PDF...
+es:Descifrar PDF...
 :Default &Layout:
 es:Disposición &predeterminada:
+:Default &Zoom:
+es:Am&pliación predeterminada:
+:Del
+es:Supr
+:Del close tab
+es:Supr cerrar pestaña
+:Del remove favorite
+es:Supr eliminar favorito
+:Del remove from history
+es:Supr eliminar del historial
+:Del restore default
+es:Supr restaurar predeterminado
+:Delete
+es:Eliminar
+:Delete %d annotations
+es:Eliminar %d anotaciones
+:Delete Annotation
+es:Eliminar anotación
+:Delete Cached Files
+es:Eliminar archivos en caché
+:Delete Favorite
+es:Eliminar favorito
+:Delete File
+es:Eliminar archivo
+:Delete File And Open Next
+es:Eliminar archivo y abrir siguiente
+:Delete Pages
+es:Eliminar páginas
+:Delete Pages From PDF
+es:Eliminar páginas del PDF
+:Delete Pages From PDF...
+es:Eliminar páginas del PDF...
+:Delete and Open Next File
+es:Eliminar y abrir el siguiente archivo
+:Delete sumatrapdfrestrict.ini?
+es:¿Eliminar sumatrapdfrestrict.ini?
+:Deleted %d cached comic book files, %d failed.
+es:Se eliminaron %d archivos de cómic en caché, %d fallaron.
+:Deleted %d cached comic book files.
+es:Se eliminaron %d archivos de cómic en caché.
+:Deleted files removed from history: %d
+es:Archivos eliminados del historial: %d
+:Denied Permissions:
+es:Permisos denegados:
+:Discard Changes
+es:Descartar cambios
+:Discard changes
+es:Descartar
+:Distance between grid lines
+es:Distancia entre líneas de cuadrícula
+:DjVu documents
+es:Documentos DjVu
+:Do nothing
+es:No hacer nada
+:Dock to toolbar
+es:Acoplar a la barra de herramientas
+:Document
+es:Documento
+:Document Properties
+es:Propiedades del documento
+:Document Properties...
+es:Propiedades del documento...
+:Document colors follow theme
+es:Los colores del documento siguen el tema
+:Document colors follow theme: Legacy (recolor text, background and images)
+es:Los colores del documento siguen el tema: Heredado (recolorea texto, fondo e imágenes)
+:Document colors follow theme: Off
+es:Los colores del documento siguen el tema: Desactivado
+:Document colors follow theme: Smart (recolor text and background, not images)
+es:Los colores del documento siguen el tema: Inteligente (recolorea texto y fondo, no las imágenes)
+:Don't install
+es:No instalar
+:Dots
+es:Puntos
+:Dotted lines
+es:Líneas punteadas
+:Download 64-bit version
+es:Descargar la versión de 64 bits
+:Download update
+es:Descargar actualización
+:Downloading update...
+es:Descargando actualización...
+:Drag a line on the page to resize it
+es:Arrastra una línea en la página para cambiar su tamaño
+:Draw ink annotation. Release to finish. **Esc** to cancel.
+es:Dibujar anotación de tinta. Suelte para terminar. **Esc** para cancelar.
 :E&xit
 es:&Salir
+:E&xit Fullscreen
+es:&Salir de la pantalla completa
+:EPUB ebooks
+es:Libros electrónicos EPUB
+:Edit Annotations
+es:Editar anotaciones
+:Edit Note
+es:Editar nota
+:Edit PDF
+es:Editar PDF
+:Edit colors
+es:Editar colores
+:Edit text
+es:Editar texto
+:Embed Font
+es:Incrustar fuente
+:Embedding this font can add hundreds of kilobytes to the PDF.
+es:Incrustar esta fuente puede agregar cientos de kilobytes al PDF.
+:Empty signature field: %s (page %d)
+es:Campo de firma vacío: %s (página %d)
+:Encrypt PDF
+es:Cifrar PDF
+:Encrypt PDF...
+es:Cifrar PDF...
+:Encryption:
+es:Cifrado:
+:End of document
+es:Fin del documento
+:Enter
+es:Intro
+:Enter apply
+es:Enter aplicar
+:Enter change
+es:Intro cambiar
+:Enter confirm
+es:Intro confirmar
+:Enter go to
+es:Intro ir a
+:Enter go to favorite
+es:Intro ir a favorito
+:Enter open file
+es:Intro abrir archivo
+:Enter password
+es:Escriba la contraseña
+:Enter password for %s
+es:Escriba la contraseña para %s
+:Enter run command
+es:Intro ejecutar comando
+:Enter select
+es:Intro seleccionar
+:Enter switch to tab
+es:Enter cambiar a pestaña
+:Enter the command line to invoke when you double-click on the PDF document:
+es:Ingrese la línea de comandos a invocar cuando haga doble clic en el documento PDF:
 :Error
 es:Error
+:Error loading %s
+es:Error al cargar %s
+:Error:
+es:Error:
+:Errors
+es:Errores
+:Esc cancel
+es:Esc cancelar
+:Esc close
+es:Esc cerrar
+:Esc go back
+es:Esc volver
+:Example Scripts
+es:Scripts de ejemplo
+:Excel workbooks
+es:Libros de Excel
+:Execute a program
+es:Ejecutar un programa
+:Exif Version:
+es:Versión Exif:
 :Exit
 es:Salir
+:Exit Application
+es:Salir de la aplicación
+:Expand All
+es:Expandir todo
+:Expand TOC to Current Page
+es:Expandir tabla de contenido a la página actual
+:Expand to Current Page
+es:Expandir a la página actual
+:Expand to Level 1
+es:Expandir al nivel 1
+:Expand to Level 2
+es:Expandir al nivel 2
+:Expand to Level 3
+es:Expandir al nivel 3
+:Exposure Bias:
+es:Compensación de exposición:
+:Exposure Program:
+es:Programa de exposición:
+:Exposure Time:
+es:Tiempo de exposición:
+:Extend Selection One Character Left
+es:Extender selección un carácter a la izquierda
+:Extend Selection One Character Right
+es:Extender selección un carácter a la derecha
+:Extend Selection One Word Left
+es:Extender selección una palabra a la izquierda
+:Extend Selection One Word Right
+es:Extender selección una palabra a la derecha
+:Extract Pages
+es:Extraer páginas
+:Extract Pages From PDF
+es:Extraer páginas del PDF
+:Extract Pages From PDF...
+es:Extraer páginas del PDF...
+:Extract Text
+es:Extraer texto
+:Extract Text From Document
+es:Extraer texto del documento
+:Extract Text From Document...
+es:Extraer texto del documento...
+:Extract Text From PDF
+es:Extraer texto de PDF
+:F&avorites
+es:&Favoritos
+:F&orward
+es:A&delante
+:F&ullscreen
+es:Pa&ntalla completa
+:F-Number:
+es:Número F:
+:Facing
+es:Dos páginas
+:Facing View
+es:Vista enfrentada
+:Failed to apply redactions
+es:Error al aplicar las redacciones
+:Failed to delete sumatrapdfrestrict.ini.
+es:Error al eliminar sumatrapdfrestrict.ini.
+:Failed to delete uninstaller registry keys
+es:Error al eliminar las claves del registro del desinstalador
+:Failed to launch the AI CLI.
+es:Error al iniciar la CLI de IA.
+:Failed to rename the file!
+es:Error al renombrar el archivo.
+:Failed to save '%s': %s
+es:Error al guardar '%s': %s
+:Failed to save a file
+es:Error al guardar un archivo
+:Failed to save image
+es:Error al guardar la imagen
+:Failed to save sumatrapdfrestrict.ini.
+es:Error al guardar sumatrapdfrestrict.ini.
+:Failed to save the screenshot
+es:Error al guardar la captura de pantalla
+:Failed to write the extended file extension information to the registry
+es:Error al escribir la información de la extensión del archivo en el registro
+:Failed to write the uninstallation information to the registry
+es:Error al escribir información de desinstalación en el registro
+:Fast Web View
+es:Vista web rápida
 :Favorites
 es:Favoritos
+:FictionBook documents
+es:Documentos FictionBook
 :File
 es:Archivo
+:File %s already exists. Overwrite?
+es:El archivo %s ya existe. ¿Sobrescribir?
+:File %s not found
+es:No se ha encontrado el archivo %s
+:File Attachment
+es:Archivo adjunto
+:File Size:
+es:Tamaño del archivo:
+:File Source:
+es:Origen del archivo:
+:File Type:
+es:Tipo de archivo:
+:File path not available
+es:Ruta del archivo no disponible
+:File:
+es:Archivo:
+:Files:
+es:Archivos:
+:Filter settings
+es:Configuración de filtros
+:Fin&d...
+es:Busca&r...
 :Find
 es:Buscar
+:Find Annotation
+es:Buscar anotación
+:Find Next
+es:Buscar siguiente
+:Find Next Selection
+es:Buscar siguiente selección
+:Find Previous
+es:Buscar anterior
+:Find Previous Selection
+es:Buscar selección anterior
+:Find...
+es:Buscar...
 :Find:
 es:Buscar:
+:Find: Toggle Match Case
+es:Buscar: Alternar coincidir mayúsculas/minúsculas
+:Find: Toggle Match Whole Word
+es:Buscar: Alternar coincidir palabra completa
+:First Page
+es:Primera página
+:First file in folder.
+es:Primer archivo en la carpeta.
+:Fit &Content
+es:Ajustar al &contenido
+:Fit &Height
+es:Ajustar altura
+:Fit &Page
+es:Ajustar a la &página
+:Fit &Visible
+es:Ajustar visible
+:Fit &Width
+es:Ajustar al &ancho
+:Fit Content
+es:Ajustar al contenido
+:Fit Height
+es:Ajustar altura
+:Fit Page
+es:Ajustar a la página
+:Fit Visible
+es:Ajustar Visible
+:Fit Width
+es:Ajustar a ancho de página
+:Fit Width and Show Pages Continuously
+es:Ajustar al ancho de página y mostrar las páginas de forma continua
+:Fit a Single Page
+es:Ajustar a una sola página
+:Fit by &Orientation
+es:Ajustar por orientación
+:Fit by Orientation
+es:Ajustar por orientación
+:Fix Default App For Extension
+es:Establecer Aplicación Predeterminada Para Extensión
+:Flash:
+es:Flash:
+:Flashpix Version:
+es:Versión Flashpix:
+:Focal Length (35mm):
+es:Distancia focal (35mm):
+:Focal Length:
+es:Distancia focal:
+:Focus
+es:Enfoque
+:Follow Link With Keyboard
+es:Seguir enlace con el teclado
+:Follow Windows
+es:Seguir Windows
+:Font
+es:Fuente
+:Font \"%s\" not found, using the default font
+es:No se encontró la fuente "%s", usando la fuente predeterminada
+:Font:
+es:Fuente:
+:Fonts:
+es:Fuentes:
+:For all &PDF files
+es:Para todos los archivos PDF
+:For all &comic books
+es:Para todos los cómics
+:For all &ebooks
+es:Para todos los ebooks
+:For all &images
+es:Para todas las imágenes
+:Forward
+es:Adelante
+:Free Text
+es:Liberar texto
 :Frequently Read
 es:Leídos con frecuencia
+:From
+es:Desde
+:From bottom:
+es:Desde abajo:
+:From cursor
+es:Desde el cursor
+:From left:
+es:Desde la izquierda:
+:From:
+es:Desde:
+:Fulls&creen
+es:P&antalla completa
+:G&rok Build
+es:Grok Build
+:GB
+es:GB
+:Generate Table Of Contents
+es:Generar tabla de contenidos
+:Getting font information...
+es:Obteniendo información de fuente...
 :Go To
 es:Ir a
+:Go To Home Page
+es:Ir a la página de inicio
+:Go to Favorite
+es:Ir a Favorito
+:Go to Next Favorite
+es:Ir al siguiente favorito
+:Go to Page...
+es:Ir a la página...
+:Go to Previous Favorite
+es:Ir al favorito anterior
+:Go to page
+es:Ir a la página
+:Google Lens is only available for document pages.
+es:Google Lens solo está disponible para páginas de documentos.
+:Google Sc&holar
+es:Google Académico
+:Grid line origin offset
+es:Desplazamiento del origen de las líneas de cuadrícula
+:Grid style:
+es:Estilo de cuadrícula:
+:Grok Build
+es:Grok Build
+:Grok Build is not signed in.
+es:Grok Build no ha iniciado sesión.
+:Grok chat
+es:Chat de Grok
+:Grok chat...
+es:Chat de Grok...
 :Help
 es:Ayuda
+:Help: About SumatraPDF...
+es:Ayuda: Acerca de SumatraPDF...
+:Help: Keyboard Shortcuts
+es:Ayuda: Atajos de teclado
+:Help: Manual
+es:Ayuda: Manual
+:Help: Manual On Website
+es:Ayuda: Manual en el sitio web
+:Help: SumatraPDF Website
+es:Ayuda: Sitio web de SumatraPDF
+:Hidden
+es:Oculto
+:Hide &Options
+es:Menos &opciones
+:Hide Annotations
+es:Ocultar anotaciones
 :Highlight
 es:Resaltar
+:Highlight Selection
+es:Resaltar Selección
+:Highlighter
+es:Resaltador
+:Highlighter: select text to highlight it
+es:Resaltador: seleccione texto para resaltarlo
+:Home
+es:Inicio
+:Horizontal:
+es:Horizontal:
+:ISO Speed:
+es:Velocidad ISO:
+:Icon
+es:Icono
+:Icon:
+es:Icono:
+:Image File Size:
+es:Tamaño del archivo de imagen:
+:Image From &File...
+es:Imagen desde &archivo...
+:Image From Fi&le...
+es:Imagen desde archivo...
+:Image Size:
+es:Tamaño de imagen:
+:Image file %s doesn't exist.
+es:El archivo de imagen %s no existe.
+:Image files
+es:Archivos de imagen
+:Image files (*.%s)
+es:Archivos de imagen (*.%s)
+:Images
+es:Imágenes
+:Ink
+es:Tinta
+:Insert '%s':
+es:Insertar '%s':
+:Insert Image...
+es:Insertar imagen...
+:Insert Te&xt
+es:Insertar texto
+:Insert Text Snippet
+es:Insertar fragmento de texto
+:Install &desktop shortcut
+es:Instalar acceso directo en el escritorio
+:Install Antigravity CLI to use this feature.
+es:Instala Antigravity CLI para usar esta función.
+:Install Claude Code to use this feature.
+es:Instale Claude Code para usar esta función.
+:Install Grok Build to use this feature.
+es:Instale Grok Build para usar esta función.
+:Install Pre-release Update
+es:Instalar actualización preliminar
+:Install SumatraPDF
+es:Instalar SumatraPDF
+:Install SumatraPDF in &folder:
+es:&Instalar SumatraPDF en la siguiente carpeta:
+:Install and relaunch
+es:Instalar y reiniciar
+:Install for all users
+es:Instalar para todos los usuarios
+:Installation aborted: could not update %s (file in use).
+es:Instalación cancelada: no se pudo actualizar %s (archivo en uso).
+:Installation could not be completed.
+es:No se pudo completar la instalación.
 :Installation failed
 es:Falló la instalación
+:Installation in progress...
+es:Instalación en progreso...
+:Installing 32-bit SumatraPDF on 64-bit OS
+es:Instalando SumatraPDF de 32 bits en un sistema operativo de 64 bits
+:Interior Color
+es:Color interior
+:Interior Color:
+es:Color Interior
+:Invert Colors
+es:Invertir colores
+:Invoke Inverse Search
+es:Invocar búsqueda inversa
+:Issuer:
+es:Emisor:
+:Italic
+es:Cursiva
+:KB
+es:KB
+:Keyboard Shortcuts
+es:Atajos de teclado
+:Keywords:
+es:Palabras clave:
+:Last Page
+es:Última página
+:Last file in folder.
+es:Último archivo en la carpeta.
+:Launch a browser or run command with selection
+es:Abrir un navegador o ejecutar comando con la selección
+:Learn more
+es:Más información
+:Left to right
+es:De izquierda a derecha
+:Let Windows Desktop Search &search PDF documents
+es:Permitir que la búsqueda de Windows encuentre documentos PDF
+:Let Windows show &previews of PDF documents
+es:Mostrar vistas previas en los iconos de los documentos &PDF
+:Light
+es:Claro
+:Light Source:
+es:Fuente de luz:
+:Limit to pages 1-%d:
+es:Limitar a páginas 1-%d:
+:Line
+es:Línea
+:Line End
+es:Fin de línea
+:Line End:
+es:Fin de Línea:
+:Line Start
+es:Inicio de línea
+:Line Start:
+es:Inicio de Línea:
+:Line spacing:
+es:Espaciado de línea:
+:Link
+es:Enlace
+:List Printers...
+es:Listar impresoras...
+:Loading %s ...
+es:Cargando %s ...
+:Loading...
+es:Cargando...
+:Lock document after signing (last signer)
+es:Bloquear documento después de firmar (último firmante)
+:Lock form &fields after signing
+es:Bloquear campos del formulario después de firmar
+:MB
+es:MB
+:Make Document Colors Follow Theme
+es:Hacer que los colores del documento sigan el tema
+:Make Document Colors Follow Theme...
+es:Hacer que los colores del documento sigan el tema...
+:Man&ga Mode
+es:Modo man&ga
 :Manual
 es:Manual
+:Manual On Website
+es:Manual en el sitio web
+:Margin:
+es:Margen:
+:Mark content for redaction. Drag or click twice. **Esc** to cancel.
+es:Marcar contenido para redacción. Arrastre o haga clic dos veces. **Esc** para cancelar.
+:Markdown documents
+es:Documentos Markdown
+:Match Case
+es:Coincidir mayúsculas y minúsculas
+:Match Whole Word
+es:Coincidir palabra completa
+:Max Aperture:
+es:Apertura máxima:
+:Menu
+es:Menú
+:Merge PDF
+es:Combinar PDF
+:Merge PDF...
+es:Combinar PDF...
+:Metering Mode:
+es:Modo de medición:
+:Microsoft Reader ebooks
+es:Libros electrónicos de Microsoft Reader
+:Mobi documents
+es:Documentos Mobi
+:Modified:
+es:Modificado:
+:Move Frame Focus
+es:Mover enfoque de marco
+:Move Tab Left
+es:Mover pestaña a la izquierda
+:Move Tab Right
+es:Mover pestaña a la derecha
+:Movie
+es:Película
+:Name for chapter %d page %d (optional):
+es:Nombre para capítulo %d página %d (opcional):
+:Name for page %s (optional):
+es:Nombre para página %s (opcional):
+:Navigate
+es:Navegar
+:Navigate Back
+es:Navegar hacia atrás
+:Navigate Favorites
+es:Navegar Favoritos
+:Navigate Files in Folder
+es:Navegar archivos en la carpeta
+:Navigate Files in Folder...
+es:Navegar archivos en carpeta...
+:Navigate Forward
+es:Navegar hacia adelante
+:Navigate History
+es:Navegar Historial
+:Navigate Table Of Contents
+es:Navegar Tabla de Contenidos
+:Navigate Tabs
+es:Navegar Pestañas
+:Navigate Thumbnails
+es:Navegar miniaturas
+:New &window
+es:Nueva &ventana
+:New Window
+es:Nueva Ventana
+:New signature on page %d
+es:Nueva firma en la página %d
+:New version available
+es:Disponible una versión nueva
 :Next
 es:Siguiente
+:Next Page
+es:Página siguiente
+:Next Tab
+es:Pestaña siguiente
+:No
+es:No
+:No cached comic book files.
+es:No hay archivos de cómics en caché.
+:No image in the clipboard
+es:No hay imagen en el portapapeles
+:No image under the cursor.
+es:No hay imagen bajo el cursor.
+:No links on this page
+es:No hay enlaces en esta página
+:No redaction marks to apply
+es:No hay marcas de redacción para aplicar
+:No result found
+es:No se encontraron resultados
+:No result found around line %u in file %s
+es:No se ha encontrado ningún resultado cerca de la línea %u en el archivo %s
+:No synchronization info at this position
+es:No hay información de sincronización en esta posición
+:No text available to read aloud
+es:No hay texto disponible para leer en voz alta
+:No text on this page
+es:No hay texto en esta página
+:None
+es:Ninguno
+:Not a valid installer
+es:No es un instalador válido
+:Nothing to redo
+es:Nada que rehacer
+:Nothing to take a screenshot of
+es:No hay nada de lo que tomar una captura de pantalla
+:Nothing to undo
+es:Nada que deshacer
+:Number of Images:
+es:Número de imágenes:
+:Number of Pages:
+es:Número de páginas:
 :OK
 es:Aceptar
+:Opacity
+es:Opacidad
+:Opacity:
+es:Opacidad:
 :Open
 es:Abrir
+:Open &in PDF-XChange
+es:Abr&ir con PDF-XChange
+:Open Advanced Settings File...
+es:Abrir Archivo de Configuración Avanzada...
+:Open Attachment
+es:Abrir archivo adjunto
+:Open Current Document In New Tab
+es:Abrir documento actual en nueva pestaña
+:Open Current Document In New Window
+es:Abrir documento actual en nueva ventana
+:Open Directory In Directory Opus
+es:Abrir directorio en Directory Opus
+:Open Directory In Double Commander
+es:Abrir directorio en Double Commander
+:Open Directory In Explorer
+es:Abrir directorio en Explorer
+:Open Directory In Total Commander
+es:Abrir directorio en Total Commander
+:Open Directory in &Double Commander
+es:Abrir directorio en &Double Commander
+:Open Directory in &Explorer
+es:Abrir directorio en &Explorador de Archivos
+:Open Directory in &Total Commander
+es:Abrir directorio en &Total Commander
+:Open Directory in Director&y Opus
+es:Abrir directorio en Directory &Opus
+:Open Directory in Directory &Opus
+es:Abrir carpeta en Directory &Opus
+:Open Embedded PDF
+es:Abrir un PDF incrustado
+:Open File With SumatraPDF File Picker...
+es:Abrir Archivo con el Selector de Archivos de SumatraPDF...
+:Open File With Windows File Picker...
+es:Abrir Archivo Con Selector de Archivos de Windows...
+:Open File Without History...
+es:Abrir archivo sin historial...
+:Open File...
+es:Abrir archivo...
+:Open In New Window
+es:Abrir en nueva ventana
+:Open Next File In Folder
+es:Abrir el siguiente archivo en el directorio
+:Open Previous File In Folder
+es:Abrir el archivo anterior en el directorio
+:Open Recent File
+es:Abrir Archivo Reciente
+:Open Selected Document
+es:Abrir documento seleccionado
+:Open Settings File
+es:Abrir archivo de configuración
+:Open With Pdf&Djvu Bookmarker
+es:Abrir con PdfDjvu Bookmarker
+:Open in %s
+es:Abrir con %s
+:Open in &Adobe Reader
+es:Abrir con &Adobe Reader
+:Open in &Foxit Reader
+es:Abrir con &Foxit Reader
+:Open in &Microsoft XPS-Viewer
+es:Abrir con Visor XPS de &Microsoft
+:Open in Adobe Acrobat
+es:Abrir en Adobe Acrobat
+:Open in Foxit PhantomPDF
+es:Abrir en Foxit PhantomPDF
+:Open in Foxit Reader
+es:Abrir con Foxit Reader
+:Open in Microsoft &HTML Help
+es:Abrir en Microsoft HTML Help
+:Open in Microsoft HTML Help
+es:Abrir en Microsoft HTML Help
+:Open in Microsoft XPS Viewer
+es:Abrir en Microsoft XPS Viewer
+:Open in PDF-XChange
+es:Abrir con PDF-XChange
+:Open in a window
+es:Abrir en una ventana
+:Open using &SumatraPDF File Picker...
+es:Abrir usando el Selector de Archivos de SumatraPDF...
+:Open using &Windows File Picker...
+es:Abrir usando el Selector de Archivos de Windows...
+:Open...
+es:Abrir...
+:OpenAI Code&x
+es:OpenAI Codex
+:OpenAI Codex
+es:OpenAI Codex
+:OpenAI Codex CLI must be installed for this functionality
+es:OpenAI Codex CLI debe estar instalado para esta funcionalidad
+:OpenAI Codex is not signed in.
+es:OpenAI Codex no ha iniciado sesión.
 :Options
 es:Opciones
+:Orientation:
+es:Orientación:
+:Other Font (Embedded)...
+es:Otra Fuente (Incrustada)...
+:Overlay
+es:Superpuesto
+:P&roperties
+es:P&ropiedades
+:PDF Optimizations:
+es:Optimizaciones de PDF:
+:PDF Producer:
+es:Generador de PDF:
+:PDF Version:
+es:Versión de PDF:
+:PDF documents
+es:Documentos PDF
+:Pa&ge...
+es:Pá&gina...
 :Page
 es:Página
 :Page %d of %d
 es:Página %d de %d
+:Page %s
+es:Página %s
+:Page %u does not exist
+es:La página %u no existe
+:Page Aspect
+es:Aspecto de página
+:Page Grid
+es:Cuadrícula de página
+:Page scaling
+es:Escala de página
+:Page:
+es:Página:
+:Pages
+es:Páginas
+:PalmDoc documents
+es:Documentos PalmDoc
+:Password
+es:Contraseña
+:Paste Annotation
+es:Pegar anotación
+:Paste Image From Clipboard
+es:Pegar imagen desde el portapapeles
+:Path:
+es:Ruta:
+:Pause
+es:Pausar
+:Pause Reading
+es:Pausar lectura
+:Paused
+es:Pausado
+:Paused \xC2\xB7 %s \xC2\xB7 %s
+es:Pausado · %s · %s
+:Paused \xC2\xB7 %s \xC2\xB7 page %d of %d \xC2\xB7 %s
+es:Pausado · %s · página %d de %d · %s
+:Pin
+es:Anclar
+:Pin Selected Document
+es:Anclar documento seleccionado
+:Pixel X Dimension:
+es:Dimensión X en píxeles:
+:Pixel Y Dimension:
+es:Dimensión Y en píxeles:
+:Place caret annotation. **Esc** to cancel.
+es:Colocar anotación de intercalación. **Esc** para cancelar.
+:Place circle annotation. Drag or click twice. **Shift** for a circle. **Esc** to cancel.
+es:Colocar anotación de círculo. Arrastre o haga clic dos veces. **Shift** para un círculo. **Esc** para cancelar.
+:Place file attachment. **Esc** to cancel.
+es:Colocar archivo adjunto. **Esc** para cancelar.
+:Place free text annotation. **Esc** to cancel.
+es:Colocar anotación de texto libre. **Esc** para cancelar.
+:Place line annotation. **Shift** to snap to multiples of 45 degrees. **Esc** to cancel.
+es:Colocar anotación de línea. **Mayús** para ajustar a múltiplos de 45 grados. **Esc** para cancelar.
+:Place stamp annotation. **Esc** to cancel.
+es:Colocar anotación de sello. **Esc** para cancelar.
+:Place text annotation. **Esc** to cancel.
+es:Colocar anotación de texto. **Esc** para cancelar.
+:Please choose the certificate file to sign with.
+es:Por favor, elija el archivo de certificado para firmar.
 :Please wait...
 es:Espere un momento...
+:Polygon
+es:Polígono
+:Polyline
+es:Polilínea
+:Popup
+es:Ventana emergente
+:Popup:
+es:Emergente:
+:PostScript documents
+es:Documentos PostScript
+:PowerPoint presentations
+es:Presentaciones de PowerPoint
+:Pr&esentation
+es:Pr&esentación
+:Pre-release version, for testing only!
+es:Versión preliminar, solo para pruebas
+:Presentation Black Background
+es:Presentación con fondo negro
+:Presentation White Background
+es:Presentación con fondo blanco
+:Press (Kbd/#) to navigate file history.
+es:Presiona (Kbd/#) para navegar por el historial de archivos.
+:Press (Kbd/$) to navigate via favorites.
+es:Presiona (Kbd/$) para navegar a través de favoritos.
+:Press (Kbd/%) to navigate via table of contents.
+es:Presiona (Kbd/%) para navegar a través de la tabla de contenidos.
+:Press (Kbd/&) to navigate via thumbnails.
+es:Presiona (Kbd/) para navegar a través de miniaturas.
+:Press (Kbd/(Key/CmdCommandPalette)) to open [command palette](CmdCommandPalette).
+es:Presiona (Kbd/(Key/CmdCommandPalette)) para abrir la [paleta de comandos](CmdCommandPalette).
+:Press (Kbd/(Key/CmdToggleAutomaticallyScroll)) to [scroll automatically](Help/Scrolling-and-zooming#scroll-automatically).
+es:Presiona (Kbd/(Key/CmdToggleAutomaticallyScroll)) para [desplazarse automáticamente](Help/Scrolling-and-zooming#scroll-automatically).
+:Press (Kbd/=) to [change a setting](CmdQuickEditSettings) without opening Advanced Settings.
+es:Presiona (Kbd/=) para [cambiar una configuración](CmdQuickEditSettings) sin abrir Configuración avanzada.
+:Press (Kbd/@) to quickly switch between tabs.
+es:Presiona (Kbd/@) para cambiar rápidamente entre pestañas.
+:Press a key combination:
+es:Presione una combinación de teclas:
 :Previous
 es:Anterior
+:Previous Page
+es:Página anterior
+:Previous Tab
+es:Pestaña anterior
 :Print
 es:Imprimir
+:Print Document...
+es:Imprimir documento...
+:Print Selection...
+es:Imprimir selección...
+:Print each page at its &document page size (mixed sizes)
+es:Imprimir cada página en su tamaño de documento (tamaños mixtos)
+:Print range
+es:Rango de impresión
+:Printer '%s' doesn't exist
+es:La impresora '%s' no existe
+:Printer Mark
+es:Marca de impresora
+:Printing in progress.
+es:Impresión en progreso.
+:Printing is still in progress. Abort and quit?
+es:Aún se está imprimiendo. ¿Cancelar y salir?
+:Printing is still in progress. Abort and start over?
+es:Aún se está imprimiendo. ¿Cancelar y empezar desde cero?
+:Printing page %d of %d...
+es:Imprimiendo la página %d de %d...
+:Printing problem.
+es:Problema de impresión.
+:Projection
+es:Proyección
+:Properties...
+es:Propiedades...
+:Quick Edit Settings
+es:Configuración de Edición Rápida
+:Quit
+es:Salir
+:R&esize
+es:Cambiar tamaño
+:R&estore
+es:Restaurar
+:RGB:
+es:RGB:
+:Re&name...
+es:Re&nombrar...
+:Read Aloud
+es:Leer en voz alta
+:Read Aloud: Show In Toolbar
+es:Leer en Voz Alta: Mostrar En Barra de Herramientas
+:Read aloud voice crashed and was turned off
+es:La voz de lectura en voz alta falló y se desactivó
+:Read&ing Bar
+es:Barra de Lectura
+:Reading Bar
+es:Barra de Lectura
+:Reading Bar Invert
+es:Invertir barra de lectura
+:Reading Direction:
+es:Dirección de lectura:
 :Reading PDF file...
 es:Leyendo archivo PDF...
+:Reading \xC2\xB7 %s \xC2\xB7 %s
+es:Leyendo · %s · %s
+:Reading \xC2\xB7 %s \xC2\xB7 page %d of %d \xC2\xB7 %s
+es:Leyendo · %s · página %d de %d · %s
+:Reading stopped
+es:Lectura detenida
+:Recently Opened
+es:Abiertos recientemente
+:Rect:
+es:Rectángulo:
+:Redact
+es:Redactar
+:Redactions applied.
+es:Redacciones aplicadas.
+:Redo
+es:Rehacer
+:Register Windows Previewer
+es:Registrar previsualizador de Windows
+:Register Windows Search Filter
+es:Registrar filtro de búsqueda de Windows
+:Release Ctrl select
+es:Soltar Ctrl para seleccionar
+:Reload Document
+es:Recargar documento
+:Remember &opened files
+es:Recordar archiv&os abiertos
 :Remember these &settings for each document
 es:Recordar estos &ajustes para cada documento
+:Remove
+es:Eliminar
+:Remove Deleted Files From History
+es:Eliminar archivos borrados del historial
+:Remove Selected Document From History
+es:Eliminar documento seleccionado del historial
+:Remove chapter %d page %d from favorites
+es:Quitar capítulo %d página %d de favoritos
+:Remove from Frequently Read
+es:Eliminar de lectura frecuente
+:Remove from favorites
+es:Eliminar de los favoritos
 :Remove from history
 es:Quitar del historial
+:Remove page
+es:Eliminar página
+:Remove page %s from favorites
+es:Eliminar la página %s de los favoritos
 :Rename
 es:Renombrar
+:Rename File...
+es:Renombrar archivo...
+:Rename To
+es:Renombrar a...
+:Rendering page %d...
+es:Renderizando página %d...
+:Reopen Last Closed
+es:Reabrir último cerrado
 :Replace
 es:Reemplazar
+:Replace %s with...
+es:Reemplazar %s con...
 :Report a bug
 es:Reportar un problema
+:Reset
+es:Restablecer
+:Reset to defaults
+es:Restablecer valores predeterminados
+:Resize Image
+es:Cambiar tamaño de imagen
+:Resize Image...
+es:Cambiar tamaño de imagen...
+:Resolution (DPI)
+es:Resolución (PPP)
+:Resolution Unit:
+es:Unidad de resolución:
+:Restore
+es:Restaurar
+:Restore Tab Group
+es:Restaurar grupo de pestañas
+:Restore Tab Group...
+es:Restaurar grupo de pestañas...
+:Restore page
+es:Restaurar página
+:Resume
+es:Reanudar
+:Reverse
+es:Invertir
+:RichMedia
+es:RichMedia
+:Right to left
+es:De derecha a izquierda
+:Rotate &Left
+es:Girar &a la izquierda
+:Rotate &Right
+es:Girar &a la derecha
+:Rotate Left
+es:Girar a la izquierda
+:Rotate Right
+es:Girar a la derecha
+:Run PDF Script
+es:Ejecutar script PDF
+:Run PDF Script...
+es:Ejecutar script PDF...
+:Run Script
+es:Ejecutar script
+:Running...
+es:Ejecutando...
+:S&earch with
+es:Buscar con
+:S&election
+es:S&elección
+:S&quiggly
+es:&Ondulado
+:S&tretch pages to fill paper
+es:Estirar páginas para llenar el papel
+:SHA-1:
+es:SHA-1:
+:SVG documents
+es:Documentos SVG
+:Save
+es:Guardar
+:Save %s to disk
+es:Guardar %s en el disco
+:Save Annotations to a new PDF...
+es:Guardar anotaciones en un nuevo PDF...
+:Save Annotations to existing PDF
+es:Guardar anotaciones en PDF existente
 :Save As
 es:Guardar como
+:Save As Image...
+es:Guardar como imagen...
+:Save As...
+es:Guardar como...
+:Save Attachment
+es:Guardar adjunto
+:Save Attachment...
+es:Guarda archivo adjunto...
+:Save Embedded File...
+es:Guardar el archivo incrustado...
+:Save File As...
+es:Guardar archivo como...
+:Save Image
+es:Guardar imagen
+:Save Image...
+es:Guardar imagen...
+:Save S&hortcut...
+es:Guardar a&cceso directo...
+:Save Selection As Image
+es:Guardar selección como imagen
+:Save Shortc&ut...
+es:Guardar A&tajo...
+:Save Tab Group
+es:Guardar grupo de pestañas
+:Save Tab Group...
+es:Guardar grupo de pestañas...
+:Save as
+es:Guardar como
+:Save changes
+es:Guardar cambios
+:Save changes to %s
+es:Guardar cambios en %s
+:Save changes to &new PDF
+es:Guardar cambios en nuevo PDF
+:Save changes to a new PDF
+es:Guardar los cambios en un nuevo PDF
+:Save changes to existing PDF
+es:Guardar los cambios en un PDF existente
+:Save changes?
+es:¿Guardar cambios?
+:Save to &new PDF
+es:Guardar en un PDF &nuevo
+:Save to new file
+es:Guardar en nuevo archivo
+:Saved annotations to '%s'
+es:Anotaciones guardadas en '%s'
+:Saved screenshot to '%s'
+es:Captura de pantalla guardada en '%s'
+:Saving image...
+es:Guardando imagen...
+:Scene Type:
+es:Tipo de escena:
+:Screen
+es:Pantalla
+:Scroll Down
+es:Desplazar hacia abajo
+:Scroll Down By Half Page
+es:Desplazar media página hacia abajo
+:Scroll Down By Page
+es:Desplazar una página hacia abajo
+:Scroll Left
+es:Desplazar hacia la izquierda
+:Scroll Left By Page
+es:Desplazar una página hacia la izquierda
+:Scroll Right
+es:Desplazar hacia la derecha
+:Scroll Right By Page
+es:Desplazar una página hacia la derecha
+:Scroll Up
+es:Desplazar hacia arriba
+:Scroll Up By Half Page
+es:Desplazar media página hacia arriba
+:Scroll Up By Page
+es:Desplazar una página hacia arriba
+:Scrolling
+es:Desplazamiento
 :Search
 es:Buscar
+:Search %d files (Ctrl + F)
+es:Buscar en %d archivos (Ctrl + F)
 :Search 0 files (Ctrl + F)
 es:Buscar en 0 archivos (Ctrl + F)
 :Search 1 files (Ctrl + F)
 es:Buscar en 1 archivo (Ctrl + F)
-:Search %d files (Ctrl + F)
-es:Buscar en %d archivos (Ctrl + F)
+:Search Bookmarks
+es:Buscar marcadores
+:Search Favorites
+es:Buscar favoritos
+:Search Image with Google Lens
+es:Buscar imagen con Google Lens
+:Search Page with Google Lens
+es:Buscar página con Google Lens
+:Search Selection with Bing
+es:Buscar selección con Bing
+:Search Selection with Google
+es:Buscar selección con Google
+:Search Selection with Google Scholar
+es:Buscar selección con Google Académico
+:Search Selection with Wikipedia
+es:Buscar selección con Wikipedia
+:Search With &Bing
+es:Buscar con &Bing
+:Search With &Google
+es:Buscar con &Google
+:Search syntax
+es:Sintaxis de búsqueda
+:Search with &Google Scholar
+es:Buscar con Google &Académico
+:Search with &Wikipedia
+es:Buscar con &Wikipedia
+:Search with Google Lens
+es:Buscar con Google Lens
+:See %s for setup instructions.
+es:Consulte %s para instrucciones de configuración.
+:Select
+es:Seleccionar
+:Select &All
+es:Seleccionar &todo
+:Select &All\tCtrl+A
+es:Seleccionar &todo\tCtrl+A
 :Select All
 es:Seleccionar todo
+:Select C&urrent Page
+es:Seleccionar Página Actual
+:Select Current Page
+es:Seleccionar Página Actual
+:Select Text With Keyboard
+es:Seleccionar Texto Con Teclado
+:Select content with Ctrl+left mouse button
+es:Seleccionar contenido con Ctrl + botón izquierdo del ratón
+:Select file
+es:Seleccionar archivo
+:Select text to highlight it. **Esc** or **Enter** to finish.
+es:Selecciona texto para resaltarlo. **Esc** o **Enter** para finalizar.
+:Select the folder where SumatraPDF should be installed:
+es:Seleccione la carpeta de instalación de SumatraPDF:
+:Selected &Image
+es:Imagen seleccionada
 :Selection
 es:Selección
+:Selection was too long for a URL and was shortened.
+es:La selección era demasiado larga para una URL y fue acortada.
+:Selection:
+es:Selección:
+:Send &by E-mail...
+es:Enviar por correo &electrónico
+:Send Document By Email...
+es:Enviar documento por correo electrónico...
+:Send by &E-mail...
+es:Enviar por c&orreo...
+:Sending selection failed (HTTP %d)
+es:Error al enviar la selección (HTTP %d)
+:Sending selection failed (error %d)
+es:Error al enviar la selección (error %d)
+:Sent selection (HTTP %d)
+es:Selección enviada (HTTP %d)
+:Serial Number:
+es:Número de serie:
+:Set
+es:Establecer
+:Set Inverse Search Command Line...
+es:Establecer línea de comandos de búsqueda inversa...
+:Set Screenshot Hotkey
+es:Establecer atajo de captura de pantalla
+:Set Screenshot Hotkey...
+es:Establecer atajo de captura de pantalla...
+:Set inverse search command line
+es:Establecer línea de comando de búsqueda inversa
+:Set theme
+es:Establecer tema
+:Set theme '%s'
+es:Establecer tema '%s'
 :Settings
 es:Configuración
+:Settings...
+es:Configuración...
+:Sh&ow Toolbar
+es:Mostrar barra de &herramientas
+:Sho&w Comment
+es:Mostrar comentario
+:Sho&w Thumbnails
+es:Mostrar miniaturas
+:Show &Bookmarks
+es:Mostrar &marcadores
+:Show &DN
+es:Mostrar DN
+:Show &Favorites
+es:Mostrar &favoritos
+:Show &Menu
+es:Mostrar &menú
+:Show &Pages Continuously
+es:Mostrar las &páginas de forma continua
+:Show &Thumbnails
+es:Mostrar miniaturas
+:Show &Toolbar
+es:Mostrar barra de &herramientas
 :Show &frequently read
 es:Mostrar &leídos con frecuencia
+:Show &labels
+es:Mostrar etiquetas
+:Show &name
+es:Mostrar nombre
 :Show &toolbar
 es:Mostrar barra de &herramientas
+:Show Annotations
+es:Mostrar anotaciones
+:Show Book&marks
+es:Mostrar favo&ritos
+:Show Caption
+es:Mostrar subtítulo
+:Show Comment
+es:Mostrar comentario
+:Show Document Bookmarks...
+es:Mostrar marcadores del documento...
+:Show Document Table Of Contents
+es:Mostrar tabla de contenidos del documento
+:Show Errors
+es:Mostrar errores
+:Show Errors...
+es:Mostrar errores...
+:Show Favorites
+es:Mostrar favoritos
+:Show Favorites in Tab
+es:Mostrar favoritos en pestaña
+:Show File In Folder...
+es:Mostrar archivo en carpeta...
+:Show Frequently Read
+es:Mostrar leídos con frecuencia
+:Show Generated HTML
+es:Mostrar HTML generado
+:Show In Toolbar
+es:Mostrar en la barra de herramientas
+:Show Keyboard Shortcuts
+es:Mostrar atajos de teclado
+:Show Logs
+es:Mostrar registros
+:Show Me&nu
+es:Mostrar menú
+:Show PDF Info
+es:Mostrar información del PDF
+:Show PDF Info...
+es:Mostrar información del PDF...
+:Show Single File Tab
+es:Mostrar pestaña de archivo único
+:Show as list
+es:Mostrar como lista
+:Show as thumbnails
+es:Mostrar como miniaturas
+:Show da&te
+es:Mostrar fecha
+:Show frequently read
+es:Mostrar más leídos
+:Show in &folder
+es:Mostrar en la &carpeta
+:Show in fo&lder
+es:Mostrar en &carpeta
+:Show in folder
+es:mostrar en carpeta
+:Show name as &graphic
+es:Mostrar nombre como gráfico
+:Show the &bookmarks sidebar when available
+es:Mostrar la barra de &marcadores cuando esté disponible
+:Show the selected annotation's note
+es:Mostrar la nota de la anotación seleccionada
+:Shrink To Fit
+es:Reducir para ajustar
+:Si&gn With Image
+es:Firmar con imagen
+:Sign
+es:Firmar
+:Sign Document
+es:Firmar documento
+:Sign Document...
+es:Firmar documento...
+:Sign With Image
+es:Firmar con imagen
+:Signature
+es:Firma
+:Signature &type:
+es:Tipo de firma:
+:Signatures:
+es:Firmas:
+:Signing this way locks the document: no further changes or signatures will be possible. Continue?
+es:Firmar de esta manera bloquea el documento: no será posible realizar más cambios o firmas. ¿Continuar?
+:Single Page
+es:Una sola página
+:Single Page View
+es:Vista de página única
+:Size:
+es:Tamaño:
 :Skip
 es:Omitir
+:Slant:
+es:Inclinación:
+:Smart Next Tab
+es:Siguiente pestaña inteligente
+:Smart Overlay
+es:Superposición Inteligente
+:Smart Previous Tab
+es:Pestaña anterior inteligente
+:Smart start
+es:Inicio inteligente
+:Software:
+es:Software:
+:Solid lines
+es:Líneas sólidas
+:Sort By Name
+es:Ordenar por nombre
+:Sort Favorites By Name
+es:Ordenar favoritos por nombre
+:Sound
+es:Sonido
+:Source file %s has no synchronization point
+es:El archivo de origen %s no posee un punto de sincronización
+:Space for sticky mode
+es:Espacio para modo fijo
+:Speed
+es:Velocidad
+:Square
+es:Cuadrado
+:Squiggly
+es:Ondulado
+:Stamp
+es:Sello
+:Start Auto-Scroll
+es:Iniciar desplazamiento automático
+:Start Reading From Cursor Position
+es:Comenzar lectura desde posición del cursor
+:Start Reading From Top
+es:Comenzar lectura desde arriba
+:Start Reading Selection
+es:Comenzar lectura de selección
+:Start SumatraPDF
+es:Iniciar SumatraPDF
+:Stop
+es:Detener
+:Stop Reading
+es:Detener lectura
+:Strike Out
+es:Tachar
+:Subdivisions:
+es:Subdivisiones:
+:Subject:
+es:Asunto:
+:SumatraPDF %s Installer
+es:Instalador de SumatraPDF %s
+:SumatraPDF %s Uninstaller
+es:Desinstalador de SumatraPDF %s
+:SumatraPDF - Show Printers
+es:SumatraPDF - Mostrar impresoras
+:SumatraPDF File Picker
+es:Selector de archivos de SumatraPDF
+:SumatraPDF Update
+es:Actualizar SumatraPDF
+:SumatraPDF by Krzysztof Kowalczyk & contributors
+es:SumatraPDF, de Krzysztof Kowalczyk y colaboradores
+:SumatraPDF cannot create files in its installation folder.
+es:SumatraPDF no puede crear archivos en su carpeta de instalación.
+:SumatraPDF crashed
+es:SumatraPDF se ha reiniciado debido a un fallo
+:SumatraPDF crashed.\n\nPress 'Cancel' to see the crash report.
+es:SumatraPDF se ha cerrado inesperadamente.\n\nPresione 'Cancelar' para ver el informe de error.
+:SumatraPDF has been uninstalled.
+es:Se ha desinstalado SumatraPDF.
+:SumatraPDF installation log
+es:Registro de instalación de SumatraPDF
+:SumatraPDF installation not found.
+es:No se ha encontrado una instalación de SumatraPDF.
+:SumatraPDF manual
+es:Manual de SumatraPDF
 :SumatraPDF website
 es:Sitio de WiniPDF
+:Synchronization file cannot be opened
+es:No se ha podido abrir el archivo de sincronización
+:Tab Groups
+es:Grupos de pestañas
+:Tagged PDF
+es:PDF etiquetado
+:Take Screenshot...
+es:Capturar pantalla...
+:Text
+es:Texto
+:Text Alignment
+es:Alineación del texto
+:Text Alignment:
+es:Alineación de Texto:
+:Text Color
+es:Color del texto
+:Text Color:
+es:Color de Texto:
+:Text Font:
+es:Fuente de texto:
+:Text Size
+es:Tamaño del texto
+:Text Size:
+es:Tamaño de Texto
+:Text documents
+es:Documentos de texto
+:Thank you for choosing SumatraPDF!
+es:¡Gracias por elegir a SumatraPDF!
+:Thank you! SumatraPDF has been installed.
+es:¡Gracias! Se ha instalado SumatraPDF.
+:The Programmers
+es:Los programadores
+:The configured AI model is not available for your account.
+es:El modelo de IA configurado no está disponible para su cuenta.
+:The document's own styling is used.
+es:Se utiliza el estilo propio del documento.
+:The file does not exist
+es:El archivo no existe
+:The file format is not supported or the file is damaged
+es:El formato del archivo no es compatible o el archivo está dañado
+:The file is in use by another program
+es:El archivo está siendo utilizado por otro programa
+:The installer has been corrupted. Please download it again.
+es:El instalador está dañado. Por favor, descárguelo nuevamente.
+:The selected AI CLI is not installed.
+es:La CLI de IA seleccionada no está instalada.
+:The selected area is too large for Google Lens.
+es:El área seleccionada es demasiado grande para Google Lens.
 :Theme
 es:Tema
 :Themes
 es:Temas
+:Thick
+es:Grueso
+:Thickness
+es:Grosor
+:Thin
+es:Delgado
+:This document doesn't allow copying text.
+es:Este documento no permite copiar texto.
+:Thumbnails
+es:Miniaturas
+:Tip:
+es:Consejo:
+:Title:
+es:Título:
+:To &Selection
+es:A la &selección
+:To:
+es:Para:
+:Toggle Auto-Rotate Wide Pages
+es:Alternar rotación automática de páginas anchas
+:Toggle Bookmarks
+es:Alternar marcadores
+:Toggle Boolean Setting
+es:Alternar configuración booleana
+:Toggle Cache Info
+es:Alternar información de caché
+:Toggle Caption
+es:Activar/Desactivar subtítulo
+:Toggle Citation Hover Preview
+es:Alternar vista previa emergente de citas
+:Toggle Continuous View
+es:Alternar vista continua
+:Toggle Cursor Position
+es:Alternar posición del cursor
+:Toggle Disable Links
+es:Activar/Desactivar enlaces
+:Toggle Edit PDF
+es:Activar/Desactivar Edición de PDF
+:Toggle Engineering Drawing Enhancement
+es:Alternar mejora de dibujo técnico
+:Toggle Favorites
+es:Alternar favoritos
+:Toggle Free Pan
+es:Alternar desplazamiento libre
+:Toggle Fullscreen
+es:Alternar pantalla completa
+:Toggle Grayscale
+es:Activar/desactivar escala de grises
+:Toggle Highlight Form Fields
+es:Alternar resaltado de campos de formulario
+:Toggle Inverse Search
+es:Alternar búsqueda inversa
+:Toggle Laser Pointer
+es:Alternar puntero láser
+:Toggle Light/Dark Theme
+es:Alternar tema claro/oscuro
+:Toggle Manga Mode
+es:Alternar modo manga
+:Toggle Menu Bar
+es:Alternar barra de menú
+:Toggle PDF Preview Logging
+es:Alternar registro de vista previa PDF
+:Toggle Page Boxes
+es:Alternar cuadros de página
+:Toggle Page Grid
+es:Activar/Desactivar cuadrícula de página
+:Toggle Page Info
+es:Alternar información de página
+:Toggle Preserve PDF Image Colors in Dark Mode
+es:Alternar preservar colores de imagen PDF en modo oscuro
+:Toggle Read Aloud
+es:Activar/desactivar lectura en voz alta
+:Toggle Render Queue Info
+es:Alternar información de cola de renderizado
+:Toggle Show Annotations
+es:Alternar mostrar anotaciones
+:Toggle Show Images
+es:Alternar mostrar imágenes
+:Toggle Show Links
+es:Alternar mostrar enlaces
+:Toggle Table Of Contents
+es:Alternar tabla de contenidos
+:Toggle Thumbnails
+es:Alternar miniaturas
+:Toggle Toolbar
+es:Alternar barra de herramientas
+:Toggle Transparency Grid
+es:Activar/Desactivar cuadrícula de transparencia
+:Toggle Trim Empty Margins
+es:Alternar recorte de márgenes vacíos
+:Toggle Uniform Page Width
+es:Activar/Desactivar ancho uniforme de página
+:Toggle Zoom
+es:Alternar zoom
+:Too large for this DPI
+es:Demasiado grande para este DPI
+:Top of view
+es:Parte superior de la vista
+:Translate
+es:Traducir
+:Translate Selection with Antigravity...
+es:Traducir selección con Antigravity...
+:Translate Selection with Claude Code...
+es:Traducir selección con Claude Code...
+:Translate Selection with DeepL
+es:Traducir selección con DeepL
+:Translate Selection with Google
+es:Traducir selección con Google
+:Translate Selection with Grok Build...
+es:Traducir selección con Grok Build...
+:Translate Selection with OpenAI Codex...
+es:Traducir selección con OpenAI Codex...
+:Translate Selection...
+es:Traducir selección...
 :Translate With Google
 es:Traducir con Google
+:Translate with
+es:Traducir con
+:Translate with &Antigravity
+es:Traducir con &Antigravity
+:Translate with &Claude Code
+es:Traducir con &Claude Code
+:Translate with &DeepL
+es:Traducir con &DeepL
+:Translate with &Grok Build
+es:Traducir con &Grok Build
+:Translate with OpenAI &Codex
+es:Traducir con OpenAI &Codex
+:Translating...
+es:Traduciendo...
+:Translation failed.
+es:Error en la traducción.
+:Translation response did not contain text.
+es:La respuesta de traducción no contenía texto.
+:Translation timed out.
+es:Tiempo de espera de traducción agotado.
+:Translation:
+es:Traducción:
+:Transparency Gri&d
+es:Cuadrícula de transparencia
+:Trap Net
+es:Red de captura
+:Trust:
+es:Confianza:
+:Underline
+es:Subrayar
+:Undo
+es:Deshacer
 :Uninstall
 es:Desinstalar
+:Uninstall SumatraPDF
+es:Desinstalar SumatraPDF
+:Uninstallation failed
+es:Ha fallado la desinstalación
+:Uninstallation in progress...
+es:Desinstalación en progreso...
 :Uninstalling %s
 es:Desinstalando %s
+:Units:
+es:Unidades:
+:Unknown
+es:Desconocido
+:Unknown source file (%s)
+es:Archivo de origen desconocido (%s)
+:Unpin
+es:Desanclar
+:Unregister Windows Previewer
+es:Cancelar registro del previsualizador de Windows
+:Unregister Windows Search Filter
+es:Cancelar registro del filtro de búsqueda de Windows
+:Unsaved changes
+es:Cambios sin guardar
+:Unsaved changes in '%s'
+es:Cambios sin guardar en '%s'
+:Unsaved changes: %d
+es:Cambios sin guardar: %d
+:Up
+es:Arriba
+:Update
+es:Actualizar
+:Update EU Trusted List
+es:Actualizar lista de confianza de la UE
+:Use &tabs
+es:Usar &pestañas
+:Use <N> for the page number
+es:Use <N> para el número de página
+:Use SumatraPDF File Picker
+es:Usar selector de archivos de SumatraPDF
+:Use WiniPDF File Picker
+es:Usar el selector de archivos de WiniPDF
+:User Comment:
+es:Comentario del usuario:
+:Valid From:
+es:Válido desde:
+:Valid To:
+es:Válido hasta:
+:Various Open Source
+es:Varias licencias de código abierto
+:Version %s available. %s
+es:Versión %s disponible. %s
+:Version %s from %s available. %s
+es:Versión %s de %s disponible. %s
+:Vertical:
+es:Vertical:
 :View
 es:Ver
+:View Certificate...
+es:Ver certificado...
+:View With Custom External Viewer
+es:Ver con visor externo personalizado
+:View: Presentation Mode
+es:Vista: Modo presentación
+:Visit &Website
+es:Visitar el sitio &web
+:Visit Website
+es:Visitar sitio web
+:Visual Search With Google &Lens
+es:Búsqueda visual con Google Lens
+:Voice
+es:Voz
+:Warning
+es:Advertencia
+:Watermark
+es:Marca de agua
+:We're sorry, WiniPDF crashed.\n\nPress 'Cancel' to see crash report.
+es:Lo sentimos, WiniPDF se ha bloqueado.\n\nPulsa 'Cancelar' para ver el informe de fallo.
+:White Balance:
+es:Balance de blancos:
+:Widget
+es:Widget
+:Windows
+es:Ventanas
+:WiniPDF File Picker
+es:Selector de archivos WiniPDF
+:WiniPDF Options
+es:Opciones de WiniPDF
+:WiniPDF crashed
+es:WiniPDF se ha bloqueado
+:WiniPDF doesn't self-update: get the latest version from GitHub
+es:WiniPDF no se actualiza solo: baja la última versión de GitHub
 :WiniPDF on GitHub
 es:WiniPDF en GitHub
+:Word documents
+es:Documentos de Word
+:Wrong password for the certificate file.
+es:Contraseña incorrecta para el archivo de certificado.
+:XPS documents
+es:Documentos XPS
+:YCbCr Positioning:
+es:Posicionamiento YCbCr:
 :Yes
 es:Sí
+:You can [bookmark pages as favorites](Help/Managing-favorites).
+es:Puedes [guardar páginas como favoritas](Help/Managing-favorites).
+:You can [browse files in the current folder](CmdNavigateFilesInFolder). [Learn more](Help/Scrolling-and-zooming#browse-files-in-the-folder)
+es:Puedes [explorar archivos en la carpeta actual](CmdNavigateFilesInFolder). [Más información](Help/Scrolling-and-zooming#browse-files-in-the-folder)
+:You can [chat with AI about a document](Help/AI-Chat-with-document).
+es:Puedes [chatear con IA sobre un documento](Help/AI-Chat-with-document).
+:You can [customize keyboard shortcuts](Help/Customize-keyboard-shortcuts).
+es:Puedes [personalizar los atajos de teclado](Help/Customize-keyboard-shortcuts).
+:You can [customize scrollbar](CmdChangeScrollbar).
+es:Puedes [personalizar la barra de desplazamiento](CmdChangeScrollbar).
+:You can [customize theme colors](Help/Customize-theme-colors).
+es:Puedes [personalizar los colores del tema](Help/Customize-theme-colors).
+:You can [customize toolbar](Help/Customize-toolbar).
+es:Puedes [personalizar la barra de herramientas](Help/Customize-toolbar).
+:You can [edit PDF annotations](Help/Editing-annotations).
+es:Puedes [editar anotaciones PDF](Help/Editing-annotations).
+:You can [extract text from PDF file](Help/Tool-x-extract-text-from-pdf).
+es:Puedes [extraer texto de un archivo PDF](Help/Tool-x-extract-text-from-pdf).
+:You can [fill PDF forms](Help/Fill-PDF-forms).
+es:Puedes [rellenar formularios PDF](Help/Fill-PDF-forms).
+:You can [have documents read aloud](Help/Read-Aloud).
+es:Puedes [hacer que los documentos se lean en voz alta](Help/Read-Aloud).
+:You can [merge PDFs](Help/Merge-PDFs) and [reorder pages](Help/Reorder-PDF-pages).
+es:Puedes [combinar PDFs](Help/Merge-PDFs) y [reordenar páginas](Help/Reorder-PDF-pages).
+:You can [paste an image from the clipboard](Help/Add-an-image-to-a-PDF#insert-an-image-from-the-clipboard).
+es:Puedes [pegar una imagen desde el portapapeles](Help/Add-an-image-to-a-PDF#insert-an-image-from-the-clipboard).
+:You can [present a PDF](Help/Present-a-PDF) full screen.
+es:Puedes [presentar un PDF](Help/Present-a-PDF) en pantalla completa.
+:You can [print selected pages](Help/Print-selected-pages).
+es:Puedes [imprimir páginas seleccionadas](Help/Print-selected-pages).
+:You can [read comics and manga](Help/Comics-and-manga) right to left.
+es:Puedes [leer cómics y manga](Help/Comics-and-manga) de derecha a izquierda.
+:You can [redact a PDF](Help/Redact-a-PDF).
+es:Puedes [redactar un PDF](Help/Redact-a-PDF).
+:You can [save a page region as an image](Help/Save-page-region-as-image).
+es:Puedes [guardar una región de página como imagen](Help/Save-page-region-as-image).
+:You can [sign a PDF](Help/Sign-a-PDF).
+es:Puedes [firmar un PDF](Help/Sign-a-PDF).
+:You can [split a PDF](Help/Split-a-PDF).
+es:Puedes [dividir un PDF](Help/Split-a-PDF).
+:You can [toggle menu bar](CmdToggleMenuBar) with (Kbd/(Key/CmdToggleMenuBar)).
+es:Puedes [alternar la barra de menú](CmdToggleMenuBar) con (Kbd/(Key/CmdToggleMenuBar)).
+:You can [toggle toolbar](CmdToggleToolbar) with (Kbd/(Key/CmdToggleToolbar)).
+es:Puedes [alternar la barra de herramientas](CmdToggleToolbar) con (Kbd/(Key/CmdToggleToolbar)).
+:You can [translate selected text](Help/Customize-search-translation-services#search-or-translate-the-selection).
+es:Puedes [traducir el texto seleccionado](Help/Customize-search-translation-services#search-or-translate-the-selection).
+:You can [use SumatraPDF with LaTeX](Help/LaTeX-integration) for forward and inverse search.
+es:Puedes [usar SumatraPDF con LaTeX](Help/LaTeX-integration) para búsqueda directa e inversa.
+:You can [zoom to fit the page content](Help/Scrolling-and-zooming#fit-the-page-content).
+es:Puedes [ajustar el zoom al contenido de la página](Help/Scrolling-and-zooming#fit-the-page-content).
+:You can enable [citation preview on hover](Help/Citation-hover-preview).
+es:Puedes habilitar la [vista previa de citas al pasar el cursor](Help/Citation-hover-preview).
+:You can keep your place with the [reading bar](Help/Scrolling-and-zooming#keep-your-place-with-a-reading-bar).
+es:Puedes mantener tu lugar con la [barra de lectura](Help/Scrolling-and-zooming#keep-your-place-with-a-reading-bar).
+:You can overlay a [page grid](Help/Scrolling-and-zooming#overlay-a-page-grid) for measurement and calligraphy.
+es:Puedes superponer una [cuadrícula de página](Help/Scrolling-and-zooming#overlay-a-page-grid) para medición y caligrafía.
+:You have the latest version.
+es:Esta es la última versión disponible.
+:You have version '%s' and version '%s' is available.\nDo you want to install the new version?
+es:Tienes la versión '%s' y la versión '%s' está disponible.\n¿Quieres instalar la nueva versión?
+:You're installing 32-bit SumatraPDF on 64-bit OS.\nWould you like to download\n64-bit version?
+es:Está instalando SumatraPDF de 32 bits en un sistema operativo de 64 bits.\n¿Quiere descargar la versión de 64 bits?
 :Zoom
 es:Zoom
 :Zoom In
@@ -406,65 +2676,117 @@ es:Acercar
 es:Alejar
 :Zoom To Selection
 es:Zoom a la selección
-:&Favorites
-es:&Favoritos
-:Favorites
-es:Favoritos
-:Show Favorites
-es:Mostrar favoritos
-:Show Favorites in Tab
-es:Mostrar favoritos en pestaña
-:Tab Groups
-es:Grupos de pestañas
-:&File
-es:&Archivo
-:&View
-es:&Ver
-:&Go To
-es:&Ir a
-:&Zoom
-es:&Zoom
-:&Selection
-es:&Selección
-:&Read Aloud
-es:&Leer en voz alta
-:&Settings
-es:&Configuración
-:&Help
-es:&Ayuda
-:Show Frequently Read
-es:Mostrar leídos con frecuencia
-:Show Single File Tab
-es:Mostrar pestaña de archivo único
-:Close
-es:Cerrar
-:Exit
-es:Salir
-:About WiniPDF
-es:Acerca de WiniPDF
-:Change Language
-es:Cambiar idioma
-:Change Theme
-es:Cambiar tema
-:Advanced Settings...
-es:Configuración avanzada...
-:Check for Updates
-es:Buscar actualizaciones
-:Manual
-es:Manual
-:Keyboard Shortcuts
-es:Atajos de teclado
-:Manual On Website
-es:Manual en el sitio web
-:Visit Website
-es:Visitar sitio web
-:Check for Updates
-es:Buscar actualizaciones
-:Toggle Render Queue Info
-es:Alternar información de cola de renderizado
-:Toggle Cache Info
-es:Alternar información de caché
-:About WiniPDF
-es:Acerca de WiniPDF
-:WiniPDF File Picker
-es:Selector de archivos WiniPDF
+:Zoom: 100%
+es:Zoom: 100%
+:Zoom: 12.5%
+es:Zoom: 12.5%
+:Zoom: 125%
+es:Zoom: 125%
+:Zoom: 150%
+es:Zoom: 150%
+:Zoom: 1600%
+es:Zoom: 1600%
+:Zoom: 200%
+es:Zoom: 200%
+:Zoom: 25%
+es:Zoom: 25%
+:Zoom: 3200%
+es:Zoom: 3200%
+:Zoom: 400%
+es:Zoom: 400%
+:Zoom: 50%
+es:Zoom: 50%
+:Zoom: 6400%
+es:Zoom: 6400%
+:Zoom: 8.33%
+es:Zoom: 8.33%
+:Zoom: 800%
+es:Zoom: 800%
+:Zoom: Actual Size
+es:Zoom: Tamaño real
+:Zoom: Custom...
+es:Zoom: Personalizado...
+:Zoom: Fit Content
+es:Zoom: Ajustar al contenido
+:Zoom: Fit Height
+es:Zoom: Ajustar a la altura
+:Zoom: Fit Page
+es:Zoom: Ajustar a la página
+:Zoom: Fit Page and Single Page
+es:Zoom: Ajustar a la página y página única
+:Zoom: Fit Page or Width by Orientation
+es:Zoom: Ajustar página o ancho según orientación
+:Zoom: Fit Visible
+es:Zoom: Ajustar Visible
+:Zoom: Fit Width
+es:Zoom: Ajustar al ancho
+:Zoom: Fit Width And Continuous
+es:Zoom: Ajustar al ancho y continuo
+:Zoom: Shrink To Fit
+es:Zoom: Reducir hasta ajustar
+:Zoom: To Selection
+es:Zoom: A la selección
+:[Changes detected; refreshing] %s
+es:[Se han detectado cambios; actualizando] %s
+:a note
+es:nota
+:based on
+es:basado en
+:browse
+es:examinar
+:built on
+es:compilado el
+:centimeters
+es:centímetros
+:changed by you
+es:cambiado por ti
+:copying text
+es:copiando texto
+:default: %s
+es:predeterminado: %s
+:delete file
+es:eliminar archivo
+:document
+es:documento
+:eBook Settings
+es:Configuración de eBook
+:empty
+es:vacío
+:feedback
+es:comentarios
+:filter %d annotations
+es:filtrar %d anotaciones
+:from the document
+es:del documento
+:in document
+es:en el documento
+:inches
+es:pulgadas
+:last change
+es:último cambio
+:licenses
+es:licencias
+:manual
+es:manual
+:millimeters
+es:milímetros
+:of %d pages
+es:de %d páginas
+:open
+es:abrir
+:open in current tab
+es:abrir en la pestaña actual
+:open in new tab
+es:abrir en nueva pestaña
+:points
+es:puntos
+:printing document
+es:imprimiendo el documento
+:programming
+es:programación
+:report an issue
+es:informar de un problema
+:version
+es:versión
+:website
+es:sitio web

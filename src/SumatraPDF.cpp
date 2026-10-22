@@ -14587,11 +14587,11 @@ void ShowCrashHandlerMessage() {
     }
 #endif
 
-    Str msg = _TRA("We're sorry, SumatraPDF crashed.\n\nPress 'Cancel' to see crash report.");
+    Str msg = _TRA("We're sorry, WiniPDF crashed.\n\nPress 'Cancel' to see crash report.");
     uint flags = MB_ICONERROR | MB_OK | MB_OKCANCEL | MbRtlReadingMaybe();
     flags |= MB_SETFOREGROUND | MB_TOPMOST;
 
-    int res = MsgBox(nullptr, msg, _TRA("SumatraPDF crashed"), flags);
+    int res = MsgBox(nullptr, msg, _TRA("WiniPDF crashed"), flags);
     if (IDCANCEL != res) {
         log(StrL("ShowCrashHandlerMessage: res != IDCANCEL\n"));
         return;

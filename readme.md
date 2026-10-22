@@ -1,4 +1,4 @@
-﻿# WiniPDF
+# WiniPDF
 
 <p align="center"><img src=".github/wini-logo-256.png" width="128" alt="WiniPDF"></p>
 
@@ -38,7 +38,7 @@ El dúo negro + amarillo es además un homenaje a los colores de SumatraPDF.
 - Lectura de PDF, ePub, MOBI, XPS, DjVu, CHM, CBZ/CBR, FB2 y más
 - Velocidad de apertura legendaria, sin esperas
 - Versión portable, sin instalación
-- Interfaz en decenas de idiomas
+- Interfaz en español, con el inglés como alternativa
 
 ### Próximamente (roadmap)
 
@@ -48,8 +48,8 @@ El dúo negro + amarillo es además un homenaje a los colores de SumatraPDF.
   formatos, anotaciones avanzadas, estilo iLovePDF
 - **Temas de la comunidad**: importa y comparte tus propios temas (estilo
   Obsidian)
-- **Modernización visual Fluent**: pestañas estilo Windows 11, materiales Mica
-- Versión portable oficial y publicación en Microsoft Store
+- **Modernización visual Fluent**: materiales Mica y más acabado de Windows 11
+  en las pestañas
 
 ### El ecosistema Wini (visión a futuro)
 
@@ -129,8 +129,12 @@ Own **WiniCarbon** (dark) and **WiniAmber** (light) themes are the defaults,
 following your Windows light/dark mode.
 
 **Coming soon**: built-in AI assistant (off by default, voice accessibility
-mode, pluggable providers), document editing suite, community themes, Fluent
-visual modernization, official portable build and Microsoft Store release.
+mode, pluggable providers), document editing suite, community themes, and more
+Fluent polish (Mica).
+
+The interface is Spanish-first, with English as the alternative. The engine
+still speaks dozens of languages; we curate two so that the one we ship is
+actually finished.
 
 **Wini ecosystem vision**: the same Fluent philosophy and own identity will
 reach a VLC-based player, a modern photo/video viewer, and an ad-free YouTube

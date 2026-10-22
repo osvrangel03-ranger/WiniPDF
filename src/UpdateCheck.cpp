@@ -185,6 +185,14 @@ static UpdateInfo* ParseUpdateInfo(Str d) {
 }
 
 static bool ShouldCheckForUpdate(UpdateCheck updateCheckType) {
+    // WiniPDF: the check downloads from sumatrapdfreader.org, which answers with
+    // SumatraPDF versions and installer links - a fork must never offer upstream
+    // as its own update. We ship a portable .exe from our GitHub releases, so
+    // the check is off; StartAsyncUpdateCheck() tells the user where to look.
+    // The rest of this stays compiled (and reachable in the source) on purpose.
+    logf("CheckForUpdate: disabled in WiniPDF\n");
+    return false;
+
     if (gUpdateCheckInProgress) {
         logf("CheckForUpdate: skipping because gUpdateCheckInProgress\n");
         return false;
@@ -827,6 +835,17 @@ static void UpdateCheckAsync(UpdateCheckAsyncData* data) {
 // if autoCheck is true, this is a check *not* triggered by explicit action
 // of the user and therefore will show less UI
 void StartAsyncUpdateCheck(MainWindow* win, UpdateCheck updateCheckType) {
+    // WiniPDF: the update check is off (see ShouldCheckForUpdate), so when the
+    // user explicitly asks, say where new versions live instead of pretending
+    // to look.
+    if (UpdateCheck::UserInitiated == updateCheckType) {
+        NotificationCreateArgs args;
+        args.hwndParent = win->hwndCanvas;
+        args.msg = _TRA("WiniPDF doesn't self-update: get the latest version from GitHub");
+        args.timeoutMs = 8000;
+        ShowNotification(args);
+        return;
+    }
     if (!ShouldCheckForUpdate(updateCheckType)) {
         return;
     }

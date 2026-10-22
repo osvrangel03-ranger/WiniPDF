@@ -1,14 +1,18 @@
-﻿// Banco de pruebas visual WiniPDF: lanza la app en cada tema, captura y
+// Banco de pruebas visual WiniPDF: lanza la app en cada tema, captura y
 // analiza pixeles para detectar las cajas blancas (carbon) y negras (amber).
 // Uso: bun tests/banco-pruebas.ts
 import { waitForFrame, killAndWait } from "./win-automation.ts";
 import { captureWindowDCToPng } from "./winapi.ts";
+import { join } from "node:path";
 
 const exe = process.env.SUMATRA_TEST_EXE;
 if (!exe) {
   console.error("define SUMATRA_TEST_EXE");
   process.exit(1);
 }
+
+// capturas/ y herramientas/ viven en la raiz del proyecto (fuera del repo)
+const proyecto = join(import.meta.dir, "..", "..");
 
 const temas = [
   { nombre: "WiniCarbon (Tema Oscuro)", esperado: "oscuro" },
@@ -38,13 +42,13 @@ for (const t of temas) {
     continue;
   }
   await Bun.sleep(1800);
-  const png = "C:\\Users\\osvra\\Documents\\Osvaldo Docs\\Proyectos\\WiniPDF\\WiniPDF\\WiniPDF\\capturas\\banco-" + (t.esperado === "oscuro" ? "carbon" : "amber") + ".png";
+  const png = join(proyecto, "capturas", "banco-" + (t.esperado === "oscuro" ? "carbon" : "amber") + ".png");
   captureWindowDCToPng(hwnd, png);
   await killAndWait(proc);
 
   const analisis = Bun.spawnSync([
     "powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
-    "C:\\Users\\osvra\\Documents\\Osvaldo Docs\\Proyectos\\WiniPDF\\herramientas\\analizar-captura.ps1", "-Ruta", png,
+    join(proyecto, "herramientas", "analizar-captura.ps1"), "-Ruta", png,
   ]);
   const salida = analisis.stdout.toString().trim();
   console.log(`[${t.nombre}] esperado=${t.esperado}`);

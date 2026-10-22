@@ -54,7 +54,20 @@
 #endif
 #define CURR_VERSION_STR TEXT(CURR_VERSION_STRA)
 
+// WiniPDF's own version, the one tagged on GitHub. Bump it for every release.
+// CURR_VERSION above is the SumatraPDF base we're built on: the UI shows it as
+// "base X.Y" so a bug report can tell our version from upstream's.
+#define WINI_VERSION "0.3.0"
+#define WINI_VERSION_COMMA 0,3,0
+
+// WiniPDF: the exe's version resource reports our version, not SumatraPDF's, so
+// right-click > Properties doesn't tell the user they have SumatraPDF 3.7.
+#undef VER_RESOURCE
+#undef VER_RESOURCE_STR
+#define VER_RESOURCE WINI_VERSION_COMMA,0
+#define VER_RESOURCE_STR WINI_VERSION
+
 #define kCopyrightStr      "Copyright 2006-2026 all authors (GPLv3)"
-#define kPublisherStr      "Krzysztof Kowalczyk"
+#define kPublisherStr      "WiniPDF"
 
 #define kAppName        "WiniPDF"

@@ -117,8 +117,11 @@ Edit* ToolbarCreatePageEdit(MainWindow* win, PlatformFont* font, int iconDy) {
     args.parent = win->hwndToolbar;
     args.font = font;
     args.isRtl = IsUIRtl();
-    // no WS_EX_CLIENTEDGE: a themed edit draws a blue bottom accent (Win11)
-    args.withFrame = true;
+    // WiniPDF: no frame of its own; the rounded chip painted by the toolbar host
+    // (PaintToolbarBackground) is the whole visual, so the box stops looking
+    // like a raw Win32 edit. noTheme keeps the Win11 blue accent away.
+    args.withFrame = false;
+    args.withBottomBorder = false;
     args.noTheme = true;
     args.numbersOnly = true;
     args.alignRight = true;
@@ -139,7 +142,9 @@ Edit* ToolbarCreatePageEdit(MainWindow* win, PlatformFont* font, int iconDy) {
     // ideal == max pins GetIdealSize() to this width
     e->SetIdealWidthChars(6);
     e->SetMaxWidthChars(6);
-    e->idealDy = iconDy;
+    // WiniPDF: taller than the icon so it can sit in a rounded chip (see
+    // PaintToolbarBackground) instead of looking like a bare Win32 edit
+    e->idealDy = iconDy + DpiScale(4);
     e->onChar = MkFunc1(OnPageEditChar, win);
     return e;
 }

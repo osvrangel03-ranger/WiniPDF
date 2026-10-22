@@ -138,8 +138,9 @@ static Color TbEdgeColor() {
 
 // Old Win32 toolbar: TBMETRICS.cyPad defaults to 6, then we added DpiScale(2).
 // TB_SETBUTTONSIZE cannot go below image + 2*cyPad, so that was the bar height.
+// WiniPDF: a 40px row (20px icon + 2*10) reads like a Windows 11 command bar.
 static int ToolbarCyPad() {
-    return 6 + DpiScale(2);
+    return 8 + DpiScale(2);
 }
 
 static int ToolbarRowDy(int iconSize) {
@@ -1185,20 +1186,13 @@ static void OnToolbarButtonClicked(MainWindow* win, VirtMouseEvent* ev) {
     ev->didHandle = true;
 }
 
-static void PaintToolbarSeparator(VirtCustom*, VirtPaintCtx* ctx) {
-    Rect r = ctx->bounds;
-    int inset = DpiScale(6);
-    int dy = r.dy - (2 * inset);
-    if (dy <= 0) {
-        return;
-    }
-    int x = r.x + (r.dx / 2);
-    ctx->gfx->FillRect({x, r.y + inset, 1, dy}, ThemeEdgeColor());
-}
+// WiniPDF: a soft gap instead of a hairline. Vertical rules between groups made
+// the bar read like a 2010 toolbar; modern bars group with spacing only.
+static void PaintToolbarSeparator(VirtCustom*, VirtPaintCtx*) {}
 
 static VirtCtrl* MakeToolbarSeparator(int rowDy) {
     auto* sep = new VirtCustom();
-    sep->idealSize = {DpiScale(8), rowDy};
+    sep->idealSize = {DpiScale(12), rowDy};
     sep->onPaint = MkFunc1(PaintToolbarSeparator, sep);
     sep->SetFlag(vwfNoHitTest, true);
     return sep;
@@ -1216,7 +1210,9 @@ static void BuildToolbarLayout(MainWindow* win) {
     win->pageEdit = nullptr;
 
     int cyPad = ToolbarCyPad();
-    int iconPad = DpiScale(6);
+    // WiniPDF: a bit more horizontal air per button; the row reads as separated
+    // chips instead of a dense strip.
+    int iconPad = DpiScale(8);
     tb->rowDy = ToolbarRowDy(tb->iconSize);
     Color fg = TbTextColor();
     Color dis = TbDisabledColor();
@@ -1288,8 +1284,45 @@ static void BuildToolbarLayout(MainWindow* win) {
     tb->host->SetLayout(new Padding(box, Insets{0, DpiScale(4), 0, DpiScale(4)}));
 }
 
-static void PaintToolbarBackground(MainWindow*, VirtHostPaintEvent* ev) {
+static void PaintToolbarBackground(MainWindow* win, VirtHostPaintEvent* ev) {
     ev->gfx->FillRect(ev->clientRect, TbBgColor());
+    // WiniPDF: a soft top-down sheen. This is the "light from above" cue that
+    // makes a flat band read as a surface: white at a few percent alpha, fading
+    // out downwards. Real backdrop blur is a separate, bigger step.
+    {
+        Rect rc = ev->clientRect;
+        int bands = 5;
+        int bandDy = rc.dy / bands;
+        for (int i = 0; i < bands && bandDy > 0; i++) {
+            u8 a = (u8)(9 - (i * 9 / bands));
+            if (a == 0) {
+                break;
+            }
+            Rect b{rc.x, rc.y + (i * bandDy), rc.dx, bandDy};
+            ev->gfx->FillRects(&b, 1, MkRgb(0xFF, 0xFF, 0xFF), a);
+        }
+        // a single bright hairline on the top edge, like a glass rim
+        Rect rim{rc.x, rc.y, rc.dx, 1};
+        ev->gfx->FillRects(&rim, 1, MkRgb(0xFF, 0xFF, 0xFF), 16);
+    }
+    // WiniPDF: the page box is a Win32 EDIT, which can only be a square. Paint a
+    // rounded chip behind it in the same color as its background, so the visible
+    // shape is a pill; the control itself stays untouched (caret, IME, selection).
+    Edit* pe = win ? win->pageEdit : nullptr;
+    if (!pe || !pe->hwnd || !IsWindow(pe->hwnd)) {
+        return;
+    }
+    RECT rc{};
+    if (!GetWindowRect(pe->hwnd, &rc)) {
+        return;
+    }
+    POINT pts[2] = {{rc.left, rc.top}, {rc.right, rc.bottom}};
+    ScreenToClient(win->hwndToolbar, pts);
+    Rect r{pts[0].x, pts[0].y, pts[1].x - pts[0].x, pts[1].y - pts[0].y};
+    int pad = DpiScale(4);
+    Rect chip{r.x - pad, r.y - pad, r.dx + 2 * pad, r.dy + 2 * pad};
+    // the chip is one level above the bar so it reads as a raised control
+    ev->gfx->FillRoundedRect(chip, DpiScale(10), ThemeHotBackgroundColor());
 }
 
 // the default theme separates the toolbar from the canvas with a hairline.

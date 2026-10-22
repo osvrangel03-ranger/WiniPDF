@@ -139,7 +139,8 @@ Color TabCtrl::BgColor() {
         return AccentColor(ti->tabColor, isUnderMouse ? 35 : 25);
     }
     if (isSelected) {
-        return selected;
+        // WiniPDF: the selected capsule sits one level above the strip
+        return ThemeHotBackgroundColor();
     }
     return AccentColor(selected, isUnderMouse ? 35 : 25);
 }
@@ -220,8 +221,18 @@ void TabCtrl::Paint(VirtPaintCtx& ctx) {
         textColor = IsLightColor(tabBgCol) ? MkRgb(0xC4, 0x1E, 0x1E) : MkRgb(0xFF, 0x6A, 0x6A);
     }
 
-    int rad = DpiScale(6);
-    gfx->FillRoundedRect(r, rad, tabBgCol, tabBgCol);
+    // WiniPDF: only the selected tab gets a surface — a floating capsule inset
+    // from the strip, instead of a rectangle glued edge to edge. Unselected tabs
+    // are just their label, which is what modern tab strips do (Edge, Files).
+    bool isSelectedTab = IsSelected();
+    if (isSelectedTab || IsUnderMouse()) {
+        int insetY = DpiScale(3);
+        Rect pill = r;
+        pill.y += insetY;
+        pill.dy -= 2 * insetY;
+        int rad = std::min(DpiScale(8), pill.dy / 2);
+        gfx->FillRoundedRect(pill, rad, tabBgCol);
+    }
 
     bool isRtl = IsTabsRtl(hwnd);
     PlatformFont* font = tabsCtrl->GetFont();
@@ -428,6 +439,12 @@ void TabsCtrl::LayoutTabs() {
     } else {
         auto maxDx = (rect.dx - 5) / nTabs;
         dx = std::min(tabDefaultDx, maxDx);
+        // WiniPDF: with few tabs the shared width grew to most of the strip, so
+        // the capsule read as a text field. Cap it and let the row pack left.
+        int cap = DpiScale(220);
+        if (dx > cap) {
+            dx = cap;
+        }
     }
     tabSize = {dx, dy};
     if (IsRunningOnWine()) {
@@ -453,14 +470,9 @@ void TabsCtrl::LayoutTabs() {
     for (int i = 0; i < nTabs; i++) {
         int idx = isRtl ? (nTabs - 1 - i) : i;
         TabCtrl* t = tabCtrls[idx];
+        // every tab keeps the same width: the selected one is drawn as a capsule
+        // inset from its cell, so stretching the last one would look wrong
         int w = tabSize.dx - gap;
-        // last tab consumes the trailing gap so the row is edge-to-edge (LTR)
-        if (!isRtl && i == nTabs - 1) {
-            w = rect.dx - x;
-            if (w < DpiScale(40)) {
-                w = tabSize.dx - gap;
-            }
-        }
         Rect r = {x, 0, w, tabSize.dy};
         // absolute client coords; TabCtrl::SetBounds rebases via parent origin
         t->SetBounds({rect.x + r.x, rect.y + r.y, r.dx, r.dy});
@@ -967,13 +979,17 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
                 return 0;
             }
             HDC hdc = GetDC(hwnd);
-            Color bgCol = ThemeWindowBackgroundColor();
+            // WiniPDF: the strip is a surface one level above the canvas, so the
+            // chrome band reads as a layer instead of melting into the window.
+            Color bgCol = ThemeControlBackgroundColor();
             if (vroot) {
                 PaintVirtTree(vroot, hdc, clientRc, bgCol);
             } else {
                 // no tabs: nothing but the background
                 HdcFillRect(hdc, clientRc, bgCol);
             }
+            // a soft edge where the chrome meets the content
+            HdcFillRect(hdc, {clientRc.x, clientRc.Bottom() - 1, clientRc.dx, 1}, ThemeEdgeColor());
             ReleaseDC(hwnd, hdc);
             return 0;
         }

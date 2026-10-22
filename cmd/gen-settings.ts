@@ -1,4 +1,4 @@
-﻿// gen-settings.ts - replaces Go "-gen-settings" flag
+// gen-settings.ts - replaces Go "-gen-settings" flag
 // Generates src/Settings.h, website HTML docs, and markdown docs from settings definitions
 
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
@@ -1424,7 +1424,7 @@ const globalPrefs: Field[] = [
   field(
     "ToolbarSize",
     Int,
-    18,
+    20,
     "size of the toolbar icons in pixels at 100% display scaling (8-64); the toolbar itself " +
       "is a few pixels taller",
   ).ver("3.4"),

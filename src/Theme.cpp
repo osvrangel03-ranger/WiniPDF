@@ -1,4 +1,4 @@
-﻿/* Copyright 2022 the SumatraPDF project authors (see AUTHORS file).
+/* Copyright 2022 the SumatraPDF project authors (see AUTHORS file).
 License: GPLv3 */
 
 #include "base/Base.h"
@@ -48,7 +48,7 @@ _TRN("Light")
 _TRN("Charcoal")
 */
 
-// Optional colors (DisabledTextColor â€¦ NotificationHighlightTextColor) fix
+// Optional colors (DisabledTextColor … NotificationHighlightTextColor) fix
 // muddy derived hues when TextColor is not neutral gray (e.g. Dracula #f8f8f2).
 // Empty optional fields still fall back to AccentColor / blend of the four base colors.
 static Str themesTxt = StrL(R"(Themes [

@@ -1966,7 +1966,7 @@ static const FieldInfo gGlobalPrefsFields[] = {
     {offsetof(GlobalPrefs, tocDy), SettingType::Int, 0, true},
     {offsetof(GlobalPrefs, toolbarCustomLayout), SettingType::String, (intptr_t)""},
     {offsetof(GlobalPrefs, toolbarShowReadAloud), SettingType::Bool, false},
-    {offsetof(GlobalPrefs, toolbarSize), SettingType::Int, 18},
+    {offsetof(GlobalPrefs, toolbarSize), SettingType::Int, 20},
     {offsetof(GlobalPrefs, treeFontName), SettingType::String, (intptr_t)"automatic"},
     {offsetof(GlobalPrefs, treeFontSize), SettingType::Int, 0},
     {offsetof(GlobalPrefs, uIFontSize), SettingType::Int, 0},

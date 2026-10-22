@@ -1,8 +1,9 @@
 import { launchSumatra, waitForFrame, sendCommand, captureWindowDCToPng, killAndWait } from "./win-automation.ts";
 import { cmdId } from "./util.ts";
+import { join } from "node:path";
 
 const exe = process.env.SUMATRA_TEST_EXE!;
-const dir = "C:\\Users\\osvra\\Documents\\Ox Alpha\\proyectos\\WiniPDF\\capturas\\ventanas";
+const dir = join(import.meta.dir, "..", "..", "capturas", "ventanas");
 const tema = process.argv[2] ?? "carbon";
 
 const capturas: [string, string][] = [
