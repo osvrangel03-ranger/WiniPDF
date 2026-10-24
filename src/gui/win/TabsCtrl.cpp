@@ -3,6 +3,7 @@
 
 #include "base/Base.h"
 #include "base/Win.h"
+#include "base/Pixmap.h"
 #include "gui/Dpi.h"
 
 #include "gui/UIModels.h"
@@ -13,6 +14,8 @@
 #include "gui/Gfx.h"
 #include "gui/GuiColors.h"
 #include "gui/VirtCtrl.h"
+#include "Commands.h"
+#include "SvgIcons.h"
 #include "gui/win/TabsCtrl.h"
 #include "Theme.h"
 
@@ -29,6 +32,18 @@ MainWindow* FindMainWindowByHwnd(HWND hwnd);
 static Kind kindTabs = "tabs";
 static Kind kindTabCtrl = "tabCtrl";
 
+// WiniPDF: the "+" button in the strip runs the regular open-document flow, so
+// the picked file lands in its own tab (same behavior as File > Open).
+static void OpenDocumentFromTabs(TabsCtrl* tabs) {
+    if (!tabs || !tabs->hwnd) {
+        return;
+    }
+    // the strip sits under the frame (possibly through a host window)
+    HWND frame = GetAncestor(tabs->hwnd, GA_ROOT);
+    if (frame) {
+        HwndPostCommand(frame, CmdOpenFile);
+    }
+}
 using Gdiplus::Bitmap;
 using Gdiplus::CompositingQualityHighQuality;
 using Gdiplus::Font;
@@ -431,6 +446,7 @@ void TabsCtrl::LayoutTabs() {
         // Do not ScheduleRepaint here: an empty bar with a forced repaint can
         // re-enter layout/paint forever if something keeps calling LayoutTabs
         // (issue #5861). The parent hides the control when there are no tabs.
+        rcAddBtn = {};
         return;
     }
     int dx;
@@ -477,6 +493,16 @@ void TabsCtrl::LayoutTabs() {
         // absolute client coords; TabCtrl::SetBounds rebases via parent origin
         t->SetBounds({rect.x + r.x, rect.y + r.y, r.dx, r.dy});
         x += tabSize.dx;
+    }
+
+    // WiniPDF: the "+" sits right after the last tab, vertically centered. When
+    // the strip is full it disappears instead of covering a tab.
+    rcAddBtn = {};
+    int addDx = DpiScale(28);
+    int gap2 = DpiScale(4);
+    int ax = isRtl ? (x - addDx - gap2) : (x + gap2);
+    if (ax >= 0 && (ax + addDx) <= rect.dx) {
+        rcAddBtn = {rect.x + ax, rect.y + ((dy - addDx) / 2), addDx, addDx};
     }
 }
 
@@ -733,8 +759,26 @@ static bool CanDragTab(TabInfo* tab) {
     return true;
 }
 
-void TabsCtrl::Paint(VirtPaintCtx&) {
-    // children paint themselves; host WM_PAINT fills the background
+void TabsCtrl::Paint(VirtPaintCtx& ctx) {
+    // children paint themselves; host WM_PAINT fills the background.
+    // WiniPDF: the "+" is ours (the strip's mouse handling is custom), so it is
+    // drawn here, before the tab children, and hit-tested in WndProc.
+    if (rcAddBtn.IsEmpty()) {
+        return;
+    }
+    Color bg = ThemeControlBackgroundColor();
+    if (addBtnHover) {
+        bg = AccentColor(bg, 26);
+        ctx.gfx->FillRoundedRect(rcAddBtn, DpiScale(6), bg);
+    }
+    int sz = DpiScale(16);
+    Pixmap* px = GetCachedPixmapForSvg(Str(gIconPlus), sz, sz, ThemeWindowTextColor(), bg);
+    if (!px) {
+        return;
+    }
+    Rect r{rcAddBtn.x + ((rcAddBtn.dx - px->width) / 2), rcAddBtn.y + ((rcAddBtn.dy - px->height) / 2), px->width,
+           px->height};
+    ctx.gfx->DrawPixmap(px, r);
 }
 
 LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
@@ -789,6 +833,10 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
                 return HTCLIENT;
             }
             mousePos = HwndScreenToClient(hwnd, mousePos);
+            // WiniPDF: the "+" is a button, not title-bar drag area
+            if (!rcAddBtn.IsEmpty() && rcAddBtn.Contains(mousePos)) {
+                return HTCLIENT;
+            }
             tabState = TabStateFromMousePosition(mousePos);
             if (tabState.tabIdx >= 0) {
                 return HTCLIENT;
@@ -810,12 +858,21 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
                 vroot->OnMessage(msg, wp, lp, res);
             }
             tabHighlightedClose = -1;
+            addBtnHover = false;
+            addBtnPressed = false;
             UpdateHover(-1);
             break;
         }
 
         case WM_MOUSEMOVE: {
             TrackMouseLeave(hwnd);
+            if (!rcAddBtn.IsEmpty()) {
+                bool hot = rcAddBtn.Contains(mousePos);
+                if (hot != addBtnHover) {
+                    addBtnHover = hot;
+                    ScheduleRepaint();
+                }
+            }
             bool isDragging = (GetCapture() == hwnd);
             int hl = tabHighlighted;
             if (isDragging && beyondDragThreshold) {
@@ -872,6 +929,11 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
         }
 
         case WM_LBUTTONDOWN: {
+            if (!rcAddBtn.IsEmpty() && rcAddBtn.Contains(mousePos)) {
+                addBtnPressed = true;
+                ScheduleRepaint();
+                return 0;
+            }
             if (overClose) {
                 tabBeingClosed = tabUnderMouse;
             }
@@ -883,6 +945,14 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
         }
 
         case WM_LBUTTONUP: {
+            if (addBtnPressed) {
+                addBtnPressed = false;
+                ScheduleRepaint();
+                if (!rcAddBtn.IsEmpty() && rcAddBtn.Contains(mousePos)) {
+                    OpenDocumentFromTabs(this);
+                }
+                return 0;
+            }
             bool isDragging = (GetCapture() == hwnd);
             if (isDragging) {
                 ReleaseCapture();
@@ -981,12 +1051,21 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
             HDC hdc = GetDC(hwnd);
             // WiniPDF: the strip is a surface one level above the canvas, so the
             // chrome band reads as a layer instead of melting into the window.
+            // The backdrop is the blurred wallpaper behind the window, tinted
+            // with the theme color; without one it falls back to the flat color.
             Color bgCol = ThemeControlBackgroundColor();
+            Pixmap* glass = GetGlassPixmap(clientRc.Size(), HwndWindowRect(hwnd), bgCol);
             if (vroot) {
-                PaintVirtTree(vroot, hdc, clientRc, bgCol);
+                PaintVirtTree(vroot, hdc, clientRc, bgCol, glass);
             } else {
                 // no tabs: nothing but the background
-                HdcFillRect(hdc, clientRc, bgCol);
+                if (glass) {
+                    Gfx* gfx = GfxCreate(hdc);
+                    gfx->DrawPixmap(glass, clientRc);
+                    delete gfx;
+                } else {
+                    HdcFillRect(hdc, clientRc, bgCol);
+                }
             }
             // a soft edge where the chrome meets the content
             HdcFillRect(hdc, {clientRc.x, clientRc.Bottom() - 1, clientRc.dx, 1}, ThemeEdgeColor());

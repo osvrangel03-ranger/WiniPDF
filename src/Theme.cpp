@@ -2,6 +2,8 @@
 License: GPLv3 */
 
 #include "base/Base.h"
+#include "base/Pixmap.h"
+#include "base/GdiPlusUtil.h"
 #include "gui/Dpi.h"
 
 #include "gui/UIModels.h"
@@ -817,6 +819,204 @@ bool ThemeColorizeControls() {
         return true;
     }
     return !IsMenuFontSizeDefault();
+}
+
+// WiniPDF: simulated Mica. The chrome is made of opaque GDI HWNDs and GDI has
+// no alpha, so the backdrop is cooked here instead of composited by DWM: decode
+// the wallpaper once, shrink it (that's the blur), then crop -- at its real
+// screen position -- the slice that sits behind the chrome and express it in the
+// theme color (see CookGlass). The result is one opaque pixmap per strip that
+// moves with the window. Any failure returns nullptr and the caller keeps the
+// flat color: the chrome must never go blank.
+static Gdiplus::Bitmap* gWallSmall;
+static Str gWallSmallPath;
+static int gWallAvgLum = 128;
+
+// 640px wide is enough: the chrome is a thin strip and the upscale to physical
+// pixels is what does the blurring. Small enough to recrop while dragging.
+static const int kGlassSourceWidth = 640;
+
+// SPI_GETDESKWALLPAPER returns the file Windows is currently showing; it's
+// empty when the desktop is a flat color.
+static Str GetWallpaperPathTemp() {
+    WCHAR buf[MAX_PATH * 4]{};
+    if (!SystemParametersInfoW(SPI_GETDESKWALLPAPER, dimof(buf), buf, 0)) {
+        return {};
+    }
+    return ToUtf8Temp(WStr(buf));
+}
+
+// The decoded wallpaper is cached by path: decoding a 4K jpeg on every repaint
+// (hover animations repaint a lot) would cost more than the whole chrome.
+static Gdiplus::Bitmap* GetWallpaperSmall(Str path) {
+    if (str::Eq(gWallSmallPath, path)) {
+        return gWallSmall;
+    }
+    delete gWallSmall;
+    gWallSmall = nullptr;
+    str::ReplaceWithCopy(&gWallSmallPath, path);
+    Gdiplus::Bitmap src(CWStrTemp(path));
+    if (src.GetLastStatus() != Gdiplus::Ok) {
+        return nullptr;
+    }
+    int w = (int)src.GetWidth();
+    int h = (int)src.GetHeight();
+    if (w <= 0 || h <= 0) {
+        return nullptr;
+    }
+    int sw = std::min(w, kGlassSourceWidth);
+    int sh = std::max(1, (int)((i64)h * sw / w));
+    auto* tiny = new Gdiplus::Bitmap(sw, sh, PixelFormat32bppARGB);
+    if (tiny->GetLastStatus() != Gdiplus::Ok) {
+        delete tiny;
+        return nullptr;
+    }
+    Gdiplus::Graphics g(tiny);
+    g.SetInterpolationMode(Gdiplus::InterpolationModeHighQualityBicubic);
+    g.SetPixelOffsetMode(Gdiplus::PixelOffsetModeHighQuality);
+    if (g.DrawImage(&src, Gdiplus::Rect(0, 0, sw, sh)) != Gdiplus::Ok) {
+        delete tiny;
+        return nullptr;
+    }
+    // one average for the whole wallpaper, not per crop: the tab strip and the
+    // toolbar must modulate around the same value or a seam shows between them
+    Gdiplus::Rect rcAvg(0, 0, sw, sh);
+    Gdiplus::BitmapData bd;
+    gWallAvgLum = 128;
+    if (tiny->LockBits(&rcAvg, Gdiplus::ImageLockModeRead, PixelFormat32bppARGB, &bd) == Gdiplus::Ok) {
+        i64 sum = 0;
+        for (int y = 0; y < sh; y++) {
+            u8* row = (u8*)bd.Scan0 + (size_t)y * bd.Stride;
+            for (int x = 0; x < sw; x++) {
+                u8* p = row + (size_t)x * 4;
+                sum += (p[2] * 77 + p[1] * 151 + p[0] * 28) >> 8;
+            }
+        }
+        gWallAvgLum = (int)(sum / ((i64)sw * sh));
+        tiny->UnlockBits(&bd);
+    }
+    gWallSmall = tiny;
+    return gWallSmall;
+}
+
+// Map the chrome's screen rect into wallpaper pixels. Windows paints the
+// wallpaper "fill" (cover) across the virtual screen, so the same transform
+// puts the blur behind the window where the real wallpaper would be.
+//
+// The crop is then expressed in the theme color: each pixel keeps the theme's
+// hue and only moves around the wallpaper's average luminance. Mixing the
+// wallpaper color in (the obvious alpha blend) turned the amber theme gray on a
+// blue desktop, and the amber is the identity.
+static Pixmap* CookGlass(Size size, Rect scr, Gdiplus::Bitmap* wall, Color tint) {
+    int vx = GetSystemMetrics(SM_XVIRTUALSCREEN);
+    int vy = GetSystemMetrics(SM_YVIRTUALSCREEN);
+    int vw = GetSystemMetrics(SM_CXVIRTUALSCREEN);
+    int vh = GetSystemMetrics(SM_CYVIRTUALSCREEN);
+    if (vw <= 0 || vh <= 0) {
+        return nullptr;
+    }
+    float ww = (float)wall->GetWidth();
+    float wh = (float)wall->GetHeight();
+    float scale = std::max((float)vw / ww, (float)vh / wh);
+    float offX = (float)vx + ((float)vw - ww * scale) / 2.0f;
+    float offY = (float)vy + ((float)vh - wh * scale) / 2.0f;
+    float cx = ((float)scr.x - offX) / scale;
+    float cy = ((float)scr.y - offY) / scale;
+    float cw = (float)scr.dx / scale;
+    float ch = (float)scr.dy / scale;
+    // a window dragged past the edge of the screen still needs pixels
+    cx = std::max(0.0f, std::min(cx, ww - 1.0f));
+    cy = std::max(0.0f, std::min(cy, wh - 1.0f));
+    cw = std::max(1.0f, std::min(cw, ww - cx));
+    ch = std::max(1.0f, std::min(ch, wh - cy));
+
+    auto* out = new Gdiplus::Bitmap(size.dx, size.dy, PixelFormat32bppARGB);
+    if (out->GetLastStatus() != Gdiplus::Ok) {
+        delete out;
+        return nullptr;
+    }
+    Gdiplus::Graphics g(out);
+    // bilinear on the way up: the source is already blurred, bicubic would only
+    // sharpen the block edges back
+    g.SetInterpolationMode(Gdiplus::InterpolationModeHighQualityBilinear);
+    Gdiplus::Rect dst(0, 0, size.dx, size.dy);
+    Gdiplus::Status st = g.DrawImage(wall, dst, (int)cx, (int)cy, (int)cw, (int)ch, Gdiplus::UnitPixel);
+    if (st != Gdiplus::Ok) {
+        delete out;
+        return nullptr;
+    }
+    Pixmap* px = PixmapFromGdiplus(out);
+    delete out;
+    if (!px) {
+        return nullptr;
+    }
+    // 0.90x .. 1.10x of the theme color around the wallpaper's own average: the
+    // band keeps the exact amber/carbon tone and only shows the wallpaper's
+    // shapes as a few percent of light and shade.
+    u8 tr = GetRed(tint);
+    u8 tg = GetGreen(tint);
+    u8 tb = GetBlue(tint);
+    for (int y = 0; y < px->height; y++) {
+        u8* row = px->data + (size_t)y * px->stride;
+        for (int x = 0; x < px->width; x++) {
+            u8* p = row + (size_t)x * 4; // BGRA8
+            int lum = (p[2] * 77 + p[1] * 151 + p[0] * 28) >> 8;
+            int k = 1000 + (lum - gWallAvgLum) * 1000 / 1200;
+            if (k < 880) {
+                k = 880;
+            } else if (k > 1120) {
+                k = 1120;
+            }
+            p[0] = (u8)std::min(255, tb * k / 1000);
+            p[1] = (u8)std::min(255, tg * k / 1000);
+            p[2] = (u8)std::min(255, tr * k / 1000);
+            p[3] = 255;
+        }
+    }
+    return px;
+}
+
+struct GlassCacheEntry {
+    Size size;
+    Rect scr;
+    Color tint = 0;
+    Pixmap* px = nullptr;
+};
+
+// Two chrome strips repaint constantly and a drag changes both the size and the
+// position, so a handful of entries is enough to avoid recooking every frame.
+static GlassCacheEntry gGlassCache[4];
+static int gGlassCacheNext;
+
+Pixmap* GetGlassPixmap(Size size, Rect screenRect, Color tint) {
+    if (size.dx < 2 || size.dy < 2 || screenRect.IsEmpty()) {
+        return nullptr;
+    }
+    for (auto& e : gGlassCache) {
+        if (e.px && e.size == size && e.scr == screenRect && e.tint == tint) {
+            return e.px;
+        }
+    }
+    Str path = GetWallpaperPathTemp();
+    if (!path) {
+        return nullptr;
+    }
+    Gdiplus::Bitmap* wall = GetWallpaperSmall(path);
+    if (!wall) {
+        return nullptr;
+    }
+    Pixmap* px = CookGlass(size, screenRect, wall, tint);
+    if (!px) {
+        return nullptr;
+    }
+    GlassCacheEntry& e = gGlassCache[gGlassCacheNext];
+    gGlassCacheNext = (gGlassCacheNext + 1) % dimof(gGlassCache);
+    FreePixmap(e.px);
+    e.px = px;
+    e.size = size;
+    e.scr = screenRect;
+    e.tint = tint;
+    return px;
 }
 
 #if 0

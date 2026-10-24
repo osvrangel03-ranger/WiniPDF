@@ -190,6 +190,14 @@ const char* gIconSearch =
   <line x1="21" y1="21" x2="15" y2="15" />
 </svg>)";
 
+// WiniPDF: https://github.com/tabler/tabler-icons/blob/master/icons/plus.svg
+const char* gIconPlus =
+    R"(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
+  <line x1="12" y1="5" x2="12" y2="19" />
+  <line x1="5" y1="12" x2="19" y2="12" />
+</svg>)";
+
 // https://github.com/tabler/tabler-icons/blob/master/icons/chevron-up.svg
 const char* gIconChevronUp =
     R"(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

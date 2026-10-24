@@ -47,6 +47,11 @@ Color ThemeNotificationsHighlightLinkColor();
 Color ThemeNotificationsProgressColor();
 bool ThemeColorizeControls();
 bool IsCurrentThemeDefault();
+
+struct Pixmap;
+// WiniPDF: blurred wallpaper behind the chrome, sized in physical pixels.
+// nullptr means the caller should paint its flat color instead.
+Pixmap* GetGlassPixmap(Size size, Rect screenRect, Color tint);
 void FreeThemes();
 bool MigrateRenamedThemeNames();
 bool GetInvertPageColors();

@@ -120,8 +120,11 @@ constexpr int kAboutRectPadding = 8;
 
 constexpr int kInnerPadding = 8;
 
-static const Str kSumatraTxtFont = StrL("Arial Black");
-constexpr int kSumatraTxtFontSize = 24;
+static const Str kSumatraTxtFont = StrL("Segoe UI");
+constexpr int kSumatraTxtFontSize = 26;
+// WiniPDF: brand mark (amber tile with the W) drawn next to the wordmark
+constexpr int kLogoMarkDx = 34;
+constexpr int kLogoMarkGap = 12;
 
 #define LAYOUT_LTR 0
 
@@ -222,14 +225,6 @@ static TempStr GetAppVersionTemp() {
     return s;
 }
 
-// WiniPDF palette: five shades of amber for the per-letter logo (was the
-// rainbow kCol1..kCol5 of SumatraPDF)
-constexpr Color kCol1 = MkRgb(168, 106, 0);
-constexpr Color kCol2 = MkRgb(200, 122, 0);
-constexpr Color kCol3 = MkRgb(255, 176, 32);
-constexpr Color kCol4 = MkRgb(255, 200, 90);
-constexpr Color kCol5 = MkRgb(224, 142, 0);
-
 static Kind kindSumatraLogo = "sumatraLogo";
 
 // the app name centered in its bounds, each letter in a different color (so it
@@ -253,22 +248,35 @@ Size SumatraLogo::GetIdealSize() {
     HWND hwnd = GetHwnd();
     sz.dy += DpiScale(kAboutBoxMarginDy * 2);
     sz.dx += 2 * DpiScale(kInnerPadding);
+    // WiniPDF: brand lockup = amber tile + wordmark
+    sz.dx += DpiScale(kLogoMarkDx) + DpiScale(kLogoMarkGap);
+    if (sz.dy < DpiScale(kLogoMarkDx)) {
+        sz.dy = DpiScale(kLogoMarkDx);
+    }
     return sz;
 }
 
+// WiniPDF: the wordmark used to be "WiniPDF" in Arial Black with one amber
+// shade per letter — the strongest "Win32 demo app" cue left on the home page.
+// Now it is a real lockup: the amber tile from the app icon (a W on amber) plus
+// the name in the UI font and the theme's ink color. The amber lives in the
+// mark, which is what makes it read as a brand instead of a colorful caption.
 void SumatraLogo::Paint(VirtPaintCtx& ctx) {
-    static Color cols[] = {kCol1, kCol2, kCol3, kCol4, kCol5, kCol5, kCol4, kCol3, kCol2, kCol1};
-    Size txtSize = PlatformFontMeasureText(font, StrL(kAppName));
     Rect r = ctx.bounds;
-    Point pt{r.x + ((r.dx - txtSize.dx) / 2), r.y + ((r.dy - txtSize.dy) / 2)};
-    char buf[2] = {};
-    for (int i = 0; i < len(kAppName); i++) {
-        buf[0] = kAppName[i];
-        Str letter{buf, 1};
-        Size sz = PlatformFontMeasureText(font, letter);
-        ctx.gfx->DrawText(letter, {pt.x, pt.y, sz.dx, sz.dy}, 0, font, cols[i % dimofi(cols)]);
-        pt.x += sz.dx;
-    }
+    Size txtSize = PlatformFontMeasureText(font, StrL(kAppName));
+    int mark = std::min(DpiScale(kLogoMarkDx), r.dy);
+    int gap = DpiScale(kLogoMarkGap);
+    int totalDx = mark + gap + txtSize.dx;
+    int x = r.x + ((r.dx - totalDx) / 2);
+    int y = r.y + ((r.dy - mark) / 2);
+
+    Rect rcMark{x, y, mark, mark};
+    ctx.gfx->FillRoundedRect(rcMark, std::max(2, mark * 24 / 100), MkRgb(0xF2, 0xA9, 0x1C));
+    PlatformFont* markFont = GetUserGuiFontEx(StrL("Segoe UI"), std::max(8, (int)(mark * 0.62f)), true, false);
+    ctx.gfx->DrawText(StrL("W"), rcMark, gfxTextCenter | gfxTextVCenter, markFont, MkRgb(0x46, 0x2E, 0x00));
+
+    Rect rcTxt{x + mark + gap, r.y + ((r.dy - txtSize.dy) / 2), txtSize.dx, txtSize.dy};
+    ctx.gfx->DrawText(StrL(kAppName), rcTxt, gfxTextLeft | gfxTextVCenter, font, ThemeWindowTextColor());
 }
 
 static TempStr TrimGitTemp(Str s) {
@@ -389,7 +397,7 @@ void AboutCtrl::Sync() {
         }
     }
 
-    logo->font = GetUserGuiFont(kSumatraTxtFont, DpiScale(kSumatraTxtFontSize));
+    logo->font = GetUserGuiFontEx(kSumatraTxtFont, DpiScale(kSumatraTxtFontSize), true, false);
 
     PlatformFont* fontLeftTxt = GetUserGuiFont(Str(kLeftTextFont), DpiScale(kLeftTextFontSize));
     PlatformFont* fontRightTxt = GetUserGuiFont(Str(kRightTextFont), DpiScale(kRightTextFontSize));
@@ -1050,11 +1058,14 @@ static int HomePageIconSize() {
 constexpr int kThumbsMiddleMargin = 32;
 // draw a gray separator line between list-view rows
 static bool gShowListSeparatorLine = false;
-constexpr int kSearchEditDy = 28;
+constexpr int kSearchEditDy = 30;
 constexpr int kSearchThumbnailsGapY = 12;
 
 static PlatformFont* HomePageFont(int size) {
-    return GetUserGuiFont(StrL("MS Shell Dlg"), DpiScale(size));
+    // WiniPDF: the system UI font (Segoe UI on 10/11), not the "MS Shell Dlg"
+    // alias that GDI resolves to Microsoft Sans Serif. That face is the single
+    // strongest "this is a 2005 Win32 app" cue left on the home page.
+    return GetUserGuiFont(StrL("auto"), DpiScale(size));
 }
 
 static void HomeSelectFromSearchReturnCol(MainWindow* win);
@@ -1210,7 +1221,7 @@ void HomePageOnDpiChanged(MainWindow* win, int dpi) {
     }
     if (win->homeSearch) {
         int fontSize = DpiScaleByDpi(dpi, 14);
-        win->homeSearch->SetFont(GetUserGuiFont(StrL("MS Shell Dlg"), fontSize));
+        win->homeSearch->SetFont(GetUserGuiFont(StrL("auto"), fontSize));
         int margin = DpiScaleByDpi(dpi, 6);
         win->homeSearch->SetMargins(margin, margin);
     }
@@ -1470,7 +1481,8 @@ static void ApplyHomeLayoutCache(HomePageLayout& l, int scrollY) {
     openDoc->SetText(openTxt);
     openDoc->font = fontText;
     openDoc->isRtl = isRtl;
-    openDoc->withUnderline = true;
+    // WiniPDF: the button's surface is the affordance now, not an underline
+    openDoc->withUnderline = false;
     openDoc->SetBounds(c.rcOpenDoc);
     l.openDoc = openDoc;
 }
@@ -1547,6 +1559,18 @@ static void LayoutHomePage(HomePageLayout& l) {
     }
     int thumbsContentWidth = (thumbsColsForLayout * kThumbnailDx) + ((thumbsColsForLayout - 1) * kThumbsSpaceBetweenX);
 
+    // WiniPDF: el header (logo, buscador, botones de vista) debe caber en la
+    // ventana. La banda de miniaturas puede empezar mas a la derecha de lo que
+    // cabe (a >100% de DPI se desborda), y con ella se iban fuera de pantalla
+    // los botones de vista: el de cuadricula quedaba cortado y no respondia.
+    int hdrPad = DpiScale(kInnerPadding);
+    Rect canvasRc = HwndClientRect(win->hwndCanvas);
+    int hdrWidth = std::min(thumbsContentWidth, canvasRc.dx - (2 * hdrPad));
+    int hdrStartX = std::min(thumbsStartX, canvasRc.x + canvasRc.dx - hdrPad - hdrWidth);
+    if (hdrStartX < canvasRc.x + hdrPad) {
+        hdrStartX = canvasRc.x + hdrPad;
+    }
+
     // --- Step 1: two header rows: the app logo centered on top, then
     // [open link] [search edit] [view icons] ---
     Rect rcIconView(0, 0, 0, 0);
@@ -1561,16 +1585,16 @@ static void LayoutHomePage(HomePageLayout& l) {
     EnsureHomeSearchCreated(win);
     int searchEditDy = DpiScale(kSearchEditDy);
     int searchThumbsGap = DpiScale(kSearchThumbnailsGapY);
-    int borderDy = searchEditDy + 2; // 1px border on each side
+    int borderDy = searchEditDy + DpiScale(10);
 
     // the app name in colorful letters, same font as the About window
-    chrome->logo->font = GetUserGuiFont(kSumatraTxtFont, DpiScale(kSumatraTxtFontSize));
+    chrome->logo->font = GetUserGuiFontEx(kSumatraTxtFont, DpiScale(kSumatraTxtFontSize), true, false);
     Size logoSize = chrome->logo->GetIdealSize();
     int logoY = DpiScale(8);
-    l.rcLogo = {thumbsStartX + ((thumbsContentWidth - logoSize.dx) / 2), logoY, logoSize.dx, logoSize.dy};
+    l.rcLogo = {hdrStartX + ((hdrWidth - logoSize.dx) / 2), logoY, logoSize.dx, logoSize.dy};
 
     int hdrY = logoY + logoSize.dy + DpiScale(8);
-    int iconGap = DpiScale(4);
+    int iconGap = DpiScale(8);
     int rowDy = std::max(rcIconView.dy, borderDy);
     // every row item (link, search box, view icons) is centered on the row's
     // vertical centerline
@@ -1587,17 +1611,17 @@ static void LayoutHomePage(HomePageLayout& l) {
     openDoc->SetText(openTxt);
     openDoc->font = fontText;
     openDoc->isRtl = isRtl;
-    openDoc->withUnderline = true;
+    openDoc->withUnderline = false;
     Size txtSize = openDoc->GetIdealSize(true);
     int openGroupDx = rcIconOpen.dx + 3 + txtSize.dx;
 
-    rcIconOpen.x = thumbsStartX;
+    rcIconOpen.x = hdrStartX;
     rcIconOpen.y = centerY - (rcIconOpen.dy / 2);
     Rect rcOpenDoc(rcIconOpen.x + rcIconOpen.dx + 3, centerY - (txtSize.dy / 2), txtSize.dx, txtSize.dy);
 
     /* view-mode icons at the right edge */
-    l.rcIconThumbnailView = {thumbsStartX + thumbsContentWidth - viewIconsDx, centerY - (rcIconView.dy / 2),
-                             rcIconView.dx, rcIconView.dy};
+    l.rcIconThumbnailView = {hdrStartX + hdrWidth - viewIconsDx, centerY - (rcIconView.dy / 2), rcIconView.dx,
+                             rcIconView.dy};
     l.rcIconListView = {l.rcIconThumbnailView.x + rcIconView.dx + iconGap, l.rcIconThumbnailView.y, rcIconView.dx,
                         rcIconView.dy};
 
@@ -1605,9 +1629,9 @@ static void LayoutHomePage(HomePageLayout& l) {
     // sides are padded to the wider of the two, so the box sits centered
     int rowGapX = DpiScale(16);
     int flankDx = std::max(viewIconsDx, openGroupDx) + rowGapX;
-    int borderDx = thumbsContentWidth - (2 * flankDx);
+    int borderDx = hdrWidth - (2 * flankDx);
     borderDx = std::max(borderDx, DpiScale(200));
-    int borderX = thumbsStartX + ((thumbsContentWidth - borderDx) / 2);
+    int borderX = hdrStartX + ((hdrWidth - borderDx) / 2);
     l.rcSearchBorder = {borderX, hdrY + ((rowDy - borderDy) / 2), borderDx, borderDy};
 
     if (isRtl) {
@@ -1624,9 +1648,14 @@ static void LayoutHomePage(HomePageLayout& l) {
     l.openDoc = openDoc;
 
     {
-        // inside the 1px border: the layout gives the edit the full width and
-        // its own (text-sized) height, centered vertically
-        Rect rcEdit = {l.rcSearchBorder.x + 1, l.rcSearchBorder.y + 1, l.rcSearchBorder.dx - 2, searchEditDy};
+        // WiniPDF: the visible field is a rounded pill; the native EDIT sits
+        // inside it with room on the left for the magnifier. Its background is
+        // the same color as the pill, so its square corners never show.
+        int editPadY = (borderDy - searchEditDy) / 2;
+        int padLeft = DpiScale(32);
+        int padRight = DpiScale(12);
+        Rect rcEdit = {l.rcSearchBorder.x + padLeft, l.rcSearchBorder.y + editPadY,
+                       l.rcSearchBorder.dx - padLeft - padRight, searchEditDy};
         LayoutToSize(win->homeSearchLayout, rcEdit.Size());
         win->homeSearchLayout->SetBounds(rcEdit);
     }
@@ -1842,15 +1871,15 @@ static Pixmap* GetFileStateIconPixmap(FileState* fs) {
 // entry the mouse is on.
 
 static void DrawHomeViewButton(Gfx* gfx, Pixmap* icon, Rect r, bool selected, bool hovered) {
+    // WiniPDF: two rounded chips instead of bare icons. The selected mode is a
+    // raised chip, the other one only shows a surface under the mouse.
+    Rect chip = r;
+    chip.Inflate(DpiScale(4), DpiScale(4));
     if (selected || hovered) {
         Color bg = selected ? ThemeControlBackgroundColor() : ThemeMainWindowBackgroundColor();
-        if (hovered) {
-            bg = AccentColor(bg, 20);
-        }
-        gfx->FillRect(r, bg);
-        if (selected) {
-            gfx->DrawRect(r, AccentColor(bg, 40));
-        }
+        bg = AccentColor(bg, selected ? 18 : 10);
+        Color border = selected ? AccentColor(bg, 34) : kColorTransparent;
+        gfx->FillRoundedRect(chip, DpiScale(7), bg, border);
     }
     if (icon) {
         gfx->DrawPixmap(icon, {r.x, r.y, icon->width, icon->height});
@@ -2160,6 +2189,14 @@ HomeOpenDocCtrl::HomeOpenDocCtrl() {
 }
 
 void HomeOpenDocCtrl::Paint(VirtPaintCtx& ctx) {
+    // WiniPDF: a quiet button (surface + hairline) instead of an underlined
+    // link — the last "web link from 2005" cue on the home page. The label is
+    // a child VirtText, so it stays selectable/measurable as before.
+    Color bg = ThemeControlBackgroundColor();
+    if (HasFlag(vwfHovered)) {
+        bg = AccentColor(bg, 12);
+    }
+    ctx.gfx->FillRoundedRect(ctx.bounds, DpiScale(10), bg, AccentColor(bg, 26));
     if (!pixmap) {
         return;
     }
@@ -2180,12 +2217,21 @@ HomeSearchBorderCtrl::HomeSearchBorderCtrl() {
     SetFlag(vwfNoHitTest, true);
 }
 
-// border and fill around the search edit; the edit HWND sits inside, so only
-// the 1px frame and the padding around it are actually visible
+// WiniPDF: a rounded search field with the magnifier inside, drawn behind the
+// native EDIT (which keeps its caret, IME and selection). The fill matches the
+// edit's own background, so only the pill's edge and the icon are new.
 void HomeSearchBorderCtrl::Paint(VirtPaintCtx& ctx) {
     Color bgCol = ThemeControlBackgroundColor();
-    ctx.gfx->FillRect(ctx.bounds, bgCol);
-    ctx.gfx->DrawRect(ctx.bounds, AccentColor(bgCol, 40));
+    Rect r = ctx.bounds;
+    int rad = std::min(DpiScale(12), r.dy / 2);
+    ctx.gfx->FillRoundedRect(r, rad, bgCol, AccentColor(bgCol, 26));
+    int sz = RoundUp(DpiScale(16), 4);
+    Pixmap* icon = GetCachedPixmapForSvg(Str(gIconSearch), sz, sz, ThemeWindowTextDisabledColor(), bgCol);
+    if (!icon) {
+        return;
+    }
+    Rect rcIcon{r.x + DpiScale(10), r.y + ((r.dy - icon->height) / 2), icon->width, icon->height};
+    ctx.gfx->DrawPixmap(icon, rcIcon);
 }
 
 //--- tip links
@@ -2506,7 +2552,7 @@ static HomeChromeCtrl* EnsureHomeChrome(MainWindow* win) {
 
     chrome->openDoc = new HomeOpenDocCtrl();
     chrome->openDoc->text = new VirtText(StrL(""));
-    chrome->openDoc->text->withUnderline = true;
+    chrome->openDoc->text->withUnderline = false;
     chrome->openDoc->AddChild(chrome->openDoc->text);
     chrome->openDoc->onClick = MkFunc1(HomeOpenDocClicked, win);
     chrome->AddChild(chrome->openDoc);
@@ -2639,7 +2685,7 @@ static void HomePageSyncChrome(HomePageLayout& l) {
 
     // font also set here so the cached-layout path (ApplyHomeLayoutCache)
     // repaints the logo without a full relayout
-    chrome->logo->font = GetUserGuiFont(kSumatraTxtFont, DpiScale(kSumatraTxtFontSize));
+    chrome->logo->font = GetUserGuiFontEx(kSumatraTxtFont, DpiScale(kSumatraTxtFontSize), true, false);
     chrome->logo->SetBounds(l.rcLogo);
 
     // one click target covering the icon and the link text

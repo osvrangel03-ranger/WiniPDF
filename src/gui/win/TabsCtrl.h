@@ -104,6 +104,11 @@ struct TabsCtrl : VirtCtrl {
     VirtRoot* vroot = nullptr;
     // in tab order (children are reversed when the UI is RTL)
     Vec<TabCtrl*> tabCtrls;
+    // WiniPDF: "+" at the end of the strip, painted and hit-tested here (the
+    // strip's mouse handling is custom, so it doesn't go through the VirtRoot)
+    Rect rcAddBtn;
+    bool addBtnHover = false;
+    bool addBtnPressed = false;
     int selectedIdx = -1;
 
     // tracking state of which tab is highlighted etc.

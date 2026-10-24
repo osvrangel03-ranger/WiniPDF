@@ -272,7 +272,7 @@ void LayoutTreeToSize(HWND, ILayout* layout, Size, VirtRoot** rootInOut);
 // same, for a host that positions the tree itself: only refreshes the root
 void RefreshVirtTops(HWND, ILayout* layout, Rect bounds, VirtRoot** rootInOut);
 // double-buffered; fills bg first. Does nothing if there's nothing virtual
-void PaintVirtTree(VirtRoot*, HDC, Rect clip, Color bg);
+void PaintVirtTree(VirtRoot*, HDC, Rect clip, Color bg, Pixmap* bgPx = nullptr);
 // paint + input in one call, for a plain HWND that isn't a WindowBase /
 // ControlBase (the side panels are subclassed WC_STATICs). Returns true when
 // the message was handled

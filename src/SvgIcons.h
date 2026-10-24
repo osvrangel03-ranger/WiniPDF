@@ -20,6 +20,7 @@ extern const char* gIconPauseSpeaking;
 extern const char* gIconNavigateBack;
 extern const char* gIconNavigateForward;
 extern const char* gIconSearch;
+extern const char* gIconPlus;
 extern const char* gIconChevronUp;
 extern const char* gIconChevronDown;
 extern const char* gIconClose;

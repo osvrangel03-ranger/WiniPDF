@@ -3367,7 +3367,7 @@ void LayoutTreeToSize(HWND hwnd, ILayout* layout, Size size, VirtRoot** rootInOu
     }
 }
 
-void PaintVirtTree(VirtRoot* root, HDC hdc, Rect clip, Color bg) {
+void PaintVirtTree(VirtRoot* root, HDC hdc, Rect clip, Color bg, Pixmap* bgPx) {
     if (!root || len(root->tops) == 0) {
         return;
     }
@@ -3380,7 +3380,14 @@ void PaintVirtTree(VirtRoot* root, HDC hdc, Rect clip, Color bg) {
     // die before the buffer is flushed
     {
         Gfx* gfx = GfxCreate(memDC);
-        gfx->FillRect(rc, bg);
+        // WiniPDF: a blurred wallpaper (see GetGlassPixmap) paints the surface
+        // already tinted with the theme color. Without a pixmap this is the
+        // plain fill as before.
+        if (bgPx) {
+            gfx->DrawPixmap(bgPx, rc);
+        } else {
+            gfx->FillRect(rc, bg);
+        }
         root->Paint(gfx, clip);
         delete gfx;
     }

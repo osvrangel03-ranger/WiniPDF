@@ -5,6 +5,7 @@
 #include "gui/Dpi.h"
 #include "base/BitManip.h"
 #include "base/Pixmap.h"
+#include "base/Win.h"
 
 #include "gui/UIModels.h"
 
@@ -1285,7 +1286,16 @@ static void BuildToolbarLayout(MainWindow* win) {
 }
 
 static void PaintToolbarBackground(MainWindow* win, VirtHostPaintEvent* ev) {
-    ev->gfx->FillRect(ev->clientRect, TbBgColor());
+    // WiniPDF: the bar is a blurred slice of the wallpaper tinted with the theme
+    // color (see GetGlassPixmap). When there's no wallpaper or the pixmap can't
+    // be cooked the flat color is still the base, so this never goes blank.
+    Pixmap* glass =
+        win ? GetGlassPixmap(ev->clientRect.Size(), HwndWindowRect(win->hwndToolbar), TbBgColor()) : nullptr;
+    if (glass) {
+        ev->gfx->DrawPixmap(glass, ev->clientRect);
+    } else {
+        ev->gfx->FillRect(ev->clientRect, TbBgColor());
+    }
     // WiniPDF: a soft top-down sheen. This is the "light from above" cue that
     // makes a flat band read as a surface: white at a few percent alpha, fading
     // out downwards. Real backdrop blur is a separate, bigger step.
