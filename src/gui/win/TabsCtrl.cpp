@@ -886,9 +886,8 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 
         case WM_SIZE:
             LayoutTabs();
-            // WiniPDF: al entrar al inicio desaparece la barra lateral y la banda
-            // de pestañas se ensancha. El area nueva queda sin pintar (basura de
-            // memoria de video, azulada) hasta el repaint diferido: se pinta ya.
+            // WiniPDF: pintar en el acto el area que crece al cambiar de layout
+            HwndInvalidate(hwnd, false);
             HwndRepaintNow(hwnd);
             break;
 
@@ -1096,8 +1095,15 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
             break;
         }
 
-        case WM_ERASEBKGND:
+        case WM_ERASEBKGND: {
+            // WiniPDF: cuando la banda se ensancha (el inicio quita la barra
+            // lateral) Windows pide borrar el area nueva. Devolver 1 sin pintar
+            // dejaba ahi la memoria de video (el degradado azul). Se rellena con
+            // el color de superficie: el mismo que la barra, sin banda propia.
+            HDC hdc = (HDC)wp;
+            HdcFillRect(hdc, HwndClientRect(hwnd), ThemeControlBackgroundColor());
             return 1;
+        }
 
         case WM_PAINT: {
             // BeginPaint / EndPaint only to consume the update region: ValidateRect
@@ -1121,10 +1127,10 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
             // chrome band reads as a layer instead of melting into the window.
             // The backdrop is the blurred wallpaper behind the window, tinted
             // with the theme color; without one it falls back to the flat color.
-            // WiniPDF: separacion por superficie, no por linea. La banda va un
-            // punto mas oscura que la barra (AccentColor ya oscurece en temas
-            // claros y aclara en oscuros), asi el limite se lee sin el filo.
-            Color bgCol = AccentColor(ThemeControlBackgroundColor(), 6);
+            // WiniPDF: la banda no tiene superficie propia; comparte el color de
+            // la barra y el unico relieve son las capsulas de las pestañas. Asi
+            // vale tambien para cualquier tema futuro.
+            Color bgCol = ThemeControlBackgroundColor();
             Pixmap* glass = GetGlassPixmap(clientRc.Size(), HwndWindowRect(hwnd), bgCol);
             if (vroot) {
                 PaintVirtTree(vroot, hdc, clientRc, bgCol, glass);

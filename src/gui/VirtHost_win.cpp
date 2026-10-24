@@ -120,7 +120,12 @@ static LRESULT CALLBACK WndProcVirtHost(HWND hwnd, UINT msg, WPARAM wp, LPARAM l
             UpdateWindow(hwnd);
             return 0;
         case WM_ERASEBKGND:
-            // WM_PAINT draws the whole client area into a back buffer
+            // WiniPDF: si el host crece (el inicio quita la barra lateral), el
+            // area nueva se borra con su color; devolver 1 sin pintar dejaba ahi
+            // memoria de video hasta el repaint diferido.
+            if (host->bgColor != kColorUnset) {
+                HdcFillRect((HDC)wp, HwndClientRect(hwnd), host->bgColor);
+            }
             return 1;
         case WM_PAINT:
             PaintHost(host, hwnd);
