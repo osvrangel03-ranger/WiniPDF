@@ -1322,14 +1322,25 @@ static void PaintToolbarBackground(MainWindow* win, VirtHostPaintEvent* ev) {
     if (!pe || !pe->hwnd || !IsWindow(pe->hwnd)) {
         return;
     }
-    RECT rc{};
-    if (!GetWindowRect(pe->hwnd, &rc)) {
-        return;
+    // WiniPDF: use the rect the toolbar layout assigned, not the HWND rect. The
+    // HWND can be a frame behind the layout (or stale after the toolbar is
+    // rebuilt), and then the chip was painted as a huge band under the icons.
+    Rect r = pe->lastBounds;
+    if (r.IsEmpty()) {
+        RECT rc{};
+        if (!GetWindowRect(pe->hwnd, &rc)) {
+            return;
+        }
+        POINT pts[2] = {{rc.left, rc.top}, {rc.right, rc.bottom}};
+        ScreenToClient(win->hwndToolbar, pts);
+        r = {pts[0].x, pts[0].y, pts[1].x - pts[0].x, pts[1].y - pts[0].y};
     }
-    POINT pts[2] = {{rc.left, rc.top}, {rc.right, rc.bottom}};
-    ScreenToClient(win->hwndToolbar, pts);
-    Rect r{pts[0].x, pts[0].y, pts[1].x - pts[0].x, pts[1].y - pts[0].y};
     int pad = DpiScale(3);
+    // a chip wider than the edit's own ideal width is always a stale rect
+    Size ideal = pe->GetIdealSize();
+    if (ideal.dx > 0 && r.dx > ideal.dx + (2 * pad)) {
+        r.dx = ideal.dx;
+    }
     Rect chip{r.x - pad, r.y - pad, r.dx + 2 * pad, r.dy + 2 * pad};
     // WiniPDF: clamp to the bar. During a resize the edit can be laid out a
     // frame late, and the chip then painted outside its bar as a big rectangle
