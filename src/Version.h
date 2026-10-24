@@ -57,8 +57,8 @@
 // WiniPDF's own version, the one tagged on GitHub. Bump it for every release.
 // CURR_VERSION above is the SumatraPDF base we're built on: the UI shows it as
 // "base X.Y" so a bug report can tell our version from upstream's.
-#define WINI_VERSION "0.3.3"
-#define WINI_VERSION_COMMA 0,3,3
+#define WINI_VERSION "0.3.4"
+#define WINI_VERSION_COMMA 0,3,4
 
 // WiniPDF: the exe's version resource reports our version, not SumatraPDF's, so
 // right-click > Properties doesn't tell the user they have SumatraPDF 3.7.

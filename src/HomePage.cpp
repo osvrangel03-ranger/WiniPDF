@@ -1407,6 +1407,11 @@ static void SaveHomeLayoutCache(const HomePageLayout& l, Str filterText, int scr
     c.sortByFreq = gGlobalPrefs && gGlobalPrefs->homePageSortByFrequentlyRead;
     c.isRtl = IsUIRtl();
     c.themeWindowBg = ThemeWindowBackgroundColor();
+    // WiniPDF: faltaba guardar showTips. La comparacion de la cache lo miraba
+    // (siempre contra el valor por defecto false) y nunca coincidia: el home
+    // rehacia el layout en cada WM_PAINT, movia el EDIT del buscador, eso
+    // invalidaba el canvas y el repintado entraba en bucle (CPU al 100%).
+    c.showTips = gGlobalPrefs && gGlobalPrefs->showTips;
     str::ReplaceWithCopy(&c.filterText, filterText);
     c.rcThumbsArea = l.rcThumbsArea;
     c.rcSearchBorder = l.rcSearchBorder;
@@ -2785,7 +2790,6 @@ void DrawHomePage(MainWindow* win, Gfx* gfx) {
     }
     // Keep cue "Search N files â€¦" in sync when history changes without recreating the edit.
     UpdateHomeSearchCueBanner(win);
-
     HomePageSyncChrome(l);
     DrawHomePageLayout(l);
     SyncHomeLayoutCacheFileSizes(l);

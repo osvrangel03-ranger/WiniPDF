@@ -14196,9 +14196,15 @@ LRESULT CALLBACK WndProcSumatraFrame(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) 
                 // (caption y pestañas fantasma) hasta que algo repinta, porque
                 // el relayout está diferido. Se hace ahora y se repinta el
                 // marco entero; el canvas no puede quedarse con el tamaño viejo.
-                if (SIZE_MAXIMIZED == wp || SIZE_RESTORED == wp) {
+                // El guard evita la reentrada: relayout/repaint pueden generar
+                // otro WM_SIZE (SIZE_RESTORED también llega en cada resize), y
+                // sin él la ventana entra en un ciclo al 100% de CPU.
+                static bool inResizeRelayout = false;
+                if (!inResizeRelayout && (SIZE_MAXIMIZED == wp || SIZE_RESTORED == wp)) {
+                    inResizeRelayout = true;
                     FrameUpdateUi(win);
                     win->RedrawAllIncludingNonClient();
+                    inResizeRelayout = false;
                 }
             }
             break;
