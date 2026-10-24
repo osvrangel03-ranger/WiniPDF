@@ -115,6 +115,9 @@ static LRESULT CALLBACK WndProcVirtHost(HWND hwnd, UINT msg, WPARAM wp, LPARAM l
             break;
         case WM_SIZE:
             host->Relayout();
+            // WiniPDF: al cambiar el layout (el inicio quita la barra lateral) el
+            // area nueva del host queda sin pintar hasta el repaint diferido.
+            UpdateWindow(hwnd);
             return 0;
         case WM_ERASEBKGND:
             // WM_PAINT draws the whole client area into a back buffer

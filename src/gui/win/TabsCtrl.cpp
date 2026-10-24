@@ -886,6 +886,10 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 
         case WM_SIZE:
             LayoutTabs();
+            // WiniPDF: al entrar al inicio desaparece la barra lateral y la banda
+            // de pestañas se ensancha. El area nueva queda sin pintar (basura de
+            // memoria de video, azulada) hasta el repaint diferido: se pinta ya.
+            HwndRepaintNow(hwnd);
             break;
 
         case WM_TIMER:
@@ -1117,7 +1121,10 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
             // chrome band reads as a layer instead of melting into the window.
             // The backdrop is the blurred wallpaper behind the window, tinted
             // with the theme color; without one it falls back to the flat color.
-            Color bgCol = ThemeControlBackgroundColor();
+            // WiniPDF: separacion por superficie, no por linea. La banda va un
+            // punto mas oscura que la barra (AccentColor ya oscurece en temas
+            // claros y aclara en oscuros), asi el limite se lee sin el filo.
+            Color bgCol = AccentColor(ThemeControlBackgroundColor(), 6);
             Pixmap* glass = GetGlassPixmap(clientRc.Size(), HwndWindowRect(hwnd), bgCol);
             if (vroot) {
                 PaintVirtTree(vroot, hdc, clientRc, bgCol, glass);
@@ -1131,8 +1138,6 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
                     HdcFillRect(hdc, clientRc, bgCol);
                 }
             }
-            // a soft edge where the chrome meets the content
-            HdcFillRect(hdc, {clientRc.x, clientRc.Bottom() - 1, clientRc.dx, 1}, ThemeEdgeColor());
             ReleaseDC(hwnd, hdc);
             return 0;
         }

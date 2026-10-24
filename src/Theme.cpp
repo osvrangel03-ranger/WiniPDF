@@ -992,6 +992,10 @@ static GlassCacheEntry gGlassCache[4];
 static int gGlassCacheNext;
 
 Pixmap* GetGlassPixmap(Size size, Rect screenRect, Color tint) {
+    // WiniPDF: escape hatch para diagnosticar artefactos del chrome sin compilar
+    if (getenv("WINI_NO_GLASS")) {
+        return nullptr;
+    }
     if (size.dx < 2 || size.dy < 2 || screenRect.IsEmpty()) {
         return nullptr;
     }
