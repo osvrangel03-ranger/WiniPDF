@@ -5540,6 +5540,13 @@ LRESULT CALLBACK WndProcCanvas(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
     DpiScope dpiScope(hwnd);
     // messages that don't require win
 
+    // WiniPDF: the canvas paints the whole client into a back buffer. The class
+    // brush is WHITE (WindowBase), and letting Windows erase with it flashed a
+    // white bar on tab switches and resizes in the dark theme.
+    if (msg == WM_ERASEBKGND) {
+        return 1;
+    }
+
     if (msg == WM_NCCALCSIZE && wp == TRUE) {
         // When overlay/hidden scrollbars are active, SetScrollInfo still adds
         // WS_VSCROLL/WS_HSCROLL styles. Handle WM_NCCALCSIZE to prevent Windows
