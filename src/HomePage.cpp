@@ -1909,10 +1909,10 @@ static TempStr FileSizeForHomeListTemp(i64 size) {
     return str::FormatSizeShortTemp(size, nullptr);
 }
 
-// light blue outline marking the keyboard-selected entry (issue #1136).
-// A fixed color: it has to read as "selected" against both the light and the
-// dark page background
-constexpr Color kHomeSelectionColor = MkRgb(0x4c, 0xa6, 0xff);
+// Outline marking the keyboard-selected entry (issue #1136). WiniPDF: used to
+// be a fixed blue (#4ca6ff), which read as a foreign accent in an amber app and
+// flashed as a blue block when the layout changed; the theme's hot edge is the
+// amber accent in both themes.
 
 static void DrawHomeRoundedOutline(Gfx* gfx, const Rect& r, int radius, Color color, int thickness) {
     Rect line = r;
@@ -1924,7 +1924,7 @@ static void DrawHomeRoundedOutline(Gfx* gfx, const Rect& r, int radius, Color co
 
 static void DrawHomeSelectionOutline(Gfx* gfx, const Rect& r, int radius) {
     int penDx = DpiScale(2);
-    DrawHomeRoundedOutline(gfx, r, radius, kHomeSelectionColor, penDx);
+    DrawHomeRoundedOutline(gfx, r, radius, ThemeHotEdgeColor(), penDx);
 }
 
 // Give the file name the width it needs and put the directory path in what's
