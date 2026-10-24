@@ -1329,10 +1329,17 @@ static void PaintToolbarBackground(MainWindow* win, VirtHostPaintEvent* ev) {
     POINT pts[2] = {{rc.left, rc.top}, {rc.right, rc.bottom}};
     ScreenToClient(win->hwndToolbar, pts);
     Rect r{pts[0].x, pts[0].y, pts[1].x - pts[0].x, pts[1].y - pts[0].y};
-    int pad = DpiScale(4);
+    int pad = DpiScale(3);
     Rect chip{r.x - pad, r.y - pad, r.dx + 2 * pad, r.dy + 2 * pad};
+    // WiniPDF: clamp to the bar. During a resize the edit can be laid out a
+    // frame late, and the chip then painted outside its bar as a big rectangle
+    // until the next repaint.
+    chip = chip.Intersect(ev->clientRect);
+    if (chip.IsEmpty()) {
+        return;
+    }
     // the chip is one level above the bar so it reads as a raised control
-    ev->gfx->FillRoundedRect(chip, DpiScale(10), ThemeHotBackgroundColor());
+    ev->gfx->FillRoundedRect(chip, DpiScale(9), ThemeHotBackgroundColor());
 }
 
 // the default theme separates the toolbar from the canvas with a hairline.

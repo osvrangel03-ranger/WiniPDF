@@ -74,18 +74,18 @@ static Str themesTxt = StrL(R"(Themes [
     ]
     [
         Name = WiniAmber (Tema Claro)
-        TextColor = #4a3b28
-        BackgroundColor = #f6ecd9
-        ControlBackgroundColor = #fdf8ee
-        LinkColor = #c07d00
-        DisabledTextColor = #b3a68c
-        DarkerTextColor = #7a6a4f
-        HotBackgroundColor = #f0e4cb
-        EdgeColor = #e0d3b4
-        HotEdgeColor = #e08e00
-        DisabledEdgeColor = #efe6d2
-        ErrorBackgroundColor = #f5d6c8
-        NotificationBackgroundColor = #fbf5e8
+        TextColor = #2e2a24
+        BackgroundColor = #f5f2ec
+        ControlBackgroundColor = #fefdfa
+        LinkColor = #b06a00
+        DisabledTextColor = #a49c8d
+        DarkerTextColor = #6d6558
+        HotBackgroundColor = #eee6d6
+        EdgeColor = #e2dcd0
+        HotEdgeColor = #d89a2b
+        DisabledEdgeColor = #ebe6dc
+        ErrorBackgroundColor = #f6dcd2
+        NotificationBackgroundColor = #fbf7ef
         NotificationHighlightColor = #eed9a4
         NotificationHighlightTextColor = #6b4a00
         ColorizeControls = true
@@ -956,12 +956,17 @@ static Pixmap* CookGlass(Size size, Rect scr, Gdiplus::Bitmap* wall, Color tint)
     u8 tr = GetRed(tint);
     u8 tg = GetGreen(tint);
     u8 tb = GetBlue(tint);
+    int h = std::max(1, px->height);
     for (int y = 0; y < px->height; y++) {
+        // WiniPDF: a soft top-down gradient on top of the wallpaper modulation.
+        // It gives the strip a light source, the same way the toolbar's sheen
+        // does, and keeps light themes from looking like a flat beige band.
+        int grad = ((h / 2) - y) * 8 / h; // about -4% .. +4%
         u8* row = px->data + (size_t)y * px->stride;
         for (int x = 0; x < px->width; x++) {
             u8* p = row + (size_t)x * 4; // BGRA8
             int lum = (p[2] * 77 + p[1] * 151 + p[0] * 28) >> 8;
-            int k = 1000 + (lum - gWallAvgLum) * 1000 / 1200;
+            int k = 1000 + (lum - gWallAvgLum) * 1000 / 1200 + grad * 10;
             if (k < 880) {
                 k = 880;
             } else if (k > 1120) {

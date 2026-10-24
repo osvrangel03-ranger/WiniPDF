@@ -1559,17 +1559,14 @@ static void LayoutHomePage(HomePageLayout& l) {
     }
     int thumbsContentWidth = (thumbsColsForLayout * kThumbnailDx) + ((thumbsColsForLayout - 1) * kThumbsSpaceBetweenX);
 
-    // WiniPDF: el header (logo, buscador, botones de vista) debe caber en la
-    // ventana. La banda de miniaturas puede empezar mas a la derecha de lo que
-    // cabe (a >100% de DPI se desborda), y con ella se iban fuera de pantalla
-    // los botones de vista: el de cuadricula quedaba cortado y no respondia.
+    // WiniPDF: la fila del header (logo, buscador, Abrir, botones de vista) se
+    // mide contra el canvas, no contra la rejilla de miniaturas. Antes heredaba
+    // el ancho/offset de la rejilla y, con la ventana estrecha o a >100% de DPI,
+    // el buscador y los botones de vista se salian de la pantalla.
     int hdrPad = DpiScale(kInnerPadding);
     Rect canvasRc = HwndClientRect(win->hwndCanvas);
     int hdrWidth = std::min(thumbsContentWidth, canvasRc.dx - (2 * hdrPad));
-    int hdrStartX = std::min(thumbsStartX, canvasRc.x + canvasRc.dx - hdrPad - hdrWidth);
-    if (hdrStartX < canvasRc.x + hdrPad) {
-        hdrStartX = canvasRc.x + hdrPad;
-    }
+    int hdrStartX = canvasRc.x + ((canvasRc.dx - hdrWidth) / 2);
 
     // --- Step 1: two header rows: the app logo centered on top, then
     // [open link] [search edit] [view icons] ---
@@ -2338,7 +2335,11 @@ static void HomeViewModeClicked(MainWindow* win, VirtMouseEvent* ev) {
     }
     win->homePageScrollY = 0;
     ScheduleSaveSettings();
-    win->RedrawAll(true);
+    // WiniPDF: invalidar en vez de repintar todo el árbol en el acto
+    // (RedrawAll + UpdateWindow dentro del click). El repintado síncrono podía
+    // quedarse dando vueltas al cambiar de vista; el paint programado hace el
+    // mismo trabajo fuera del manejador del ratón.
+    HwndInvalidate(win->hwndCanvas);
 }
 
 static void HomeOpenDocClicked(MainWindow* win, VirtMouseEvent*) {

@@ -14188,6 +14188,12 @@ LRESULT CALLBACK WndProcSumatraFrame(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) 
                 RememberDefaultWindowPosition(win);
                 // WiniPDF: keep the rounded clip in step with the new size
                 UpdateWindowRoundedRegion(win->hwndFrame, true, false);
+                // WiniPDF: maximizar/restaurar deja restos del marco anterior
+                // (caption y pestañas fantasma) hasta que algo repinta. Se
+                // repinta el marco entero en la transición, no en cada resize.
+                if (SIZE_MAXIMIZED == wp || SIZE_RESTORED == wp) {
+                    win->RedrawAllIncludingNonClient();
+                }
                 // UIState.layout.rc remembers the last laid-out client size;
                 // the scheduled update relayouts only when the size actually
                 // changed, and a burst of WM_SIZE does the work once
