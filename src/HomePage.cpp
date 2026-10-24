@@ -2330,9 +2330,11 @@ static void HomeViewModeClicked(MainWindow* win, VirtMouseEvent* ev) {
         return;
     }
     SetHomePageListView(btn->listView);
-    if (btn->listView) {
-        win->DeleteToolTip();
-    }
+    // WiniPDF: tirar la cache de layout y el tooltip antes de repintar. La
+    // vista cambia de forma (filas vs. rejilla) y reutilizar rectangulos de la
+    // vista anterior es lo que dejaba el cambio a medias.
+    ClearHomeLayoutCache();
+    win->DeleteToolTip();
     win->homePageScrollY = 0;
     ScheduleSaveSettings();
     // WiniPDF: invalidar en vez de repintar todo el árbol en el acto
