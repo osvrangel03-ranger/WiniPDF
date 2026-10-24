@@ -1,163 +1,165 @@
 # WiniPDF
 
-<p align="center"><img src=".github/wini-logo-256.png" width="128" alt="WiniPDF"></p>
+<p align="center"><img src=".github/wini-logo-256.png" width="120" alt="WiniPDF"></p>
 
-**Español** | [English below](#english)
+**Español** · [English summary](#english) · [Descargar](https://github.com/osvrangel03-ranger/WiniPDF/releases/latest)
 
----
-
-## ¿Qué es WiniPDF?
-
-Un lector de documentos rápido y ligero para Windows, con identidad visual
-propia inspirada en el diseño moderno de Windows 11.
+Un lector de documentos **rápido y ligero** para Windows, con identidad visual
+propia y la interfaz en español.
 
 WiniPDF es un fork de **[SumatraPDF](https://github.com/sumatrapdfreader/sumatrapdf)**,
 el mejor lector ligero de Windows, creado por **Krzysztof Kowalczyk** y su
-comunidad. Todo el mérito del motor y décadas de refinamiento es suyo — este
-proyecto existe gracias a ellos y les está profundamente agradecido.
+comunidad. El motor, la velocidad y décadas de refinamiento son suyos: este
+proyecto existe gracias a ellos.
 
-### ¿Por qué "la piedra de ámbar"?
+<p align="center">
+  <img src=".github/screenshots/wini-carbon.png" width="380" alt="Tema WiniCarbon (oscuro)">&nbsp;
+  <img src=".github/screenshots/wini-amber.png" width="380" alt="Tema WiniAmber (claro)">
+</p>
+<p align="center"><sub>Temas propios <b>WiniCarbon</b> y <b>WiniAmber</b>, siguiendo el modo claro/oscuro de Windows</sub></p>
+
+---
+
+## ¿Qué es y qué no es?
+
+**Es** un lector de documentos que se siente actual en Windows 11 sin dejar de
+abrir al instante: temas propios, español completo, icono con identidad, barra y
+pestañas con material, página de inicio modernizada.
+
+**No es** un lector "con más funciones". No hay IA, ni edición, ni conversión, ni
+una tienda de extensiones. El motor es el de SumatraPDF y se deja en paz.
+
+La regla con la que se decide cada cambio: **si resta velocidad o suma peso, no
+entra**. La identidad se construye con acabado, no con funciones.
+
+## ¿Por qué "la piedra de ámbar"?
 
 > *El ámbar encapsula y deja ver sin alterar. Eso es un PDF.*
 
 El ámbar preserva lo que atrapa durante millones de años: visible, intacto,
-intocable. Exactamente la promesa del formato PDF. Nuestro icono es una piedra
-de ámbar estilizada con un pliegue de página, y dentro, una hoja con la W de
+intocable. Exactamente la promesa del formato PDF. El icono es una piedra de
+ámbar estilizada con un pliegue de página; dentro, una hoja con la **W** de
 WiniPDF — preservada, como todo lo que abras con este lector.
 
-El dúo negro + amarillo es además un homenaje a los colores de SumatraPDF.
+El dúo negro + ámbar es además un homenaje a los colores de SumatraPDF.
 
-<p align="center">
-  <img src=".github/screenshots/wini-carbon.png" width="380" alt="Tema WiniCarbon (oscuro)">&nbsp;
-  <img src=".github/screenshots/wini-amber.png" width="380" alt="Tema WiniAmber">
-</p>
-<p align="center"><sub>Temas propios <b>WiniCarbon</b> y <b>WiniAmber</b> — predeterminados según el modo claro/oscuro de Windows</sub></p>
+## Cómo está hecho (y por qué no lo reescribimos)
 
-### Lo que hereda de SumatraPDF
+WiniPDF **no** es una aplicación nueva: es SumatraPDF parcheado en su sitio. Eso
+es una decisión, no una limitación.
 
-- Lectura de PDF, ePub, MOBI, XPS, DjVu, CHM, CBZ/CBR, FB2 y más
-- Velocidad de apertura legendaria, sin esperas
-- Versión portable, sin instalación
-- Interfaz en español, con el inglés como alternativa
+La idea de "sacarle el esqueleto" al programa y meterlo en un cuerpo moderno
+(Qt, WinUI, GPUI, WebView2) suena bien y es una trampa: el esqueleto *es* la
+aplicación. Años de manejo de ventanas Win32, renderizado, scroll, foco,
+accesibilidad y casos raros están entrelazados con la interfaz. Moverlo a otro
+cuerpo significa reescribir la mitad del programa, congelar el producto durante
+meses y —casi seguro— perder la velocidad de apertura que es justo lo que hace
+especial a Sumatra.
 
-### Próximamente (roadmap)
+Así que la apuesta es la contraria: **conservar el motor y el esqueleto, y
+modernizar la piel con parches pequeños y reversibles**. El valor del fork se mide
+en el tamaño del diff (~2.500 líneas en ~18 archivos). Cada parche está marcado
+con `// WiniPDF:` y documentado, para poder reaplicarlo cuando el proyecto se
+sincronice con el upstream.
 
-- **Asistente IA integrado** (desactivado por defecto): resúmenes del documento,
-  modo voz para accesibilidad, y proveedores conectables (elige tu IA)
-- **Suite de edición de documentos** (desactivada por defecto): conversión de
-  formatos, anotaciones avanzadas, estilo iLovePDF
-- **Temas de la comunidad**: importa y comparte tus propios temas (estilo
-  Obsidian)
-- **Modernización visual Fluent**: materiales Mica y más acabado de Windows 11
-  en las pestañas
+## Qué cambia respecto a SumatraPDF
 
-### El ecosistema Wini (visión a futuro)
+- **Dos temas propios**: `WiniCarbon` (oscuro) y `WiniAmber` (claro), con
+  jerarquía de superficies, píldoras redondeadas y pestañas tipo cápsula.
+- **Español completo**: las ~1.400 cadenas que usa la aplicación, no una
+  traducción a medias.
+- **Identidad**: icono, nombre, *Acerca de* propio (`vX.Y.Z (base 3.7)`),
+  diálogos con marca y chequeo de actualizaciones apuntando a nuestras releases.
+- **Inicio moderno**: buscador redondeado con lupa, tipografía del sistema,
+  selector de vista en chips y botón "Abrir…" con superficie.
+- **Material en el chrome**: la barra y la banda de pestañas insinúan el fondo
+  del escritorio (difuminado y teñido con el tema), y el marco de la ventana va
+  redondeado.
+- **Detalles de uso**: botón "+" para abrir otro documento en una pestaña nueva,
+  página como chip, y las pestañas con cierre al pasar el ratón.
 
-Si el proyecto crece, la misma filosofía Fluent + identidad propia llegará a:
-un reproductor basado en VLC, un visor de fotos y videos moderno, y un cliente
-de música basado en YouTube Music sin anuncios. Cada app con su personalidad,
-todas compartiendo alma.
+## Formatos
 
-Las funciones experimentales nunca se activan sin tu consentimiento explícito:
-el rendimiento es la razón número uno por la que existe este proyecto.
+Todo lo que abre SumatraPDF: **PDF, EPUB, MOBI, XPS, DjVu, CHM, CBZ/CBR, FB2,
+TXT/Markdown** e imágenes (PNG, JPEG, WebP, AVIF, entre otras).
+
+## Descargar y usar
+
+- **Portable**: baja `WiniPDF.exe` (o el `.zip` con las DLLs) de
+  [Releases](https://github.com/osvrangel03-ranger/WiniPDF/releases/latest) y
+  ejecútalo. No requiere instalación.
+- **Instalador**: en camino (un `.exe` normal, sin pasos raros).
+
+WiniPDF **no está firmado digitalmente**, así que Windows puede mostrar el aviso
+de SmartScreen la primera vez ("Más información → Ejecutar de todas formas"). No
+es un error: es el precio de no pagar un certificado de firma. Se puede verificar
+el binario con el SHA-256 publicado en cada release.
+
+Requisitos: Windows 10 u 11 (64 bits).
+
+## Estado del proyecto
+
+Beta temprana y usable a diario. Lo que falta, en orden:
+
+1. Sincronizar con el upstream (el fork va ~2.700 commits por detrás; faltan
+   correcciones del motor).
+2. Pulido: animaciones de hover, barra de búsqueda flotante, barra de desplazamiento
+   fina y diálogos que crezcan con textos largos.
+3. Instalador `.exe` e iconos por tipo de archivo (PDF, CBR…).
+
+Los fallos y las ideas se reportan en
+[Issues](https://github.com/osvrangel03-ranger/WiniPDF/issues). Si prefieres
+escribir por correo, usa el que aparece en el perfil de GitHub del autor.
 
 ## Créditos
 
-**Base y corazón del motor**: [SumatraPDF](https://github.com/sumatrapdfreader/sumatrapdf)
-por **Krzysztof Kowalczyk** y toda su comunidad de contribuidores, más los
-autores de las librerías de terceros (MuPDF y demás, ver AUTHORS). Este fork
-existe parado sobre sus hombros y les está profundamente agradecido.
-
-Humano cofundador, identidad visual y diseño del icono: **Osvaldo**
-([@osvrangel03-ranger](https://github.com/osvrangel03-ranger)).
-
-El desarrollo ha sido asistido por herramientas de IA de código abierto.
+- **Motor y base**: [SumatraPDF](https://github.com/sumatrapdfreader/sumatrapdf),
+  de **Krzysztof Kowalczyk** y su comunidad, más las librerías de terceros
+  (MuPDF y compañía, ver `AUTHORS`).
+- **Identidad, icono y dirección de diseño**: **Osvaldo**
+  ([@osvrangel03-ranger](https://github.com/osvrangel03-ranger)).
+- Desarrollo asistido por herramientas de IA de código abierto.
 
 ## Apoya el proyecto
 
-WiniPDF es gratis y seguirá siéndolo. Si te resulta útil y quieres que el
-proyecto crezca, las donaciones se destinan íntegramente a **costear las
-herramientas de desarrollo** (compilación, IA y automatización) que hacen posible
-WiniPDF y los próximos proyectos del ecosistema Wini.
+WiniPDF es gratis y seguirá siéndolo. Las donaciones van íntegras a las
+herramientas de desarrollo (compilación, IA y automatización).
 
-> **GitHub Sponsors** es el **único medio de donación** del proyecto. La cuenta
-> ya está solicitada y está **en revisión por parte de GitHub**; cuando la
-> aprueben, aquí mismo aparecerá el botón **Sponsor** del repositorio.
-> Si el botón ya está visible, ya puedes donar.
->
-> [github.com/sponsors/osvrangel03-ranger](https://github.com/sponsors/osvrangel03-ranger)
-
-No hay PayPal, ni transferencias, ni ninguna otra vía: si algún día se abre otra,
-se anunciará aquí mismo. Cualquier sitio que pida dinero "para WiniPDF" y no sea
-GitHub Sponsors no es nuestro.
-
-## Compilar
-
-Requiere Visual Studio 2026 (carga de trabajo "Desarrollo para el escritorio
-con C++") y [Bun](https://bun.sh):
-
-```
-bun cmd/build.ts -release
-```
-
-El ejecutable queda en `out/rel64/`.
+**GitHub Sponsors** es el único medio de donación:
+[github.com/sponsors/osvrangel03-ranger](https://github.com/sponsors/osvrangel03-ranger).
+No hay PayPal ni ninguna otra vía; si otro sitio pide dinero "para WiniPDF", no
+somos nosotros.
 
 ## Licencia
 
-GPLv3, heredada de SumatraPDF. Todos los créditos del código base pertenecen a
-Krzysztof Kowalczyk, los contribuidores de SumatraPDF y los autores de las
-librerías de terceros (ver AUTHORS).
+**GPLv3**, heredada de SumatraPDF. El código de este fork también es libre: si
+modificas y distribuyes WiniPDF, tienes que publicar tus cambios con la misma
+licencia.
 
 ---
 
 <a id="english"></a>
 
-# WiniPDF (English)
+## English summary
 
-A fast, lightweight document reader for Windows with its own visual identity
-inspired by modern Windows 11 design.
+WiniPDF is a **fast, lightweight document reader for Windows** with its own visual
+identity and a Spanish-first interface. It is a fork of **SumatraPDF** by
+Krzysztof Kowalczyk and its community; the engine and its speed are entirely
+theirs.
 
-WiniPDF is a fork of **[SumatraPDF](https://github.com/sumatrapdfreader/sumatrapdf)**
-— the best lightweight reader for Windows, created by **Krzysztof Kowalczyk**
-and its community. All credit for the engine and decades of polish belongs to
-them; this project exists thanks to them.
+It is **not** a feature-heavy reader: no AI, no editing, no conversion. The fork
+exists to give the app a modern, coherent finish (two themes, complete Spanish,
+icon, rounded chrome with simulated backdrop blur, a modern home page) while
+keeping SumatraPDF's legendary startup speed.
 
-**Why the amber stone?** *Amber encapsulates and lets you see without altering.
-That is what a PDF is.* Our icon is a stylized amber stone with a page fold;
-inside, a leaf with the WiniPDF W — preserved, like everything you open with
-this reader. The black + yellow duo also honors SumatraPDF's colors.
+**Why not rewrite the GUI?** Because the Win32 skeleton *is* the app: replacing
+it with Qt, WinUI, GPUI or WebView2 would mean rewriting half the program, months
+with the product frozen, and losing the speed that makes Sumatra special. The
+choice is to keep the engine and modernize the skin with small, reversible
+patches (~2,500 lines in ~18 files), each marked `// WiniPDF:`.
 
-<p align="center">
-  <img src=".github/screenshots/wini-carbon.png" width="380" alt="WiniCarbon dark theme">&nbsp;
-  <img src=".github/screenshots/wini-amber.png" width="380" alt="WiniAmber light theme">
-</p>
+**Formats**: PDF, EPUB, MOBI, XPS, DjVu, CHM, CBZ/CBR, FB2, TXT/Markdown and
+images. **Portable** `.exe` (installer planned). Not code-signed: SmartScreen may
+warn on first run.
 
-Own **WiniCarbon** (dark) and **WiniAmber** (light) themes are the defaults,
-following your Windows light/dark mode.
-
-**Coming soon**: built-in AI assistant (off by default, voice accessibility
-mode, pluggable providers), document editing suite, community themes, and more
-Fluent polish (Mica).
-
-The interface is Spanish-first, with English as the alternative. The engine
-still speaks dozens of languages; we curate two so that the one we ship is
-actually finished.
-
-**Wini ecosystem vision**: the same Fluent philosophy and own identity will
-reach a VLC-based player, a modern photo/video viewer, and an ad-free YouTube
-Music client.
-
-**Build**: Visual Studio 2026 (C++ desktop workload) + [Bun](https://bun.sh):
-`bun cmd/build.ts -release` → `out/rel64/`.
-
-**Credits**: engine base by Krzysztof Kowalczyk and the SumatraPDF community
-(GPLv3). Identity and icon by [@osvrangel03-ranger](https://github.com/osvrangel03-ranger).
-Development assisted by open-source AI tooling.
-
-**Support**: [GitHub Sponsors](https://github.com/sponsors/osvrangel03-ranger) is
-the **only** way to donate. The account is submitted and **awaiting GitHub's
-review**; once approved the *Sponsor* button appears on this repo. If you can see
-the button, donations are open. There is no PayPal or any other channel — if some
-other site asks for money "for WiniPDF", it isn't us.
-
-**License**: GPLv3, inherited from SumatraPDF.
+**License**: GPLv3. **Donations**: GitHub Sponsors only.
