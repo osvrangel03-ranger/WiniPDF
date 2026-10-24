@@ -3375,6 +3375,11 @@ void PaintVirtTree(VirtRoot* root, HDC hdc, Rect clip, Color bg, Pixmap* bgPx) {
     Rect rc = HwndClientRect(hwnd);
     DoubleBuffer buffer(hwnd, rc);
     HDC memDC = buffer.GetDC();
+    // WiniPDF: el bitmap compatible del doble buffer llega sin inicializar. Si el
+    // Gfx no llega a pintar (fallo transitorio del render target al cambiar de
+    // pestaña), se volcaba basura de la memoria de video: la banda azul de un
+    // instante. Se borra con el color de fondo antes de dibujar.
+    HdcFillRect(memDC, rc, bg);
     SetBkMode(memDC, TRANSPARENT);
     // scoped: GfxDirect2D reaches the dc only when destroyed, so the gfx must
     // die before the buffer is flushed
