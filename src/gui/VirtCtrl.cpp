@@ -711,6 +711,10 @@ static VirtCtrl* VirtAtPoint(VirtRoot* root, Point ptWindow, Point* ptLocalOut, 
 }
 
 void VirtRoot::UpdateTooltip(Point ptWindow) {
+    // WiniPDF-TEMP: aislar el destello azul
+    if (getenv("WINI_NO_TIPS")) {
+        return;
+    }
     Point ptLocal{};
     VirtCtrl* w = VirtAtPoint(this, ptWindow, &ptLocal, vhfIncludeDisabled);
     TempStr tip{};

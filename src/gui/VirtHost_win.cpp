@@ -42,6 +42,13 @@ static void PaintHost(VirtHost* host, HWND hwnd) {
     Rect rc = HwndClientRect(hwnd);
     DoubleBuffer buffer(hwnd, rc);
     HDC memDC = buffer.GetDC();
+    // WiniPDF: el bitmap del doble buffer llega sin inicializar; se rellena con
+    // el color del host para que cualquier fallo de pintado no muestre memoria
+    // de video. Tambien se rellena la superficie de la ventana antes del volcado.
+    if (host->bgColor != kColorUnset) {
+        HdcFillRect(memDC, rc, host->bgColor);
+        HdcFillRect(hdc, rc, host->bgColor);
+    }
     SetBkMode(memDC, TRANSPARENT);
     // scoped: GfxDirect2D reaches the dc only when destroyed, so the gfx must
     // die before the buffer is flushed

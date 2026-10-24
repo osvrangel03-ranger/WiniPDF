@@ -1123,6 +1123,9 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
                 return 0;
             }
             HDC hdc = GetDC(hwnd);
+            // WiniPDF: limpiar la superficie de la ventana antes del volcado. Si
+            // el buffer fallara, se ve el color del tema y nunca memoria de video.
+            HdcFillRect(hdc, clientRc, ThemeControlBackgroundColor());
             // WiniPDF: the strip is a surface one level above the canvas, so the
             // chrome band reads as a layer instead of melting into the window.
             // The backdrop is the blurred wallpaper behind the window, tinted
@@ -1131,6 +1134,12 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
             // la barra y el unico relieve son las capsulas de las pestañas. Asi
             // vale tambien para cualquier tema futuro.
             Color bgCol = ThemeControlBackgroundColor();
+            // WiniPDF-TEMP: modo plano para aislar el destello azul
+            if (getenv("WINI_TABS_PLAIN")) {
+                HdcFillRect(hdc, clientRc, bgCol);
+                ReleaseDC(hwnd, hdc);
+                return 0;
+            }
             Pixmap* glass = GetGlassPixmap(clientRc.Size(), HwndWindowRect(hwnd), bgCol);
             if (vroot) {
                 PaintVirtTree(vroot, hdc, clientRc, bgCol, glass);
