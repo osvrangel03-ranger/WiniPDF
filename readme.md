@@ -109,7 +109,8 @@ Beta temprana y usable a diario. Lo que falta, en orden:
 
 Los fallos y las ideas se reportan en
 [Issues](https://github.com/osvrangel03-ranger/WiniPDF/issues). Si prefieres
-escribir por correo, usa el que aparece en el perfil de GitHub del autor.
+escribir por correo —para sugerir funciones, mandar capturas o lo que sea—:
+**osv.rangel03@gmail.com**.
 
 ## Créditos
 
@@ -161,5 +162,8 @@ patches (~2,500 lines in ~18 files), each marked `// WiniPDF:`.
 **Formats**: PDF, EPUB, MOBI, XPS, DjVu, CHM, CBZ/CBR, FB2, TXT/Markdown and
 images. **Portable** `.exe` (installer planned). Not code-signed: SmartScreen may
 warn on first run.
+
+**Contact**: [issues](https://github.com/osvrangel03-ranger/WiniPDF/issues) or
+osv.rangel03@gmail.com.
 
 **License**: GPLv3. **Donations**: GitHub Sponsors only.

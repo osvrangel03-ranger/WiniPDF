@@ -32,6 +32,24 @@ MainWindow* FindMainWindowByHwnd(HWND hwnd);
 static Kind kindTabs = "tabs";
 static Kind kindTabCtrl = "tabCtrl";
 
+// WiniPDF: hover fade on the strip
+static constexpr UINT_PTR kTabHoverTimerId = 0x5A17;
+static constexpr int kTabHoverStep = 48; // 0..255 in ~6 ticks (~100 ms)
+
+// alpha blend a -> b, where t is 0..255
+static Color MixColor(Color a, Color b, int t) {
+    if (t <= 0) {
+        return a;
+    }
+    if (t >= 255) {
+        return b;
+    }
+    int r = GetRed(a) + ((GetRed(b) - GetRed(a)) * t) / 255;
+    int g = GetGreen(a) + ((GetGreen(b) - GetGreen(a)) * t) / 255;
+    int bl = GetBlue(a) + ((GetBlue(b) - GetBlue(a)) * t) / 255;
+    return MkRgb((u8)r, (u8)g, (u8)bl);
+}
+
 // WiniPDF: the "+" button in the strip runs the regular open-document flow, so
 // the picked file lands in its own tab (same behavior as File > Open).
 static void OpenDocumentFromTabs(TabsCtrl* tabs) {
@@ -240,18 +258,29 @@ void TabCtrl::Paint(VirtPaintCtx& ctx) {
     // from the strip, instead of a rectangle glued edge to edge. Unselected tabs
     // are just their label, which is what modern tab strips do (Edge, Files).
     bool isSelectedTab = IsSelected();
-    if (isSelectedTab || IsUnderMouse()) {
+    int fadeA = 0;
+    if (!isSelectedTab && tabsCtrl) {
+        if (tabsCtrl->hoverIn.idx == Idx()) {
+            fadeA = tabsCtrl->hoverIn.a;
+        } else if (tabsCtrl->hoverOut.idx == Idx()) {
+            fadeA = tabsCtrl->hoverOut.a;
+        }
+    }
+    if (isSelectedTab || fadeA > 0) {
         int insetY = DpiScale(3);
         Rect pill = r;
         pill.y += insetY;
         pill.dy -= 2 * insetY;
         int rad = std::min(DpiScale(8), pill.dy / 2);
-        gfx->FillRoundedRect(pill, rad, tabBgCol);
+        Color fill = tabBgCol;
+        if (!isSelectedTab) {
+            fill = MixColor(ThemeControlBackgroundColor(), tabBgCol, fadeA);
+        }
+        gfx->FillRoundedRect(pill, rad, fill);
     }
 
     bool isRtl = IsTabsRtl(hwnd);
     PlatformFont* font = tabsCtrl->GetFont();
-
     // draw text — inset from the close glyph (size varies with tab height),
     // or using the full tab width when the ✕ is hidden
     Rect rTxt = r;
@@ -553,6 +582,17 @@ void TabsCtrl::UpdateHover(int tabUnderMouse) {
         }
     }
     if (changed) {
+        // WiniPDF: start the hover fade (the paint reads hoverIn/hoverOut)
+        if (hoverIn.idx != tabUnderMouse) {
+            if (hoverIn.idx >= 0) {
+                hoverOut = hoverIn;
+            }
+            hoverIn.idx = tabUnderMouse;
+            hoverIn.a = 0;
+        }
+        if (hoverIn.idx >= 0 || hoverOut.idx >= 0) {
+            SetTimer(hwnd, kTabHoverTimerId, 16, nullptr);
+        }
         ScheduleRepaint();
     }
 }
@@ -846,6 +886,30 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 
         case WM_SIZE:
             LayoutTabs();
+            break;
+
+        case WM_TIMER:
+            if (wp == kTabHoverTimerId) {
+                bool animating = false;
+                if (hoverIn.idx >= 0 && hoverIn.a < 255) {
+                    hoverIn.a = std::min(255, hoverIn.a + kTabHoverStep);
+                    animating = true;
+                }
+                if (hoverOut.idx >= 0) {
+                    hoverOut.a -= kTabHoverStep;
+                    if (hoverOut.a <= 0) {
+                        hoverOut.a = 0;
+                        hoverOut.idx = -1;
+                    } else {
+                        animating = true;
+                    }
+                }
+                if (!animating) {
+                    KillTimer(hwnd, kTabHoverTimerId);
+                }
+                ScheduleRepaint();
+                return 0;
+            }
             break;
 
         case WM_MOUSELEAVE: {

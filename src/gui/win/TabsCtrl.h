@@ -135,6 +135,16 @@ struct TabsCtrl : VirtCtrl {
     // colors: kColTab* (the unselected and hovered shades are derived from
     // kColTabBg; a tab with a TabInfo::tabColor of its own overrides it)
 
+    // WiniPDF: faded hover on the strip. Two slots so switching tabs fades the
+    // new one in while the old one fades out; a single 16 ms timer drives both
+    // and it stops as soon as they settle (no idle cost).
+    struct HoverFade {
+        int idx = -1;
+        int a = 0;
+    };
+    HoverFade hoverIn;
+    HoverFade hoverOut;
+
     Size tabSize{-1, -1};
 
     TabsCtrl();
