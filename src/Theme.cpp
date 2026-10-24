@@ -956,21 +956,19 @@ static Pixmap* CookGlass(Size size, Rect scr, Gdiplus::Bitmap* wall, Color tint)
     u8 tr = GetRed(tint);
     u8 tg = GetGreen(tint);
     u8 tb = GetBlue(tint);
-    int h = std::max(1, px->height);
     for (int y = 0; y < px->height; y++) {
-        // WiniPDF: a soft top-down gradient on top of the wallpaper modulation.
-        // It gives the strip a light source, the same way the toolbar's sheen
-        // does, and keeps light themes from looking like a flat beige band.
-        int grad = ((h / 2) - y) * 8 / h; // about -4% .. +4%
         u8* row = px->data + (size_t)y * px->stride;
         for (int x = 0; x < px->width; x++) {
             u8* p = row + (size_t)x * 4; // BGRA8
             int lum = (p[2] * 77 + p[1] * 151 + p[0] * 28) >> 8;
-            int k = 1000 + (lum - gWallAvgLum) * 1000 / 1200 + grad * 10;
-            if (k < 880) {
-                k = 880;
-            } else if (k > 1120) {
-                k = 1120;
+            // A small, even influence of the wallpaper. It used to swing +-12%,
+            // which over the caption (tabs in title bar) painted a dark band
+            // that fought with the window buttons, the hamburger and the logo.
+            int k = 1000 + (lum - gWallAvgLum) * 500 / 1200;
+            if (k < 962) {
+                k = 962;
+            } else if (k > 1038) {
+                k = 1038;
             }
             p[0] = (u8)std::min(255, tb * k / 1000);
             p[1] = (u8)std::min(255, tg * k / 1000);
