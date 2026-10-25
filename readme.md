@@ -88,7 +88,11 @@ TXT/Markdown** e imágenes (PNG, JPEG, WebP, AVIF, entre otras).
 - **Portable**: baja `WiniPDF.exe` (o el `.zip` con las DLLs) de
   [Releases](https://github.com/osvrangel03-ranger/WiniPDF/releases/latest) y
   ejecútalo. No requiere instalación.
-- **Instalador**: en camino (un `.exe` normal, sin pasos raros).
+- **Instalador**: `WiniPDF-0.7.0-instalador.exe`. Pregunta lo justo: para quién
+  (tú o todos los usuarios), carpeta, tema inicial (Carbón, Ámbar o seguir a
+  Windows), accesos directos y si quiere registrar los formatos con su icono.
+  Al terminar ofrece abrir la página de Aplicaciones predeterminadas para
+  dejarlo como lector por defecto.
 
 WiniPDF **no está firmado digitalmente**, así que Windows puede mostrar el aviso
 de SmartScreen la primera vez ("Más información → Ejecutar de todas formas"). No
@@ -105,7 +109,7 @@ Beta temprana y usable a diario. Lo que falta, en orden:
    correcciones del motor).
 2. Pulido: animaciones de hover, barra de búsqueda flotante, barra de desplazamiento
    fina y diálogos que crezcan con textos largos.
-3. Instalador `.exe` e iconos por tipo de archivo (PDF, CBR…).
+3. Vista rápida con la barra espaciadora y modo rápido sin animaciones.
 
 Los fallos y las ideas se reportan en
 [Issues](https://github.com/osvrangel03-ranger/WiniPDF/issues). Si prefieres
