@@ -20,6 +20,10 @@ struct WindowBase;
 struct ControlBase;
 struct Tooltip;
 
+// WiniPDF: timer del fundido de hover de los botones de icono (barra y banda).
+// El frame que pide cada boton se apaga solo cuando llega al destino.
+static constexpr UINT_PTR kWiniHoverAnimTimer = 0x5A18;
+
 enum VirtFlags : u32 {
     vwfEnabled = 1 << 0,
     vwfFocusable = 1 << 1,
@@ -273,6 +277,9 @@ void LayoutTreeToSize(HWND, ILayout* layout, Size, VirtRoot** rootInOut);
 void RefreshVirtTops(HWND, ILayout* layout, Rect bounds, VirtRoot** rootInOut);
 // double-buffered; fills bg first. Does nothing if there's nothing virtual
 void PaintVirtTree(VirtRoot*, HDC, Rect clip, Color bg, Pixmap* bgPx = nullptr);
+// WiniPDF: fondo del cromo (barra, banda de pestañas) con un degradado vertical
+// muy leve en vez de un color plano.
+void WiniPaintChromeBackground(HDC, Rect, Color bg);
 // paint + input in one call, for a plain HWND that isn't a WindowBase /
 // ControlBase (the side panels are subclassed WC_STATICs). Returns true when
 // the message was handled
@@ -704,6 +711,11 @@ struct VirtIconButton : VirtCtrl {
     bool hasDropdown = false;
     // which half of a split button is hovered (action vs dropdown)
     bool hoverOnDropdown = false;
+    // WiniPDF: fundido del fondo de hover (0 = sin fondo, 255 = fondo pleno).
+    // Se avanza en Paint con el tiempo transcurrido y lo empuja un timer de
+    // 16 ms del host mientras no haya llegado al destino.
+    int hoverFade = 0;
+    u32 hoverFadeLastMs = 0;
     // colors: kColIconBtn*
     VirtMouseHandler onDropdown;
 

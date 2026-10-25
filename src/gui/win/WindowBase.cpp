@@ -481,6 +481,20 @@ static BOOL CALLBACK RecolorChildProc(HWND hwnd, LPARAM lp) {
     return TRUE;
 }
 
+// WiniPDF: las clases se registran con el brush blanco de Windows, asi que
+// cualquier borrado que no pase por el brush de la ventana (una ventana recien
+// creada, la franja de 1px que expone un resize) pintaba una linea blanca en
+// el tema oscuro. Se sincroniza el brush de la clase con la paleta. El brush
+// viejo se deja vivo a proposito: otra ventana de la clase puede estar
+// usandolo en ese mismo borrado.
+static void WiniSyncClassBackgroundBrush(HWND hwnd, Color col) {
+    HBRUSH br = ::CreateSolidBrush((COLORREF)col);
+    if (!br) {
+        return;
+    }
+    ::SetClassLongPtrW(hwnd, GCLP_HBRBACKGROUND, (LONG_PTR)br);
+}
+
 // The app pushed a new palette into GuiColors: take the gColsWin defaults over
 // whatever explicit colors the last theme left behind. They are set explicitly,
 // not just resolved on demand, because WM_ERASEBKGND only erases under a
@@ -491,6 +505,7 @@ void WindowBase::UpdateTheme() {
     }
     Color colTxt = gColsWin[kColWinText];
     Color colBg = gColsWin[kColWinBg];
+    WiniSyncClassBackgroundBrush(hwnd, colBg);
     SetColors(colTxt, colBg);
     // the native child controls carry explicit colors; the virtual ones paint
     // straight from the GuiColors defaults and need nothing
@@ -507,6 +522,7 @@ void WindowBase::OnThemeChange() {
     if (!hwnd) {
         return;
     }
+    WiniSyncClassBackgroundBrush(hwnd, gColsWin[kColWinBg]);
     uint flags = RDW_ERASE | RDW_INVALIDATE | RDW_ALLCHILDREN;
     RedrawWindow(hwnd, nullptr, nullptr, flags);
 }

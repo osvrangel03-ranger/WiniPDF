@@ -43,10 +43,10 @@ static void PaintHost(VirtHost* host, HWND hwnd) {
     DoubleBuffer buffer(hwnd, rc);
     HDC memDC = buffer.GetDC();
     // WiniPDF: el bitmap del doble buffer llega sin inicializar; se rellena con
-    // el color del host para que cualquier fallo de pintado no muestre memoria
-    // de video. Tambien se rellena la superficie de la ventana antes del volcado.
+    // el fondo del host (degradado vertical leve, igual que la banda) para que
+    // cualquier fallo de pintado no muestre memoria de video.
     if (host->bgColor != kColorUnset) {
-        HdcFillRect(memDC, rc, host->bgColor);
+        WiniPaintChromeBackground(memDC, rc, host->bgColor);
     }
     SetBkMode(memDC, TRANSPARENT);
     // scoped: GfxDirect2D reaches the dc only when destroyed, so the gfx must
@@ -59,9 +59,9 @@ static void PaintHost(VirtHost* host, HWND hwnd) {
         ev.clientRect = rc;
         if (host->onPaintBackground.IsValid()) {
             host->onPaintBackground.Call(&ev);
-        } else {
-            gfx->FillRect(rc, host->bgColor);
         }
+        // WiniPDF: sin callback de fondo el degradado ya esta en el DC; un
+        // FillRect plano lo borraria.
         if (host->vroot) {
             host->vroot->Paint(gfx, rc);
         }
@@ -137,6 +137,13 @@ static LRESULT CALLBACK WndProcVirtHost(HWND hwnd, UINT msg, WPARAM wp, LPARAM l
             PaintHost(host, hwnd);
             return 0;
         case WM_TIMER:
+            // WiniPDF: frame del fundido de hover; el boton vuelve a pedirlo
+            // mientras su nivel no haya llegado al destino.
+            if (wp == kWiniHoverAnimTimer) {
+                KillTimer(hwnd, wp);
+                InvalidateRect(hwnd, nullptr, FALSE);
+                return 0;
+            }
             if (host->onTimer.IsValid()) {
                 host->onTimer.Call((int)wp);
                 return 0;

@@ -927,6 +927,13 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
                 ScheduleRepaint();
                 return 0;
             }
+            // WiniPDF: frame del fundido de los botones virtuales del cromo.
+            if (wp == kWiniHoverAnimTimer) {
+                KillTimer(hwnd, wp);
+                HwndInvalidate(hwnd, false);
+                HwndRepaintNow(hwnd);
+                return 0;
+            }
             break;
 
         case WM_MOUSELEAVE: {

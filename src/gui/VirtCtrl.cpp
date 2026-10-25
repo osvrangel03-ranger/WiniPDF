@@ -2766,6 +2766,30 @@ static Rect PillRect(Rect r) {
     return r;
 }
 
+// WiniPDF: fundido del hover de la barra. Cada boton calcula su propio nivel
+// (0..255) con el tiempo transcurrido, y mientras no llegue al destino pide un
+// frame al host con un timer de 16 ms que se apaga solo.
+static Color WiniMixColor(Color a, Color b, int t) {
+    if (t <= 0) {
+        return a;
+    }
+    if (t >= 255) {
+        return b;
+    }
+    int r = GetRed(a) + ((GetRed(b) - GetRed(a)) * t) / 255;
+    int g = GetGreen(a) + ((GetGreen(b) - GetGreen(a)) * t) / 255;
+    int bl = GetBlue(a) + ((GetBlue(b) - GetBlue(a)) * t) / 255;
+    return MkRgb((u8)r, (u8)g, (u8)bl);
+}
+
+static void WiniRequestAnimFrame(VirtRoot* root) {
+    HWND hwnd = root ? root->hwnd : nullptr;
+    if (!hwnd) {
+        return;
+    }
+    SetTimer(hwnd, kWiniHoverAnimTimer, 16, nullptr);
+}
+
 void VirtIconButton::Paint(VirtPaintCtx& ctx) {
     bool enabled = IsEnabled();
     int dropDx = DropdownDx();
@@ -2783,9 +2807,31 @@ void VirtIconButton::Paint(VirtPaintCtx& ctx) {
         ctx.gfx->FillRoundedRect(PillRect(action), DpiScale(6), bgSel);
     }
     Color bgHover = GetColor(kColIconBtnBgHover);
-    if (enabled && HasFlag(vwfHovered) && bgHover != kColorUnset) {
+    bool canHover = enabled && bgHover != kColorUnset;
+    int target = (canHover && HasFlag(vwfHovered)) ? 255 : 0;
+    u32 now = GetTickCount();
+    u32 dt = hoverFadeLastMs ? now - hoverFadeLastMs : 16;
+    hoverFadeLastMs = now;
+    if (dt > 80) {
+        dt = 80;
+    }
+    int step = (int)(dt * 255 / 110);
+    if (step < 1) {
+        step = 1;
+    }
+    if (hoverFade < target) {
+        hoverFade = std::min(target, hoverFade + step);
+    } else if (hoverFade > target) {
+        hoverFade = std::max(target, hoverFade - step);
+    }
+    if (hoverFade != target) {
+        WiniRequestAnimFrame(root);
+    }
+    if (hoverFade > 0 && bgHover != kColorUnset) {
         Rect hi = (dropDx > 0 && hoverOnDropdown) ? drop : action;
-        ctx.gfx->FillRoundedRect(PillRect(hi), DpiScale(6), bgHover);
+        Color base = gColsWin[kColWinBg];
+        Color col = base == kColorUnset ? bgHover : WiniMixColor(base, bgHover, hoverFade);
+        ctx.gfx->FillRoundedRect(PillRect(hi), DpiScale(6), col);
     }
     Pixmap* px = (!enabled && pixmapDisabled) ? pixmapDisabled : pixmap;
     Rect r = ctx.content;
@@ -3371,6 +3417,51 @@ void LayoutTreeToSize(HWND hwnd, ILayout* layout, Size size, VirtRoot** rootInOu
     }
 }
 
+// WiniPDF: el cromo (barra y pestañas) lleva un degradado vertical muy leve,
+// arriba un poco mas claro y abajo un poco mas oscuro. Le da cuerpo de material
+// sin textura ni estado: es un GradientFill sobre el buffer que ya se usa.
+Color WiniChromeTopColor(Color bg) {
+    int r = (int)GetRed(bg) + 7;
+    int g = (int)GetGreen(bg) + 6;
+    int b = (int)GetBlue(bg) + 5;
+    if (r > 255) r = 255;
+    if (g > 255) g = 255;
+    if (b > 255) b = 255;
+    return MkRgb((u8)r, (u8)g, (u8)b);
+}
+
+Color WiniChromeBottomColor(Color bg) {
+    int r = (int)GetRed(bg) - 4;
+    int g = (int)GetGreen(bg) - 4;
+    int b = (int)GetBlue(bg) - 4;
+    if (r < 0) r = 0;
+    if (g < 0) g = 0;
+    if (b < 0) b = 0;
+    return MkRgb((u8)r, (u8)g, (u8)b);
+}
+
+void WiniPaintChromeBackground(HDC hdc, Rect rc, Color bg) {
+    Color top = WiniChromeTopColor(bg);
+    Color bottom = WiniChromeBottomColor(bg);
+    TRIVERTEX vtx[2];
+    vtx[0].x = (LONG)rc.x;
+    vtx[0].y = (LONG)rc.y;
+    vtx[0].Red = (COLOR16)(GetRed(top) << 8);
+    vtx[0].Green = (COLOR16)(GetGreen(top) << 8);
+    vtx[0].Blue = (COLOR16)(GetBlue(top) << 8);
+    vtx[0].Alpha = 0xFF00;
+    vtx[1].x = (LONG)(rc.x + rc.dx);
+    vtx[1].y = (LONG)(rc.y + rc.dy);
+    vtx[1].Red = (COLOR16)(GetRed(bottom) << 8);
+    vtx[1].Green = (COLOR16)(GetGreen(bottom) << 8);
+    vtx[1].Blue = (COLOR16)(GetBlue(bottom) << 8);
+    vtx[1].Alpha = 0xFF00;
+    GRADIENT_RECT gr = {0, 1};
+    if (!GradientFill(hdc, vtx, 2, &gr, 1, GRADIENT_FILL_RECT_V)) {
+        HdcFillRect(hdc, rc, bg);
+    }
+}
+
 void PaintVirtTree(VirtRoot* root, HDC hdc, Rect clip, Color bg, Pixmap* bgPx) {
     if (!root || len(root->tops) == 0) {
         return;
@@ -3383,7 +3474,9 @@ void PaintVirtTree(VirtRoot* root, HDC hdc, Rect clip, Color bg, Pixmap* bgPx) {
     // Gfx no llega a pintar (fallo transitorio del render target al cambiar de
     // pestaña), se volcaba basura de la memoria de video: la banda azul de un
     // instante. Se borra con el color de fondo antes de dibujar.
-    HdcFillRect(memDC, rc, bg);
+    // WiniPDF: el fondo es un degradado vertical leve (WiniPaintChromeBackground),
+    // no un color plano: de ahi el cuerpo de material del cromo.
+    WiniPaintChromeBackground(memDC, rc, bg);
     SetBkMode(memDC, TRANSPARENT);
     // scoped: GfxDirect2D reaches the dc only when destroyed, so the gfx must
     // die before the buffer is flushed
@@ -3394,9 +3487,9 @@ void PaintVirtTree(VirtRoot* root, HDC hdc, Rect clip, Color bg, Pixmap* bgPx) {
         // plain fill as before.
         if (bgPx) {
             gfx->DrawPixmap(bgPx, rc);
-        } else {
-            gfx->FillRect(rc, bg);
         }
+        // WiniPDF: sin pixmap el degradado ya esta pintado en el DC, asi que no
+        // se aplana con un FillRect del color base.
         root->Paint(gfx, clip);
         delete gfx;
     }
