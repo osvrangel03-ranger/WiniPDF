@@ -3445,7 +3445,9 @@ static bool DrawDocument(MainWindow* win, HDC hdc, Rect rcArea) {
         if (renderDelay == 0) {
             shouldPaint = true;
             if (curTab) {
-                curTab->everPaintedPage = true;
+                if (!curTab->everPaintedPage) {
+                    curTab->everPaintedPage = true;
+                }
             }
         }
         if (renderDelay != 0) {
@@ -3593,6 +3595,79 @@ void InvalidateCanvasKeyboardFocus(MainWindow* win) {
     HwndInvalidate(win->hwndCanvas);
 }
 
+// WiniPDF: rellena rc con un color semitransparente. Se estira un DIB de 1x1
+// con AlphaBlend; es la forma mas barata de atenuar lo ya pintado sin tocar el
+// motor de render.
+static void WiniBlendColorRect(HDC hdc, Rect rc, Color col, u8 alpha) {
+    if (alpha == 0 || rc.IsEmpty()) {
+        return;
+    }
+    BITMAPINFO bi{};
+    bi.bmiHeader.biSize = sizeof(bi.bmiHeader);
+    bi.bmiHeader.biWidth = 1;
+    bi.bmiHeader.biHeight = 1;
+    bi.bmiHeader.biPlanes = 1;
+    bi.bmiHeader.biBitCount = 32;
+    bi.bmiHeader.biCompression = BI_RGB;
+    void* bits = nullptr;
+    HBITMAP bmp = CreateDIBSection(hdc, &bi, DIB_RGB_COLORS, &bits, nullptr, 0);
+    if (!bmp) {
+        return;
+    }
+    u8* px = (u8*)bits;
+    px[0] = GetBlue(col);
+    px[1] = GetGreen(col);
+    px[2] = GetRed(col);
+    px[3] = 255;
+    HDC mem = CreateCompatibleDC(hdc);
+    if (!mem) {
+        DeleteObject(bmp);
+        return;
+    }
+    HGDIOBJ old = SelectObject(mem, bmp);
+    BLENDFUNCTION bf{};
+    bf.BlendOp = AC_SRC_OVER;
+    bf.SourceConstantAlpha = alpha;
+    bf.AlphaFormat = 0;
+    AlphaBlend(hdc, rc.x, rc.y, rc.dx, rc.dy, mem, 0, 0, 1, 1, bf);
+    SelectObject(mem, old);
+    DeleteDC(mem);
+    DeleteObject(bmp);
+}
+
+// WiniPDF: la pagina entra con un fundido de ~130 ms desde el color del tema.
+// Reusa el buffer ya pintado (un AlphaBlend encima) y pide sus frames con un
+// timer de 16 ms que se apaga solo. No cuesta nada en reposo: sin fundido, la
+// funcion sale en la primera comparacion.
+static void WiniPaintOpenFade(MainWindow* win, HDC hdc) {
+    if (win->presentation != PM_DISABLED) {
+        return;
+    }
+    WindowTab* tab = win->CurrentTab();
+    if (!tab) {
+        return;
+    }
+    u32 now = GetTickCount();
+    if (!tab->openFadeDone) {
+        // el primer pintado visible de la pestaña arranca el fundido: la pagina
+        // ya esta en pantalla, asi que se ve salir desde el color del tema
+        if (!tab->everPaintedPage || !IsWindowVisible(win->hwndCanvas)) {
+            return;
+        }
+        tab->openFadeDone = true;
+        tab->openFadeStartMs = now ? now : 1;
+    }
+    u32 elapsed = now - tab->openFadeStartMs;
+    if (elapsed >= kWiniOpenFadeMs) {
+        return;
+    }
+    int a = 235 - (int)(elapsed * 235 / kWiniOpenFadeMs);
+    if (a > 0) {
+        WiniBlendColorRect(hdc, HwndClientRect(win->hwndCanvas), ThemeMainWindowBackgroundColor(), (u8)a);
+    }
+    SetTimer(win->hwndCanvas, kWiniOpenFadeTimer, 16, nullptr);
+}
+
 static void OnPaintDocument(MainWindow* win) {
     auto t = TimeGet();
     PAINTSTRUCT ps;
@@ -3614,6 +3689,8 @@ static void OnPaintDocument(MainWindow* win) {
         }
     }
     DrawCanvasKeyboardFocusIfNeeded(win, hdc);
+    // WiniPDF: fundido de apertura, encima de lo ya volcado al cliente.
+    WiniPaintOpenFade(win, hdc);
 
     EndPaint(win->hwndCanvas, &ps);
     win->ShowFrameRateDur(TimeSinceInMs(t));
@@ -4594,6 +4671,8 @@ static bool OnPointerMessage(MainWindow* win, HWND hwnd, UINT msg, WPARAM wp, LP
     return false;
 }
 
+static void OnTimer(MainWindow* win, HWND hwnd, WPARAM timerId);
+
 static LRESULT WndProcCanvasFixedPageUI(MainWindow* win, HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
     // DbgLogMsg("canvas:", hwnd, msg, wp, lp);
 
@@ -4608,6 +4687,12 @@ static LRESULT WndProcCanvasFixedPageUI(MainWindow* win, HWND hwnd, UINT msg, WP
     int x = GET_X_LPARAM(lp);
     int y = GET_Y_LPARAM(lp);
     switch (msg) {
+        // WiniPDF: el canvas de pagina fija tambien necesita los timers (el
+        // fundido de apertura pide sus frames por aqui).
+        case WM_TIMER:
+            OnTimer(win, hwnd, wp);
+            return 0;
+
         case WM_PAINT:
             if (gRedrawLog) {
                 RECT urc;
@@ -4955,6 +5040,12 @@ static void OnTimer(MainWindow* win, HWND hwnd, WPARAM timerId) {
     }
 
     switch (timerId) {
+        // WiniPDF: frame del fundido de apertura del documento.
+        case kWiniOpenFadeTimer:
+            KillTimer(hwnd, kWiniOpenFadeTimer);
+            HwndInvalidate(hwnd, false);
+            break;
+
         case REPAINT_TIMER_ID:
             win->delayedRepaintTimer = 0;
             KillTimer(hwnd, REPAINT_TIMER_ID);

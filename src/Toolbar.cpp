@@ -1357,13 +1357,23 @@ static void PaintToolbarBackground(MainWindow* win, VirtHostPaintEvent* ev) {
 // Use the document background, not ThemeEdgeColor: on Light that is #c0c0c0
 // and reads as a dark strip against the page.
 static void PaintToolbarEdge(MainWindow*, VirtHostPaintEvent* ev) {
+    Rect rc = ev->clientRect;
+    int y = ToolbarAtBottom() ? rc.y : (rc.Bottom() - 1);
     if (!IsCurrentThemeDefault() || ThemeColorizeControls()) {
+        // WiniPDF: ni linea dura ni borde: 1 px mas oscuro que el cromo, que se
+        // lee como la sombra del material sobre el papel. En el tema claro basta
+        // un 8 %, en el oscuro hace falta mas para que se note.
+        Color bg = ThemeControlBackgroundColor();
+        int lum = (GetRed(bg) * 2 + GetGreen(bg) * 5 + GetBlue(bg)) / 8;
+        int k = lum > 140 ? 8 : 26;
+        int r = GetRed(bg) - (GetRed(bg) * k) / 100;
+        int g = GetGreen(bg) - (GetGreen(bg) * k) / 100;
+        int b = GetBlue(bg) - (GetBlue(bg) * k) / 100;
+        ev->gfx->FillRect({rc.x, y, rc.dx, 1}, MkRgb((u8)r, (u8)g, (u8)b));
         return;
     }
     Color canvasBg;
     ThemeDocumentColors(canvasBg);
-    Rect rc = ev->clientRect;
-    int y = ToolbarAtBottom() ? rc.y : (rc.Bottom() - 1);
     ev->gfx->FillRect({rc.x, y, rc.dx, 1}, canvasBg);
 }
 

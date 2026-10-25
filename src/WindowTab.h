@@ -99,6 +99,11 @@ struct WindowTab {
     // first render is in flight
     bool everPaintedPage = false;
 
+    // WiniPDF: cuando se pinta por primera vez esta pestaña. La pagina entra con
+    // un fundido corto desde el color del tema en vez de aparecer de golpe.
+    DWORD openFadeStartMs = 0;
+    bool openFadeDone = false;
+
     // Skip the next file-watcher auto-reload (e.g. after we save annotations
     // and already call ReloadDocument ourselves). Consumed by AUTO_RELOAD_TIMER.
     bool ignoreNextAutoReload = false;

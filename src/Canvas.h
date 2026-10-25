@@ -40,6 +40,9 @@ constexpr UINT_PTR kLinkFollowTimerID = 11;
 constexpr uint kLinkFollowRecomputeDelayInMs = 300;
 // Blink for the keyboard text selection caret (issues #4684, #4116)
 constexpr UINT_PTR kTextSelectCaretTimerID = 12;
+// WiniPDF: frame del fundido de apertura del documento (ver WiniPaintOpenFade)
+constexpr UINT_PTR kWiniOpenFadeTimer = 0x5A19;
+constexpr uint kWiniOpenFadeMs = 150;
 // Debounce for popping up the floating selection toolbar after a selection
 constexpr UINT_PTR kSelectionToolbarShowTimerID = 13;
 constexpr uint kSelectionToolbarShowDelayInMs = 500;
