@@ -446,7 +446,7 @@ void TabsCtrl::SetIsVisible(bool show) {
     // WM_PAINT. Durante ese hueco se veia la ventana de detras (el azul). Se
     // pinta en el acto.
     if (show) {
-        HwndInvalidate(hwnd, true);
+        HwndInvalidate(hwnd, false);
         HwndRepaintNow(hwnd);
     }
 }
@@ -472,7 +472,7 @@ void TabsCtrl::RebuildTabCtrls() {
     // vacia (parpadeo de pestañas). Se repinta en el acto al terminar.
     if (hwnd) {
         LayoutTabs();
-        HwndInvalidate(hwnd, true);
+        HwndInvalidate(hwnd, false);
         HwndRepaintNow(hwnd);
     }
 }
@@ -1137,9 +1137,6 @@ LRESULT TabsCtrl::WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
                 return 0;
             }
             HDC hdc = GetDC(hwnd);
-            // WiniPDF: limpiar la superficie de la ventana antes del volcado. Si
-            // el buffer fallara, se ve el color del tema y nunca memoria de video.
-            HdcFillRect(hdc, clientRc, ThemeControlBackgroundColor());
             // WiniPDF: the strip is a surface one level above the canvas, so the
             // chrome band reads as a layer instead of melting into the window.
             // The backdrop is the blurred wallpaper behind the window, tinted

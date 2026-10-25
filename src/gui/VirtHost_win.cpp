@@ -47,7 +47,6 @@ static void PaintHost(VirtHost* host, HWND hwnd) {
     // de video. Tambien se rellena la superficie de la ventana antes del volcado.
     if (host->bgColor != kColorUnset) {
         HdcFillRect(memDC, rc, host->bgColor);
-        HdcFillRect(hdc, rc, host->bgColor);
     }
     SetBkMode(memDC, TRANSPARENT);
     // scoped: GfxDirect2D reaches the dc only when destroyed, so the gfx must
