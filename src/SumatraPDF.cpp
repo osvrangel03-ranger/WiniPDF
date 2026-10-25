@@ -2518,6 +2518,18 @@ static void ReplaceDocumentInCurrentTab(LoadArgs* args, DocController* ctrl, Fil
             HwndMoveWindow(win->hwndFrame, &rect);
         }
         if (args->showWin) {
+            // WiniPDF: el marco se crea oculto, pero al mostrarlo Windows pinta
+            // el cliente con el brush de clase (blanco) hasta el primer
+            // repintado: un destello blanco de varios cientos de ms al abrir.
+            // Se deja el fondo del tema puesto antes de enseñarlo.
+            FillCanvasThemeBackground(win->hwndCanvas);
+            if (win->hwndFrame) {
+                HDC dc = GetDC(win->hwndFrame);
+                if (dc) {
+                    HdcFillRect(dc, HwndClientRect(win->hwndFrame), ThemeMainWindowBackgroundColor());
+                    ReleaseDC(win->hwndFrame, dc);
+                }
+            }
             ShowWindow(win->hwndFrame, showType);
             if (IsRunningOnWine()) {
                 Rect wr = HwndWindowRect(win->hwndFrame);
