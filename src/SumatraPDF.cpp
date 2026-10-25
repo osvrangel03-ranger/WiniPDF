@@ -3035,8 +3035,25 @@ static void UpdateWindowRoundedRegion(HWND hwnd, bool rounded, bool bRedraw) {
     if (!IsWindow(hwnd)) {
         return;
     }
+    // WiniPDF: SetWindowRgn descarta la superficie de la ventana, y con ella la de
+    // sus hijos: al reaplicar la misma region (p.ej. en un WM_SIZE que no cambia
+    // el tamano) la banda de pestanas aparecia sin pintar un instante (el "azul"
+    // era la ventana de detras). Solo se aplica cuando cambia de verdad.
+    static Rect gAppliedRoundedRect;
+    static bool gAppliedRounded = false;
+    // WiniPDF: la region redondeada (SetWindowRgn) hacia que, al recomponer la
+    // ventana, la banda de pestañas apareciese sin pintar un instante (el
+    // "destello azul"). Se deja apagada por defecto; WINI_ROUND=1 la reactiva
+    // para comparar el acabado de las esquinas.
+    if (!getenv("WINI_ROUND")) {
+        rounded = false;
+    }
     if (!rounded || IsZoomed(hwnd) || IsIconic(hwnd)) {
-        SetWindowRgn(hwnd, nullptr, bRedraw);
+        if (gAppliedRounded) {
+            SetWindowRgn(hwnd, nullptr, bRedraw);
+            gAppliedRounded = false;
+            gAppliedRoundedRect = {};
+        }
         return;
     }
     RECT wr{};
@@ -3048,6 +3065,10 @@ static void UpdateWindowRoundedRegion(HWND hwnd, bool rounded, bool bRedraw) {
     if (dx <= 0 || dy <= 0) {
         return;
     }
+    Rect wrRect{wr};
+    if (gAppliedRounded && wrRect == gAppliedRoundedRect) {
+        return;
+    }
     // CreateRoundRectRgn wants the width/height of the corner ellipse: 2 x radius
     int diam = DpiScale(16);
     HRGN rgn = CreateRoundRectRgn(0, 0, dx + 1, dy + 1, diam, diam);
@@ -3056,6 +3077,12 @@ static void UpdateWindowRoundedRegion(HWND hwnd, bool rounded, bool bRedraw) {
     }
     // SetWindowRgn owns the region from here on: don't DeleteObject it
     SetWindowRgn(hwnd, rgn, bRedraw);
+    gAppliedRounded = true;
+    gAppliedRoundedRect = wrRect;
+    // WiniPDF: SetWindowRgn invalida la superficie de la ventana y de sus hijos.
+    // Se repinta todo en el acto para que no quede ningun frame con la banda de
+    // pestañas sin pintar (el destello azul).
+    RedrawWindow(hwnd, nullptr, nullptr, RDW_FRAME | RDW_INVALIDATE | RDW_ALLCHILDREN | RDW_UPDATENOW);
 }
 
 static void SetWindowRoundedCorners(HWND hwnd, bool rounded) {

@@ -442,6 +442,13 @@ void TabsCtrl::SetIsVisible(bool show) {
         return;
     }
     HwndSetWindowStyle(hwnd, WS_VISIBLE, show);
+    // WiniPDF: al mostrar la banda, su superficie esta indefinida hasta el primer
+    // WM_PAINT. Durante ese hueco se veia la ventana de detras (el azul). Se
+    // pinta en el acto.
+    if (show) {
+        HwndInvalidate(hwnd, true);
+        HwndRepaintNow(hwnd);
+    }
 }
 
 bool TabsCtrl::IsVisible() const {
