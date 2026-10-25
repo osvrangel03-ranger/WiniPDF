@@ -468,6 +468,13 @@ void TabsCtrl::RebuildTabCtrls() {
         tabCtrls.Append(w);
         AddChild(w);
     }
+    // WiniPDF: entre quitar los hijos y volver a crearlos la banda se pintaba
+    // vacia (parpadeo de pestañas). Se repinta en el acto al terminar.
+    if (hwnd) {
+        LayoutTabs();
+        HwndInvalidate(hwnd, true);
+        HwndRepaintNow(hwnd);
+    }
 }
 
 // Calculates the size of a tab and lays the children out.
